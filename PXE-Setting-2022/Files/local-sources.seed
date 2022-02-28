@@ -1,0 +1,71 @@
+# ubiquity ubiquity/summary
+
+# Choices: Dialog, Readline, Gnome, Kde, Editor, Noninteractive
+d-i debconf debconf/frontend select Noninteractive
+
+### Localization
+d-i debian-installer/locale string en_GB
+
+### Keyboard selection
+d-i console-setup/ask_detect boolean false
+d-i console-setup/layout select us
+d-i console-setup/variant select us
+
+ubiquity languagechooser/language-name select English (US)
+ubiquity countrychooser/shortlist select FI
+ubiquity keyboard-configuration/layoutcode select fi
+ubiquity keyboard-configuration/modelcode  select pc105
+ubiquity localechooser/supported-locales multiselect en_US.UTF8
+ubiquity console-keymaps-at/keymap select  fi
+ubiquity console-keymaps-at/variant select  fi
+
+d-i kbd-chooser/method select British English
+
+### Network
+d-i netcfg/get_hostname string de-vm
+d-i netcfg/get_domain string unassigned-domain
+
+### Clock and time zone setup
+d-i time/zone string Europe/Helsinki
+d-i clock-setup/utc-auto boolean true
+d-i clock-setup/utc boolean true
+
+### Partitioning
+d-i partman-auto/method string regular
+d-i partman-auto/choose_recipe select atomic
+d-i partman-partitioning/confirm_write_new_label boolean true
+d-i partman/choose_partition select finish
+d-i partman/confirm boolean true
+d-i partman/confirm_nooverwrite boolean true
+
+### Account setup
+d-i passwd/user-fullname string de
+d-i passwd/username string de
+d-i passwd/user-password password 123
+d-i passwd/user-password-again password 123
+d-i passwd/auto-login boolean true
+d-i user-setup/encrypt-home boolean false
+d-i user-setup/allow-password-weak boolean true
+
+### Package installation
+
+# Enable extras.ubuntu.com.
+d-i apt-setup/extras    boolean true
+# Install the Ubuntu desktop.
+tasksel tasksel/first   multiselect ubuntu-desktop,standard
+
+choose-mirror-bin mirror/http/proxy string
+
+#For the update
+d-i pkgsel/update-policy select none
+d-i pkgsel/install-language-support boolean false
+
+### Bootloader
+d-i grub-installer/only_debian boolean true
+d-i grub-installer/with_other_os boolean true
+
+### Reboot after preseeding
+d-i finish-install/reboot_in_progress note
+ubiquity ubiquity/reboot boolean true
+#ubiquity ubiquity/poweroff boolean true
+
