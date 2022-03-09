@@ -1,2 +1,1 @@
-C#This is all the file aut how to set up pxeserver
-# PXE_SETUP
+# This is a page for Linux related Tutorial setting
