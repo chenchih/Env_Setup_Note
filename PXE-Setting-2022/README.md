@@ -3,6 +3,8 @@
 
 ## Automation Script
 
+- Still ongoing(I will update soon)
+
 
 ## Basic Manual setup
 1. download related packages 
