@@ -1,4 +1,16 @@
 #!/bin/bash
+: '
+update:
+v1:
+1. If multiply lan interface get the first interface as ethlan
+detectLanint=$(ls /sys/class/net/ |grep en)
+ethInt=$(echo $detectLanint |awk '{print $1}')
+
+2. changing menu option 7 and 8 description
+3. modify parsing tftp confgiure paramter
+
+'
+
 #####################################################################
 function install_package_dhcpd(){
 apt-get update 
@@ -45,7 +57,7 @@ function tftp_config(){
 	# setup tftp directory
 	echo "creating tftpboot directory"
 	#mkdir -pv /tftpboot/BIOS{pxelinux.cfg,images/{centos,ubuntu,windows},kernels/{centos,ubuntu},efi/pxelinux.cfg}
-	mkdir -pv $tftp_dir/{BIOS,pxelinux.cfg,images/{windows},kernels,UEFI}
+	mkdir -pv $tftp_dir/{BIOS,pxelinux.cfg,images/windows,kernels,UEFI}
 	chmod 777 -R $tftp_dir
 	# setup tftp configure
 	echo "Start configure tftpd setting"
@@ -56,7 +68,8 @@ function tftp_config(){
 	echo "check and backup tftpd config"
 	backupfile $filename
 	#sed -i -e 's/TFTP_DIRECTORY="\/srv\/tftp"/TFTP_DIRECTORY="\/tftpboot"/g' /etc/default/tftpd-hpa
-	sed -i -e 's/TFTP_DIRECTORY="\/srv\/tftp"/TFTP_DIRECTORY="\$tftp_dir"/g' /etc/default/tftpd-hpa
+	sed -i -e 's/TFTP_DIRECTORY="\/srv\/tftp"/TFTP_DIRECTORY="\'$tftp_dir'"/g' /etc/default/tftpd-hpa
+
 	echo "RUN_DAEMON="yes"" >> /etc/default/tftpd-hpa
 	echo 'OPTIONS="-l -s /tftpboot"' >> /etc/default/tftpd-hpa
 	echo "restart tftpd server"
@@ -389,7 +402,7 @@ do
  			
  					
 			elif  [ "$downtype" == "ftp" ];then 
-				read -p "images iso name(ISO)(/tftpboot/images/ubuntu/XXX.iso) " imagepath
+				read -p "images iso name(ISO)(/tftpboot/images/XXX.iso) " imagepath
 				echo "label install $osmenuname" >> $tftp_dir/pxelinux.cfg/default
   				echo "menu label ^Install $osmenuname">> $tftp_dir/pxelinux.cfg/default
   				echo "kernel /kernels/$kernelpath/linuz" >> $tftp_dir/pxelinux.cfg/default
@@ -440,7 +453,7 @@ do
 			fi
 	elif [ "$pxeostype" == "3" ];then	
 		read -p "os menu name: " osmenuname	
-		read -p "image WINPE iso location (ex:/images/windows/winpe_amd64.iso): " imagepath
+		read -p "image WINPE iso location (ex:/images/windows/XXX.iso): " imagepath
 		echo "LABEL  $osmenuname" >> $tftp_dir/pxelinux.cfg/default
 		#MENU LABEL window10
 		echo "MENU LABEL $osmenuname" >> $tftp_dir/pxelinux.cfg/default
@@ -632,8 +645,8 @@ do
 	echo "4)PXE MENU use default"
 	echo "5)Adding images to tftpboot folder:"
 	echo "6)Automatic setup pxe and menu:"
-	echo "7)See default Lan IP/Interface, and tftp:"	
-	echo "8)Set IP and TFTP dir: "
+	echo "7)Show default Lan IP/Interface, and tftp:"	
+	echo "8)Set Different IP and TFTP dir: "
 	echo "q to exit: "
 	echo "###########################"
 	read -p "Please enter your Options: " option
@@ -651,27 +664,27 @@ do
 		#tfp
 		echo "restart tftpd"
 		systemctl restart tftpd-hpa
-		systemctl status tftpd-hpa
+		#systemctl status tftpd-hpa
 		#dhcp
 		echo "restart isc-dhcp-server "
 		systemctl restart isc-dhcp-server
-		systemctl status isc-dhcp-server
+		#systemctl status isc-dhcp-server
 		#ftp
 		echo "restart vsftps"
 		systemctl restart vsftpd
-		systemctl status vsftpd
+		#systemctl status vsftpd
 		#samba
 		echo "restart smbd"
 		systemctl restart smbd
-		systemctl status smbd
+		#systemctl status smbd
 		#http
 		echo "restart apache2"
 		systemctl restart apache2
-		systemctl status apache2
+		#systemctl status apache2
 		#nfs
 		echo "restart nfs"
 		systemctl restart nfs-kernel-server
-		systemctl status nfs-kernel-server	
+		#systemctl status nfs-kernel-server	
 		read -p "please enter to continue"		
 		
 	elif [ "$option" == 2 ];then 		
@@ -814,7 +827,9 @@ pxe_menu_default
 } 
 
 #########################################################################
-ethInt=$(ls /sys/class/net/ |grep en)
+#ethInt=$(ls /sys/class/net/ |grep en)
+detectLanint=$(ls /sys/class/net/ |grep en)
+ethInt=$(echo $detectLanint |awk '{print $1}')
 staticIP=192.168.2.1
 tftp_dir="/tftpboot"
 serverIP=$staticIP

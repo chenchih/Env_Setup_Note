@@ -5,6 +5,21 @@
 
 - Still ongoing(I will update soon)
 
+- How to run the script:
+![title](img/0.howtorun.gif)
+### Script Description
+- Menu 1.Install package
+![title](img/1.installpackage.gif)
+- Menu 2.Install package
+- Menu 3.Set PXE Boot MENU
+![title](img/3.pxe_menu_set.gif)
+- Menu 4.Use Default PXE BOOT MENU
+![title](img/4.pxe_menu_default.gif)
+- Menu 5.copy OS image and kernel
+![title](img/5.copyimages_tftpboot.gif)
+- Menu 6.Set Default setting IP addr/tftp dir
+- Menu 7.Show Default setting IP addr/tftp dir
+![title](img/7.showdefaultsetting.gif)
 
 ## Basic Manual setup
 1. download related packages 
