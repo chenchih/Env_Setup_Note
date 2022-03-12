@@ -1,16 +1,22 @@
+# Update
+
+* 2022.03 init update
+* 2022.03.12 update related files
+
 # PXE Server Setup Script
-* Description: This is a script for automatic setup PXE Server under UBUNTU20.04
+
+* **Description**: This is a script for automatic setup PXE Server under UBUNTU20.04
+* ├─**ubuntufiles** ==>pxe related files
+  ├─**unattendedFiles** ==>ubuntu unattendscript example
+  └─**window** ==>Contains window relate script
 
 ## Automation Script
-
-- Still ongoing(I will update soon)
 
 - How to run the script:
 ![title](img/0.howtorun.gif)
 ### Script Description
-- Menu 1.Install package
-![title](img/1.installpackage.gif)
-- Menu 2.Install package
+- Menu 1 and 2 are both Install package
+  ![title](img/1.installpackage.gif)
 - Menu 3.Set PXE Boot MENU
 ![title](img/3.pxe_menu_set.gif)
 - Menu 4.Use Default PXE BOOT MENU
