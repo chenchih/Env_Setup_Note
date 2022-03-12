@@ -1,0 +1,3 @@
+startnet.cmd: script auto run setup.exe
+copype.cmd: generate winPE file script
+convert to iso file command: MakeWinPEMedia /iso C:\WinPE_amd64 c:\WinPE_amd64\winpe_amd643.iso

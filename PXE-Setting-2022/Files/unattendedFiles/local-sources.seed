@@ -69,3 +69,12 @@ d-i finish-install/reboot_in_progress note
 ubiquity ubiquity/reboot boolean true
 #ubiquity ubiquity/poweroff boolean true
 
+#### Advanced options
+#d-i  pkgsel/include string openssh-server build-essential unzip zip libasound2 libasound2-data libasyncns0 python
+## Download the preset file
+#in-target sh -c 'wget -O /home/pixellab/tfpreset.sh http://192.168.100.1/postinst/preset.sh' ;\
+#in-target sh -c 'wget -O /etc/apt/sources.list http://192.168.100.1/postinst/sources.list' 
+#in-target /bin/sh -c 'echo "cp /etc/rc.local.bak /etc/rc.local" >> /etc/rc.local' ;\
+#in-target cp /etc/rc.local /etc/rc.local.bak ;\
+#in-target sh -c 'wget -O /home/pixellab/tfpreset.sh http://192.168.100.1/postinst/preset.sh' ;\
+#in-target sh -c 'wget -O /etc/apt/sources.list http://192.168.100.1/postinst/sources.list' 

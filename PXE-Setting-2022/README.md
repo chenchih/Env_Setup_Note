@@ -282,3 +282,27 @@ KERNEL     /kernels/memdisk
 INITRD     /images/winpe_amd64.iso
 APPEND     iso raw
 ```
+
+## Window PE Setting 
+### Generate window PE adk 
+`copype.cmd amd64 C:\winpe_amd64`
+
+### Create startup script it will automatic run setup.exe
+Create `Startnet.cmd` as below and put inside `C:\winpe_amd64\media\sources\boot.wim\Windows\System32\`
+
+- startnet.cmd
+```
+wpeinit
+net use z: /delete
+net use z: \\192.168.2.1\windows 
+z:
+cd window10
+setup.exe
+```
+- Window please use this: `net use z: \\192.168.2.2\images /user:test\login ""`
+Account is user and no password
+- Linux setting use this 'net use z: \\192.168.2.1\windows '
+
+### Create WindowPE ISO File
+`MakeWinPEMedia /iso C:\WinPE_amd64 c:\WinPE_amd64\winpe_amd643.iso`
+

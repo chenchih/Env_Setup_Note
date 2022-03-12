@@ -1,0 +1,10 @@
+preseed:
+https://blog.novatw.info/blog/tech/622-setup-pxe-p1.html
+https://gitpress.io/@chchang/ubuntu-1404-preseed
+https://help.ubuntu.com/lts/installation-guide/s390x/apb.html
+https://stackallflow.com/ubuntu/how-to-create-a-completely-unattended-install-of-ubuntu-desktop-16-04-1-lts-in-ubuntu/
+https://www.packer.io/guides/automatic-operating-system-installs/preseed_ubuntu
+https://butwt.wordpress.com/2020/06/29/pxe-booting-ubuntu-20-04-installer/
+https://askubuntu.com/questions/1292032/how-can-current-ubuntu-versions-be-installed-via-pxe-network-boot-and-an-automat
+chinese
+https://www.cnblogs.com/zhangqunshi/p/6729823.html

@@ -1,0 +1,22 @@
+#debug --graphics
+default=0
+#splashimage=(nd)/splash.xpm.gz
+timeout 30
+#hiddenmenu
+title Reboot
+	reboot
+
+title [Leopard_uEFI] CentOS 6.4 x64(Headless) output sol
+	root (nd)
+	kernel /EFI_kernel/centos64x64/vmlinuz keymap=us lang=en_US ip=dhcp method=nfs:192.168.2.1:/images/centos64x64 text console=ttyS1,57600
+	initrd /EFI_kernel/centos64x64/initrd.img
+
+title [Leopard_uEFI] CentOS 6.4 x64(Headless) output console port
+	root (nd)
+	kernel /EFI_kernel/centos64x64/vmlinuz keymap=us lang=en_US ip=dhcp method=nfs:192.168.2.1:/images/centos64x64 text console=ttyS0,57600
+	initrd /EFI_kernel/centos64x64/initrd.img
+
+title [Leopard_uEFI] CentOS 6.4 x64
+	root (nd)
+	kernel /EFI_kernel/centos64x64/vmlinuz ip=dhcp method=nfs:192.168.2.1:/images/centos64x64
+	initrd /EFI_kernel/centos64x64/initrd.img
