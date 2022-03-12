@@ -1,0 +1,50 @@
+prompt 0
+timeout 300
+#default vesamenu.c32
+default menu.c32
+
+label CentOS 7x64 ftp 2021
+MENU LABEL CentOS 7 x64 FTP [ok]
+kernel /images/centos7/vmlinuz
+append initrd=/images/centos7/initrd.img \ method=ftp://192.168.2.1/pub/centos75/ ip=dhcp
+
+label CentOS 7x64 ftp 2021
+MENU LABEL CentOS 7 x64 http   [ok]
+kernel /images/centos7/vmlinuz
+append initrd=/images/centos7/initrd.img \ method=http://192.168.2.1/centos75/ ip=dhcp
+
+label CentOS 8x64 ftp 2021
+MENU LABEL CentOS 8 x64 FTP  [ok]
+kernel /images/centos81/vmlinuz
+append initrd=/images/centos81/initrd.img \ method=ftp://192.168.2.1/pub/centos8/ ip=dhcp
+								         
+label ubuntu20.04 ftp 2021
+MENU LABEL ubuntu20.04 x64 FTP [fail]
+kernel /images/ubuntu20-04/vmlinuz
+append initrd=/images/ubuntu20-04/initrd \ url=ftp://192.168.2.1/pub/ubuntu20-04/ ro boot=casper ip=dhcp ---
+		
+label AlmaLinux-8.5 / CentOS 8.5x64 ftp 2021 
+MENU LABEL AlmaLinux-8.5 x64 FTP [ok]
+kernel /images/AlmaLinux-8.5/vmlinuz
+append initrd=/images/AlmaLinux-8.5/initrd.img \ method=ftp://192.168.2.1/pub/AlmaLinux-8.5/ ip=dhcp
+		
+LABEL      winpe
+MENU LABEL Boot Windows PE from network
+KERNEL     /memdisk
+INITRD     /winpe_amd64.iso
+APPEND     iso raw
+
+##############################DEBUG########################################						  
+
+label install1
+menu label ^Install centos 7 [pass]NFS
+root (nd)
+kernel /images/centos7/vmlinuz keymap=us lang=en_US ip=dhcp method=nfs:192.168.2.1:/nfs_share/centos
+append initrd=/images/centos7/initrd.img 
+
+label install1
+	menu label ^Install Ubuntu(ok)
+	kernel /kernel/ubuntu20.04/vmlinuz
+	append initrd=/kernel/ubuntu20.04/initrd nfsroot=192.168.2.1:/tftpboot/images/ubuntu2004 ro netboot=nfs boot=casper ip=dhcp ---
+	
+	
