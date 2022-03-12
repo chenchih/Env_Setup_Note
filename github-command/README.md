@@ -61,9 +61,22 @@ $ git push master #or origin
 
 - show branch: ` $git branch`
 - Create branch: `$git branch <namebranch>`
-- delete branch: ` git branch -d <branch>`
+- delete branch: ` $git branch -d <branch>`
 - Switch branch: `$git checkout -b <branch>`
 - Merge branch: `$git merge <commit>`
+
+After Creating master need to push like this:
+
+```
+$git add -A 
+#create draft branch
+$git checkout draft
+$git commit -m "adding github comamnd"
+#push origin draft
+$git push origin draft
+```
+
+
 
 ### 2. Conflict  Branch
 
