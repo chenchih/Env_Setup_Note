@@ -35,13 +35,23 @@ $ git commit -m "first commit"
 $ git push master #or origin
 ```
 
-### 2. git Add
+### 2. git Add (adding into staging>
 
 - git add cuurrent and sub-directory: `git add .`
 
-- git add -A 'file' :
+- git add one file: `git add <filename>`
 
-## 3. Remote Tool
+- git add -A 'file' : 
+  
+  
+
+## 3. Commit save to local
+
+commit your message:     `commit -m <message>`
+
+use 
+
+## 4.  Remote Tool
 
 - Push `git push <branch>`
 
@@ -50,6 +60,18 @@ $ git push master #or origin
 - Fetch 
 
 - git clone (download git repository) `git clone https://xxxx.git`
+
+
+
+### 5. log and status
+
+see git commit status with commit id : `$git log`
+
+see git commit in one line : `$git log --oneline`
+
+see git status: `git status`
+
+4. 
 
 ---
 
@@ -62,7 +84,9 @@ $ git push master #or origin
 - show branch: ` $git branch`
 - Create branch: `$git branch <namebranch>`
 - delete branch: ` $git branch -d <branch>`
-- Switch branch: `$git checkout -b <branch>`
+- Switch branch: 
+  - create and switch branch: `$git checkout -b <branch>`
+  - create branch only: `$git checkout <branch>`
 - Merge branch: `$git merge <commit>`
 
 After Creating master need to push like this:
