@@ -1,96 +1,134 @@
 # GitHub related Note and Command
 
-## Begin Start
+## Setup Envirnoment 
+working directory --- staging --- local repository ----- remote respository
 
-### 1. Create configure username and passwd
+#### Setup config File
+- run `git init`, will generate .git file
+- **edit confiure** for username, and email address
+In order to publish any code we need to have username and email.
 
+You can edit configure as below:
 ```
-$ git config --global user.name "username"
-$ git config --global user.email <email-address>
-$ git config --global color.ui auto
+	$ git config --global user.name "username"
+	$ git config --global user.email <email-address>
+	$ git config --global color.ui auto
 ```
+*Note: username and email don't have to be smae as github account* 
+- Show your configure setting: `$ git config --list`
 
-Check configure setting: `$ git config --list # show all setting`
+#### Setup init/Clone
+Configuring user information, initializing and cloning repositories
+Create working directory, there're two ways you can do:
+> Create repository on github, and download the git
+or
+Create .git in local and push it up
+  
 
-### 2. Init git: create folder
+|  command|  description |
+| ------------ | ------------ |
+| git init  |  initialize an existing directory as a Git repository |
+| git clone  |  retrieve an entire repository from a hosted location via URLy |
 
-``` 
+**Example:**
+- please go to github and first create your repository project name
+- create .git in local repositor
+```
 $ mkdir tutorial
 $ cd tutorial
 $ git init
 #will generate .init file
+$ touch test.txt
 ```
+	- 	to push it
+```
+$git remote add origin git@gihub.xom:username/xxx.git #bundle it
+$git push -u origin master 
+```
+you can go to .git direcrory and open configure to see is it bundle
+
+- clone git from git hub
+`git clone [https://XXXX.git]`
+**Note: ** This method push you can just use `$git push`
+
+#### understanding toplpology
+
+
+#### tool download
+| Name  |url    |
+| ------------ | ------------ |
+|  github bash |  https://www.git-scm.com/downloads |
+|  sourcetree |  https://www.sourcetreeapp.com/ |
 
 ---
+## Basic git command 
+### STAGE & SNAPSHOT
 
-
-
-## Common Used
-
-### 1. Creating file
-
-```
-$ git add myfile.txt
+This are the basic command we often use: 
+>$ git add myfile.txt
+$ git status
 $ git commit -m "first commit"
+$ git --log
 $ git push master #or origin
-```
 
-### 2. git Add (adding into staging>
+### 1. create a file in your folder 
+create a file `$touch test.txt`
 
-- git add cuurrent and sub-directory: `git add .`
+### 2. Check git status
+`$git status` # will occur **unstage**
 
-- git add one file: `git add <filename>`
+### 3. Staging your file `git add <filename> or git add . `
+- git add 
+There are couple of command you can use:
+> git add 'filename.xxx'
+git add .  #current directory. Stage new/modify/delete files or directory  
+git add -A #Stage new/modify files or directory
+git add -u 
 
-- git add -A 'file' : 
-  
-  
+	**Example:** 
+	```
+	git add .
+	git status
+	```
+- git reset [file] 
+unstage a file while retaining the changes in working directory
 
-## 3. Commit save to local
+### 4. commit file to save in local repository 
+- commit your file using -m for message 
+`$ git commit -m "first commit"`
+or skip staging
+`$ git commit -am "first commit"`
+- check log to see commit detail
+`git --log ` or `git --log oneline`
 
-commit your message:     `commit -m <message>`
+### 5. Update remote server
+In this step it will push your file to github server
+`$ git push master #or origin`
 
-use 
-
-## 4.  Remote Tool
-
+There're couples of command as below: 
 - Push `git push <branch>`
-
 - Pull  (get update branch) `git pull`
-
 - Fetch 
-
 - git clone (download git repository) `git clone https://xxxx.git`
 
-
-
-### 5. log and status
-
-see git commit status with commit id : `$git log`
-
-see git commit in one line : `$git log --oneline`
-
-see git status: `git status`
-
-4. 
-
----
-
- 
-
+### 6. Other command 
+- git diff
+	- 	`git diff`: diff of what is changed but not staged
+	-	`git diff --staged`: diff of what is staged but not yet commited
+- `git log`:ã€€show all commits in the current branchâ€™s history
+- `git status`: show modified files in working directory, staged for your next commit
 ## Advance  Seting
-
-### 1. Branch Adding and Showing
-
-- show branch: ` $git branch`
-- Create branch: `$git branch <namebranch>`
-- delete branch: ` $git branch -d <branch>`
+### Branch
+- show listing your branch: ` $git branch`
+- Create branch: `$git branch <branch name>`
 - Switch branch: 
   - create and switch branch: `$git checkout -b <branch>`
   - create branch only: `$git checkout <branch>`
-- Merge branch: `$git merge <commit>`
+- delete branch: ` $git branch -d <branch>`
+- Merge branch: `$git merge <branch name>`
 
+**Example:**
 After Creating master need to push like this:
-
 ```
 $git add -A 
 #create draft branch
@@ -99,11 +137,12 @@ $git commit -m "adding github comamnd"
 #push origin draft
 $git push origin draft
 ```
-
-
-
-### 2. Conflict  Branch
-
-### 
-
-
+### Conflict Branch
+### Reset/ checkout/Fetch recover commit 
+### rebase: 
+ï¼ã€€git -rebase:ã€€apply any commits of current branch ahead of specified one
+# Reference:
+- https://code.yidas.com/git-commands/
+- https://www.maxlist.xyz/2020/05/03/git-reset-checkout/
+- https://w3c.hexschool.com/git/fd426d5a
+- https://june.monster/git-github-checkout-reset-revert/
