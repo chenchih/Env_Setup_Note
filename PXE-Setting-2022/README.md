@@ -6,17 +6,18 @@
 # PXE Server Setup Script
 
 * **Description**: This is a script for automatic setup PXE Server under UBUNTU20.04
-* ├─**ubuntufiles** ==>pxe related files
+
+  ├─**ubuntufiles** ==>pxe related files
   ├─**unattendedFiles** ==>ubuntu unattendscript example
   └─**window** ==>Contains window relate script
 
 ## Automation Script
 
 - How to run the script:
-![title](img/0.howtorun.gif)
+ ![title](img/0.howtorun.gif)
 ### Script Description
 - Menu 1 and 2 are both Install package
-  ![title](img/1.installpackage.gif)
+![title](img/1.installpackage.gif)
 - Menu 3.Set PXE Boot MENU
 ![title](img/3.pxe_menu_set.gif)
 - Menu 4.Use Default PXE BOOT MENU
@@ -225,14 +226,15 @@ $exportfs -a
   guest ok = yes
   path = /tftpboot/images/windows
 ```
-rstart smb : `systemctl restart smbd'
-
+rstart smb :  ‵systemctl restart smbd ‵
 
 16 adding pxe Boot menu option
-`$mkdir -vp /tftpboot/pxelinux.cfg/`
-`$touch /tftpboot/pxelinux.cfg/default`
 
- `$vi /tftpboot/pxelinux.cfg/default`
+> $mkdir -vp /tftpboot/pxelinux.cfg/
+> $touch /tftpboot/pxelinux.cfg/default
+
+`$vi /tftpboot/pxelinux.cfg/default`
+
 ```
 default menu.c32
 prompt 0
