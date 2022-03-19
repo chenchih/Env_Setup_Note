@@ -5,16 +5,21 @@
 
 # PXE Server Setup Script
 
-* **Description**: This is a script for automatic setup PXE Server under UBUNTU20.04
+***Description**: This is a script for automatic setup PXE Server under UBUNTU20.04
 
-  ├─**ubuntufiles** ==>pxe related files
-  ├─**unattendedFiles** ==>ubuntu unattendscript example
-  └─**window** ==>Contains window relate script
+├─ubuntufiles ==>pxe related files
+
+├─unattendedFiles ==>ubuntu unattendscript example
+
+   └─window ==>Contains window relate script
+  
 
 ## Automation Script
 
 - How to run the script:
- ![title](img/0.howtorun.gif)
+
+  ![title](img/0.howtorun.gif)
+
 ### Script Description
 - Menu 1 and 2 are both Install package
 ![title](img/1.installpackage.gif)
