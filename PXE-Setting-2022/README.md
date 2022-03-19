@@ -231,7 +231,7 @@ $exportfs -a
   guest ok = yes
   path = /tftpboot/images/windows
 ```
-rstart smb :  ‵systemctl restart smbd ‵
+rstart smb : `systemctl restart smbd`
 
 16 adding pxe Boot menu option
 
@@ -312,9 +312,9 @@ z:
 cd window10
 setup.exe
 ```
-- Window please use this: `net use z: \\192.168.2.2\images /user:test\login ""`
+- Window please use this: `net use z: \\192.168.2.2\images /user:test\login "" `
 Account is user and no password
-- Linux setting use this 'net use z: \\192.168.2.1\windows '
+- Linux setting use this `net use z: \\192.168.2.2\window `
 
 ### Create WindowPE ISO File
 `MakeWinPEMedia /iso C:\WinPE_amd64 c:\WinPE_amd64\winpe_amd643.iso`
