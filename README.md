@@ -3,9 +3,14 @@
 
 ### TASK LIST
 
-- [X] **PXE For Ubuntu 2022**: PXE automatic setup script
-- [X] **PXE For CentOS 2016(OLD)**  
-- [ ] **Linux Command (ongoing)**
+- Done
+
+- [x] **PXE For Ubuntu 2022**: PXE automatic setup script
+- [x] **PXE For CentOS 2016(OLD)**  
+
+- Ongoing
+
+- [x] **Linux Command (ongoing)**
 - [ ] **Window Related  Setting  (ongoing)**
 - [ ] **Tool Description   (ongoing)**
 - [ ] 
