@@ -41,35 +41,39 @@ Create working directory, there're two ways you can do:
 
 **Example:**
 
-- please go to github and first create your repository project name
+please go to github and first create your repository project name
 
-- Run command:  `git init`,to generate `.git` file
+- Git init method:
   
-  ```
-  #create project example: tutorial
-  $ mkdir tutorial
-  $ cd tutorial
-  $ git init
-  #will generate .init file
-  $ touch test.txt
-  ```
-  
-  -  to push it
+  - Run command in local:  `git init`,to generate `.git` file
     
     ```
-    $git remote add origin git@gihub.xom:username/xxx.git #bundle it
+    #create project example: tutorial
+    $ mkdir tutorial
+    $ cd tutorial
+    $ git init
+    #will generate .init file
+    $ touch test.txt
+    ```
+  
+  - push into remote          
+    
+    ```
+    $git remote add origin https://github.com/<username>/rrepository.git   
     $git push -u origin master 
     ```
     
-    you can go to .git direcrory and open configure to see is it bundle
+    Noe you can go to `.git` direcrory and open `configure` to see is it bundle
 
-- clone git from git hub
-  `git clone [https://XXXX.git]`
-  **Note: ** This method push you can just use `$git push`
+- clone repository method:
+  
+  **Note:**  You can create file in guthub or upload file, and download it using `clone`. It will provide you `.git` file, you don't have to do git init.  
+  
+  Example:　`git clone https://github.com/<username>/rrepository.git`
 
 #### Topology
 
-  <img title="" src="img/gitflow.PNG" alt="title" width="460">
+<img title="" src="img/gitflow.PNG" alt="title" width="460">
 
 #### Tool download
 
@@ -92,6 +96,8 @@ This are the basic command we often use:
 > $ git --log
 > $ git push master #or origin
 
+
+
 ### 1. create a file in your folder
 
 create a file `$touch test.txt`
@@ -105,12 +111,13 @@ create a file `$touch test.txt`
 - git add 
   There are couple of command you can use:
   
-  > git add 'filename.xxx'
+  > git add filename.xxx
+  > 
   > git add .  #current directory. Stage new/modify/delete files or directory  
   > git add -A #Stage new/modify files or directory
-  > git add -u 
+  > git push -u origin main 
   
-    **Example:** 
+   **Example:** 
   
   ```
   git add .
@@ -144,20 +151,29 @@ There're couples of command as below:
 ### 6. Other command
 
 - git diff
-  -  `git diff`: diff of what is changed but not staged
+  
+  - `git diff`: diff of what is changed but not staged
   - `git diff --staged`: diff of what is staged but not yet commited
+
 - `git log`:ã€€show all commits in the current branchâ€™s history
+
 - `git status`: show modified files in working directory, staged for your next commit
   
   ## Advance  Seting
   
   ### Branch
+
 - show listing your branch: ` $git branch`
+
 - Create branch: `$git branch <branch name>`
+
 - Switch branch: 
+  
   - create and switch branch: `$git checkout -b <branch>`
   - create branch only: `$git checkout <branch>`
+
 - delete branch: ` $git branch -d <branch>`
+
 - Merge branch: `$git merge <branch name>`
 
 **Example:**
