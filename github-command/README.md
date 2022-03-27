@@ -42,9 +42,14 @@ You can edit configure as below:
 ```
 
 - Alias Git command 
+```
+ $git config --global alias.co checkout
+ $ git config --global alias.br branch
+ $ git config --global alias.st status
+ $ git config --global alias.ci commit
+```
 
 ## Basic git command
-
 Basic Step and common step are as below:
 
 ```
@@ -57,14 +62,7 @@ Basic Step and common step are as below:
 
 ### git Init
 
-Initialized empty Git repository in your local repository.  Create working directory, there're **two ways**  you can do:
-
-You can 
-
-> Download repository remotely using git clone, need to create file in github
-
-   or
-
+Initialized empty Git repository in your local repository. 
 > Create `.git init` in local and push to remote repository 
 
 | command           | description                                                                                |
@@ -97,8 +95,9 @@ you can use adding specfic file: `git add <filename>` or add whole directory `gi
 - git add command as below, there are couple of command you can use:
 
 > git add filename.xxx
-> 
+
 > git add .  #current directory. Stage new/modify/delete files or directory  
+
 > git add -A #Stage new/modify files or directory
 
 Example Step:    
@@ -159,9 +158,9 @@ In this step it will push your file to github server.  Github uses default branc
   
   > $git push 
 
-            `-u` : will use default master or main branch. It will use the last push default             branch.  So if you push next time, your can just use this command: `git push`             without adding branch name. 
-
-            `orgin` : github use default branch `orgin`, you can change also change to             other name if you like. 
+ `-u` : will use default master or main branch. It will use the last push default branch. So if you push next time, your can just use this command: `git push` without adding branch name. 
+ 
+`orgin` : github use default branch `orgin`, you can change also change to other name if you like. 
 
 ### git clone : download  repository from remote
 
