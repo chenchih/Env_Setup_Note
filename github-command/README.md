@@ -184,7 +184,7 @@ We can use the same local repository with multiply  remote repository in github.
 
 For example I have `test` in <u>remote repository(github)</u>, let create another <u>new remote repository</u> as `test2` and use the same <u>local repository</u>. 
 
-![](file:///C:/git_code/Linux_Setting/github-command/img/remote_repository.PNG)
+<img title="" src="img/remote_repository.PNG" alt="title" width="614">
 
 **Example:**
 
@@ -204,8 +204,6 @@ For example I have `test` in <u>remote repository(github)</u>, let create anothe
    
    > git branch -M main
    > git push -u git2 main
-
-
 
     Why yould I want to do like this, a local repository link to two different remote repoistory? You can think one is `code release server` another one is `testing code server.
 
