@@ -1,12 +1,26 @@
 # GitHub related Note and Command
 
-## Setup Envirnoment
+## Setup Environment
+
+### Topology
 
 working directory --- staging --- local repository ----- remote respository
 
-#### Setup config File (`.gitconfig`)
+<img title="" src="img/gitflow.PNG" alt="title" width="441">
 
-- **`.gitconfig`** will store all your setting. After install git will generate it. 
+### Tool download
+
+| Name        | url                               |
+| ----------- | --------------------------------- |
+| github bash | https://www.git-scm.com/downloads |
+| sourcetree  | https://www.sourcetreeapp.com/    |
+
+### Setup config File (`.gitconfig`)
+
+After install git it will generate `.gitconfig`  file, which store git configure setting . Store location:
+
+> Windows：C:\Users\username\
+> MacOs：~/.gitconfig
 
 - **Show your configure setting**: use command: `git config` and add `--list` parameter like this: 
   
@@ -21,156 +35,174 @@ You can edit configure as below:
     $ git config --global user.name "username"
     $ git config --global user.email <email-address>
     $ git config --global color.ui auto
+
+    #add specific editor
+    #git config --global core.editor emacs
+    #git config --global core.editor "nano -w"
 ```
 
-*Note: username and email don't have to be smae as github account* 
-
-#### Create project init/Clone
-
-Configuring user information, initializing and cloning repositories
-Create working directory, there're two ways you can do:
-
-> Create repository on github, and download the git
-> or
-> Create .git in local and push it up
-
-| command   | description                                                   |
-| --------- | ------------------------------------------------------------- |
-| git init  | initialize an existing directory as a Git repository          |
-| git clone | retrieve an entire repository from a hosted location via URLy |
-
-**Example:**
-
-please go to github and first create your repository project name
-
-- Git init method:
-  
-  - Run command in local:  `git init`,to generate `.git` file
-    
-    ```
-    #create project example: tutorial
-    $ mkdir tutorial
-    $ cd tutorial
-    $ git init
-    #will generate .init file
-    $ touch test.txt
-    ```
-  
-  - push into remote          
-    
-    ```
-    $git remote add origin https://github.com/<username>/rrepository.git   
-    $git push -u origin master 
-    ```
-    
-    Noe you can go to `.git` direcrory and open `configure` to see is it bundle
-
-- clone repository method:
-  
-  **Note:**  You can create file in guthub or upload file, and download it using `clone`. It will provide you `.git` file, you don't have to do git init.  
-  
-  Example:　`git clone https://github.com/<username>/rrepository.git`
-
-#### Topology
-
-<img title="" src="img/gitflow.PNG" alt="title" width="460">
-
-#### Tool download
-
-| Name        | url                               |
-| ----------- | --------------------------------- |
-| github bash | https://www.git-scm.com/downloads |
-| sourcetree  | https://www.sourcetreeapp.com/    |
-
----
+- Alias Git command 
 
 ## Basic git command
 
-### STAGE & SNAPSHOT
+Basic Step and common step are as below:
 
-This are the basic command we often use: 
+```
+＃Step1: git init 
+＃Step 2: touch file and edit file
+#Step3: git add .
+#Step4: git commit -m "message to commit"
+#Step5: git push 
+```
 
-> $ git add myfile.txt
-> $ git status
-> $ git commit -m "first commit"
-> $ git --log
-> $ git push master #or origin
+### git Init
 
+Initialized empty Git repository in your local repository.  Create working directory, there're **two ways**  you can do:
 
+You can 
 
-### 1. create a file in your folder
+> Download repository remotely using git clone, need to create file in github
 
-create a file `$touch test.txt`
+   or
 
-### 2. Check git status
+> Create `.git init` in local and push to remote repository 
 
-`$git status` # will occur **unstage**
+| command           | description                                                                                |
+| ----------------- | ------------------------------------------------------------------------------------------ |
+| git init(local)   | initialize an existing directory as a Git repository.                                      |
+| git clone(remote) | retrieve an entire repository from a hosted location via URL.  Download from remote server |
 
-### 3. Staging your file `git add <filename> or git add . `
+please go to github and first create your repository project name
 
-- git add 
-  There are couple of command you can use:
-  
-  > git add filename.xxx
-  > 
-  > git add .  #current directory. Stage new/modify/delete files or directory  
-  > git add -A #Stage new/modify files or directory
-  > git push -u origin main 
-  
-   **Example:** 
-  
-  ```
-  git add .
-  git status
-  ```
+- Run command in local: `git init`,to generate `.git` file. Step as below: 
 
-- git reset [file] 
-  unstage a file while retaining the changes in working directory
+```
+  #create project example: tutorial
+  $ mkdir <directoryName>
+  $ cd <directoryName>
+  #inital git will generate .git
+  $ git init
+```
 
-### 4. commit file to save in local repository
+### git status
+
+`git status` show status of new file is added or modify. If new file is been modify will occur `Untracked files`, so we need to add into staging 
+
+> git status 
+
+### git add: Staging your file
+
+you can use adding specfic file: `git add <filename>` or add whole directory `git add .`
+
+- git add command as below, there are couple of command you can use:
+
+> git add filename.xxx
+> 
+> git add .  #current directory. Stage new/modify/delete files or directory  
+> git add -A #Stage new/modify files or directory
+
+Example Step:    
+
+```
+    #create a file 
+    $ touch test.txt
+    # will show git status will occur unstage
+    $ git status
+    # adding file into staging 
+    $ git add . 
+    $ git status will occur stage
+```
+
+### git commit: save in local repository
+
+Commit this command isave in local repository  
 
 - commit your file using -m for message 
   `$ git commit -m "first commit"`
   or skip staging
   `$ git commit -am "first commit"`
+
 - check log to see commit detail
   `git --log ` or `git --log oneline`
 
-### 5. Update remote server
+### git log : show commit log
 
-In this step it will push your file to github server
-`$ git push master #or origin`
+git log will show all your history commit log 
 
-There're couples of command as below: 
+- check log to see commit history  detail
 
-- Push `git push <branch>`
-- Pull  (get update branch) `git pull`
-- Fetch 
-- git clone (download git repository) `git clone https://xxxx.git`
+> `git --log` 
 
-### 6. Other command
+ or
+
+>  `git --log oneline`
+
+### git push: push into remote repository
+
+In this step it will push your file to github server.  Github uses default branch is origin, you can change also change to other name.  `$ git push master #or origin`
+
+- push new repository to remote(first time)
+  
+  ```
+  $git remote add origin https://github.com/<username>/repository.git   
+  git branch -M main
+  git push -u origin main 
+  ```
+
+ After running first command : `git remote add origin`, You can go inside and open `.git/config` if success bundle it will occur like below:
+
+```
+    [remote "origin"]
+     url = https://github.com/<username>/test.git 
+```
+
+- update your local repository to remote 
+
+> $git push -u origin master
+
+  or
+
+> $git push 
+
+`-u` : will use default master branch. It will use the last push branch.  So if you use -u next time your can use push master is ok. 
+
+`orgin` : github uses default branch ogigin, you can change also change to other name if you like. 
+
+ Note you can go to `.git` directory and open `configure` to see is it bundle
+
+
+
+### git clone : download  repository from remote
+
+  You can use git clone to download repository from remote to local.
+
+  Example:　`git clone https://github.com/<username>/repository.git`
+
+### Other command
 
 - git diff
   
   - `git diff`: diff of what is changed but not staged
+  
   - `git diff --staged`: diff of what is staged but not yet commited
 
-- `git log`:ã€€show all commits in the current branchâ€™s history
 
-- `git status`: show modified files in working directory, staged for your next commit
-  
-  ## Advance  Seting
-  
-  ### Branch
+
+
+
+## Advance  Seting
+
+### Branch
 
 - show listing your branch: ` $git branch`
 
 - Create branch: `$git branch <branch name>`
 
 - Switch branch: 
-  
-  - create and switch branch: `$git checkout -b <branch>`
-  - create branch only: `$git checkout <branch>`
+
+- create and switch branch: `$git checkout -b <branch>`
+
+- create branch only: `$git checkout <branch>`
 
 - delete branch: ` $git branch -d <branch>`
 
