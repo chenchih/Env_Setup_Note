@@ -26,30 +26,32 @@ After install git it will generate `.gitconfig`  file, which store git configure
   
   - `git config --list` will show all configure setting
 
-- **edit your configuration** add username, and email address
+- **edit your config** add username, and email address
   In order to publish any code we need to have username and email.
 
-You can edit configure as below:
+   You can edit configure as below:    
 
 ```
-    $ git config --global user.name "username"
-    $ git config --global user.email <email-address>
-    $ git config --global color.ui auto
+$ git config --global user.name "username"
+$ git config --global user.email <email-address>
+$ git config --global color.ui auto
 
-    #add specific editor
-    #git config --global core.editor emacs
-    #git config --global core.editor "nano -w"
+#add specific editor
+#git config --global core.editor emacs
+#git config --global core.editor "nano -w"
 ```
 
 - Alias Git command 
-```
- $git config --global alias.co checkout
- $ git config --global alias.br branch
- $ git config --global alias.st status
- $ git config --global alias.ci commit
-```
+  
+  ```
+  $git config --global alias.co checkout
+  $ git config --global alias.br branch
+  $ git config --global alias.st status
+  $ git config --global alias.ci commit
+  ```
 
 ## Basic git command
+
 Basic Step and common step are as below:
 
 ```
@@ -62,15 +64,9 @@ Basic Step and common step are as below:
 
 ### git Init
 
-Initialized empty Git repository in your local repository. 
+This initializes a git repository, and creates the initial .git directory in a new or already existing project
+
 > Create `.git init` in local and push to remote repository 
-
-| command           | description                                                                                |
-| ----------------- | ------------------------------------------------------------------------------------------ |
-| git init(local)   | initialize an existing directory as a Git repository.                                      |
-| git clone(remote) | retrieve an entire repository from a hosted location via URL.  Download from remote server |
-
-please go to github and first create your repository project name
 
 - Run command in local: `git init`,to generate `.git` file. Step as below: 
 
@@ -84,23 +80,21 @@ please go to github and first create your repository project name
 
 ### git status
 
-`git status` show status of new file is added or modify. If new file is been modify will occur `Untracked files`, so we need to add into staging 
+**Syntax**: `git status` , show status of new file is added or modify. If new file is been modify will occur `Untracked files`
 
-> git status 
+> git status
 
 ### git add: Staging your file
 
-you can use adding specfic file: `git add <filename>` or add whole directory `git add .`
+This will add file changes that are in your working directory to your index
 
-- git add command as below, there are couple of command you can use:
+**Syntax**: `git add <filename>` ,  you can use below command: 
 
-> git add filename.xxx
-
+> git add  <filename>
 > git add .  #current directory. Stage new/modify/delete files or directory  
-
 > git add -A #Stage new/modify files or directory
 
-Example Step:    
+    Example Step:    
 
 ```
     #create a file 
@@ -114,31 +108,29 @@ Example Step:
 
 ### git commit: save in local repository
 
-Commit this command isave in local repository  
+This Git command takes all of the changes written in the index, creates a new commit object pointing to it, and sets the branch to point to that new commit. You can use these command: 
 
 - commit your file using -m for message 
   `$ git commit -m "first commit"`
-  or skip staging
+
+- or skip staging
   `$ git commit -am "first commit"`
 
-- check log to see commit detail
-  `git --log ` or `git --log oneline`
+### git log : show commit history detail
 
-### git log : show commit log
-
-git log will show all your history commit log 
+This command will show a list of commits on a branch, and include the corresponding details. You can use below command: 
 
 - check log to see commit history  detail
+  
+  > `git --log` 
 
-> `git --log` 
-
- or
-
->  `git --log oneline`
+- show in one line
+  
+  > `git --log oneline`  
 
 ### git push: push into remote repository
 
-In this step it will push your file to github server.  Github uses default branch `origin`, you can also change to other name.  `$ git push master #or origin`
+This Git command will push all the modified local objects to the remote repository(github). 
 
 - push new repository to remote(first time)
   
@@ -148,7 +140,7 @@ In this step it will push your file to github server.  Github uses default branc
   git push -u origin main 
   ```
   
-  To understand git remote, polease refer below git remote for more information. 
+  To understand `git remote`, please refer below `git remote` for more information. 
 
 - push your repository remotely 
   
@@ -159,14 +151,14 @@ In this step it will push your file to github server.  Github uses default branc
   > $git push 
 
  `-u` : will use default master or main branch. It will use the last push default branch. So if you push next time, your can just use this command: `git push` without adding branch name. 
- 
-`orgin` : github use default branch `orgin`, you can change also change to other name if you like. 
+
+`origin` : github use default branch `orgiin`, you can change also change to other name if you like. 
 
 ### git clone : download  repository from remote
 
-  You can use git clone to download repository from remote to local.
+ You can use git clone to download repository from remote to local. This command creates a Git repository copy from a remote source.
 
-  Example:　`git clone https://github.com/<username>/repository.git`
+ Syntax:　`git clone https://github.com/<username>/repository.git`
 
 ### git remote
 
@@ -202,9 +194,9 @@ For example I have `test` in <u>remote repository(github)</u>, let create anothe
 4. push to server again
    
    > git branch -M main
-   > git push -u git2 main
+   > git push -u *git2* main
 
-    Why yould I want to do like this, a local repository link to two different remote repoistory? You can think one is `code release server` another one is `testing code server.
+Why yould I want to do like this, a local repository link to two different remote repoistory? You can think one is `code release server` another one is `testing code server.
 
 ### Other command
 
@@ -214,7 +206,11 @@ For example I have `test` in <u>remote repository(github)</u>, let create anothe
   
   - `git diff --staged`: diff of what is staged but not yet commited
 
-## Advance  Seting
+- git rm 
+  
+  This will remove files from your index and your working directory so they will not be tracked:
+
+## Advance  Setting
 
 ### Branch
 
