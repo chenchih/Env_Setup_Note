@@ -139,44 +139,75 @@ git log will show all your history commit log
 
 ### git push: push into remote repository
 
-In this step it will push your file to github server.  Github uses default branch is origin, you can change also change to other name.  `$ git push master #or origin`
+In this step it will push your file to github server.  Github uses default branch `origin`, you can also change to other name.  `$ git push master #or origin`
 
 - push new repository to remote(first time)
   
   ```
-  $git remote add origin https://github.com/<username>/repository.git   
+  $git remote add origin https://github.com/<username>/test.git   
   git branch -M main
   git push -u origin main 
   ```
+  
+  To understand git remote, polease refer below git remote for more information. 
 
- After running first command : `git remote add origin`, You can go inside and open `.git/config` if success bundle it will occur like below:
+- push your repository remotely 
+  
+  > $git push -u origin master
+  
+     or
+  
+  > $git push 
 
-```
-    [remote "origin"]
-     url = https://github.com/<username>/test.git 
-```
+            `-u` : will use default master or main branch. It will use the last push default             branch.  So if you push next time, your can just use this command: `git push`             without adding branch name. 
 
-- update your local repository to remote 
-
-> $git push -u origin master
-
-  or
-
-> $git push 
-
-`-u` : will use default master branch. It will use the last push branch.  So if you use -u next time your can use push master is ok. 
-
-`orgin` : github uses default branch ogigin, you can change also change to other name if you like. 
-
- Note you can go to `.git` directory and open `configure` to see is it bundle
-
-
+            `orgin` : github use default branch `orgin`, you can change also change to             other name if you like. 
 
 ### git clone : download  repository from remote
 
   You can use git clone to download repository from remote to local.
 
   Example:　`git clone https://github.com/<username>/repository.git`
+
+### git remote
+
+We need to link our local repoistory to remote repoistory, we need to register by using this comamnd: `$git remote add origin　<remote repoistory url>`
+
+You can check `.git\config` to see link success or not, if success will occur as below: 
+
+```
+[remote "origin"]
+url = https://github.com/<username>/test.git 
+```
+
+We can use the same local repository with multiply  remote repository in github.  
+
+For example I have `test` in <u>remote repository(github)</u>, let create another <u>new remote repository</u> as `test2` and use the same <u>local repository</u>. 
+
+![](file:///C:/git_code/Linux_Setting/github-command/img/remote_repository.PNG)
+
+**Example:**
+
+1. Go to github create new repository name `test1`
+
+2. run  **remote add origin** will have error 
+   
+   - `git remote add origin https://github.com/chenchih/test1.git` It will occur error: `error: remote origin already exists.` 
+   
+   - Since we have already create `origin` already, so we need to change different remote repository name. 
+
+3. change **remote add origin** into **remote add git2**
+   
+   `git remote add git2 https://github.com/chenchih/test1.git`
+
+4. push to server again
+   
+   > git branch -M main
+   > git push -u git2 main
+
+
+
+    Why yould I want to do like this, a local repository link to two different remote repoistory? You can think one is `code release server` another one is `testing code server.
 
 ### Other command
 
@@ -185,10 +216,6 @@ In this step it will push your file to github server.  Github uses default branc
   - `git diff`: diff of what is changed but not staged
   
   - `git diff --staged`: diff of what is staged but not yet commited
-
-
-
-
 
 ## Advance  Seting
 
