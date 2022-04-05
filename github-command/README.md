@@ -118,15 +118,21 @@ This Git command takes all of the changes written in the index, creates a new co
 
 ### git log : show commit history detail
 
-This command will show a list of commits on a branch, and include the corresponding details. You can use below command: 
+This command will show a list of commit history and commit ID, and include the corresponding details. You can restore with the commit ID, bu checking `git log` command. You can use below command: 
 
-- check log to see commit history  detail
+- check log to see commit history  detail or check commit id 
   
-  > `git --log` 
+  > `git log` 
 
 - show in one line
   
-  > `git --log oneline`  
+  > `git log --oneline`  #show all commit history 
+  > 
+  > `git log --oneline --n` #n mean show latest commit 
+
+- --graph 
+  
+  > git log --oneline --graph
 
 ### git push: push into remote repository
 
@@ -144,15 +150,17 @@ This Git command will push all the modified local objects to the remote reposito
 
 - push your repository remotely 
   
-  > $git push -u origin master
+  > $git push <remote_name>
+  > 
+  > $git push -u origin master 
   
      or
   
   > $git push 
 
- `-u` : will use default master or main branch. It will use the last push default branch. So if you push next time, your can just use this command: `git push` without adding branch name. 
+         `-u` : will use default master or main branch. It will use the last push default branch. So if you use `git push` next time, your can just use command like this: `git push` without adding branch name. 
 
-`origin` : github use default branch `orgiin`, you can change also change to other name if you like. 
+    `origin` : github use default branch `orgiin`, you can change also change to other name if you like. 
 
 ### git clone : download  repository from remote
 
@@ -193,7 +201,7 @@ For example I have `test` in <u>remote repository(github)</u>, let create anothe
 
 4. push to server again
    
-   > git branch -M main
+   > git branch <branchname> main
    > git push -u *git2* main
 
 Why yould I want to do like this, a local repository link to two different remote repoistory? You can think one is `code release server` another one is `testing code server.
@@ -212,27 +220,101 @@ Why yould I want to do like this, a local repository link to two different remot
 
 ## Advance  Setting
 
+### Restore
+
+Syntax:  
+
+git reset <commit id>
+git reset <filename>
+
+- git clean(before stage): same as delete file.
+  
+  This command is only when you create file in local directory and you create many files or fdirectory , you can use git clean to delete all folder. 
+  
+  > git clean -n #cehck which file will be delete
+  > 
+  > git clean -f #force to delete
+
+- reset use when commit : There are three type of reset: **hard, soft and mixed**.  We will often use this method to reset to previous commit
+  
+  - Recover **after staging**: use this command: 
+    
+    > `git --rest HEAD` #go back to unstage
+    > 
+    > `git checkout --filename.txt`#restore to orginal file 
+  
+  - Recover **after commit**, you can use these command 
+    
+    > git reset --hard HEAD~n #
+    > 
+    > git reset --soft HEAD~n
+    > 
+    > git reset  #default is mixed
+  
+  Note: n mean reset last commit from head, or you can use ^ is the same
+  
+  - reset some command
+    
+    > git reset <commit id>
+    > git reset <filename>
+  
+  <img title="" src="img/gitreset_process.PNG" alt="title" width="581">
+
+- discard change: 
+  
+  When you commit a file then you refuse to commit, maybe type wrong commit message. You can discard commit using this command:　
+  
+      git --reset --<filename> #will go back to no stage
+      git checkout --<filename> #head will move backward
+
 ### Branch
 
-- show listing your branch: ` $git branch`
+- show listing your branch:
+  
+  - show branch: ` $git branch`
+  
+  - show all branch include remote:　`$git branch -a`
 
-- Create branch: `$git branch <branch name>`
+- Create branch　`checkout`: 
+  
+  - create new branch:　`$git branch <branch name>`
+  
+  - switch branch:　$git checkout 
+  
+  - create and switch branch: `$git checkout -b <branch>`
+  
+  - create exist branch: `git branch -f <branch name> <commit id>`
+    
+    ```
+    $ git branch -f tmp 9f9e1ba    
+    $ git log tmp --oneline
+    ```
+  
+  - git checkout = git switch +git restore
 
-- Switch branch: 
+- Create branch　`switch`:
+  
+  This is a new command which is like `checkout = switch + restore`, it split the two function. 
+  
+  - switch branch:　`$git switch <branch name>`
+  
+  - create and switch branch: `$git switch -b <branch>` #c, is create
+  
+  - switch branch using `-` record previous branch: `git switch -`
 
-- create and switch branch: `$git checkout -b <branch>`
-
-- create branch only: `$git checkout <branch>`
-
-- delete branch: ` $git branch -d <branch>`
-
-- Merge branch: `$git merge <branch name>`
+- delete branch:  
+  
+  - delete local branch: `$git branch -d new` 
+  
+  - check log: `git log -a`
+  
+  - delete remote branch:　`git push --delete origin <branchname>`
 
 **Example:**
 After Creating master need to push like this:
 
 ```
-$git add -A 
+$git add .
 #create draft branch
 $git checkout draft
 $git commit -m "adding github comamnd"
@@ -240,17 +322,25 @@ $git commit -m "adding github comamnd"
 $git push origin draft
 ```
 
-### Conflict Branch
+### Merge and Rebase
 
-### Reset/ checkout/Fetch recover commit
+After knowing how to create branch it's time to know how to merge branches. Therere many type of merging, there are merge with Fast forward, merge with no fastforward and Rebase. Default merge uses FF command which is `git merge <branchname>` is equivalent to` git merge <branch> --FF`
 
-### rebase:
+> git merge <branch name> #which is fast forward
+> 
+> git merge <branchname> --no-ff
+> 
+> git rebase <branchname>
+> 
+> git squash <branchname>
 
-- git -rebase:
-  
-  apply any commits of current branch ahead of specified one
+## reflog
 
-# Reference:
+This is really uuseful for restoring deleted branches and commits
+
+## Fetch
+
+## Reference:
 
 - https://code.yidas.com/git-commands/
 - https://www.maxlist.xyz/2020/05/03/git-reset-checkout/
