@@ -28,18 +28,17 @@ After install git it will generate `.gitconfig`  file, which store git configure
 
 - **edit your config** add username, and email address
   In order to publish any code we need to have username and email.
-
-   You can edit configure as below:    
-
-```
-$ git config --global user.name "username"
-$ git config --global user.email <email-address>
-$ git config --global color.ui auto
-
-#add specific editor
-#git config --global core.editor emacs
-#git config --global core.editor "nano -w"
-```
+  
+   You can edit configure as below:    
+  
+  ```
+  $ git config --global user.name "username"
+  $ git config --global user.email <email-address>
+  $ git config --global color.ui auto
+  #add specific editor
+  #git config --global core.editor emacs
+  #git config --global core.editor "nano -w"
+  ```
 
 - Alias Git command 
   
@@ -48,6 +47,8 @@ $ git config --global color.ui auto
   $ git config --global alias.br branch
   $ git config --global alias.st status
   $ git config --global alias.ci commit
+  #show log oneline with graph 
+  $ git config --global alias.og log --oneline --graph
   ```
 
 ## Basic git command
@@ -150,7 +151,7 @@ This Git command will push all the modified local objects to the remote reposito
 
 - push your repository remotely 
   
-  > $git push <remote_name>
+  > $git push <remote_name> 
   > 
   > $git push -u origin master 
   
@@ -158,17 +159,17 @@ This Git command will push all the modified local objects to the remote reposito
   
   > $git push 
 
-         `-u` : will use default master or main branch. It will use the last push default branch. So if you use `git push` next time, your can just use command like this: `git push` without adding branch name. 
+`-u` : will use default master or main branch. It will use the last push default branch. So if you use `git push` next time, your can just use command like this: `git push` without adding branch name. 
 
-    `origin` : github use default branch `orgiin`, you can change also change to other name if you like. 
+`origin` : github use default branch `orgiin`, you can change also change to other name if you like. 
 
 ### git clone : download  repository from remote
 
  You can use git clone to download repository from remote to local. This command creates a Git repository copy from a remote source.
 
- Syntax:　`git clone https://github.com/<username>/repository.git`
+> Syntax: `git clone https://github.com/<username>/repository.git`
 
-### git remote
+### git remote: multiply remote repository
 
 We need to link our local repoistory to remote repoistory, we need to register by using this comamnd: `$git remote add origin　<remote repoistory url>`
 
@@ -197,14 +198,13 @@ For example I have `test` in <u>remote repository(github)</u>, let create anothe
 
 3. change **remote add origin** into **remote add git2**
    
-   `git remote add git2 https://github.com/chenchih/test1.git`
+   `git remote add git2 git@github.com:chenchih/test1.git`
 
 4. push to server again
    
-   > git branch <branchname> main
    > git push -u *git2* main
 
-Why yould I want to do like this, a local repository link to two different remote repoistory? You can think one is `code release server` another one is `testing code server.
+Why yould I want to do like this, a local repository link to two different remote repoistory? You can think one is `code release server` another one is testing code server.
 
 ### Other command
 
@@ -214,13 +214,13 @@ Why yould I want to do like this, a local repository link to two different remot
   
   - `git diff --staged`: diff of what is staged but not yet commited
 
-- git rm 
-  
-  This will remove files from your index and your working directory so they will not be tracked:
+- git rm :  This will remove files from your index and your working directory so they will not be tracked.
 
 ## Advance  Setting
 
-### Restore
+### Restore -reset soft and hard
+
+If you wants to restore your file or commit, you have to use the `--reset` parameter. 
 
 Syntax:  
 
@@ -275,7 +275,11 @@ git reset <filename>
   
   - show all branch include remote:　`$git branch -a`
 
-- Create branch　`checkout`: 
+- Create branch　
+  
+  There are two command you can use, checkout, and switch (new command)
+  
+  > `checkout`: 
   
   - create new branch:　`$git branch <branch name>`
   
@@ -286,19 +290,20 @@ git reset <filename>
   - create exist branch: `git branch -f <branch name> <commit id>`
     
     ```
+    #example:
     $ git branch -f tmp 9f9e1ba    
     $ git log tmp --oneline
     ```
   
   - git checkout = git switch +git restore
-
-- Create branch　`switch`:
+  
+  > `switch`:
   
   This is a new command which is like `checkout = switch + restore`, it split the two function. 
   
   - switch branch:　`$git switch <branch name>`
   
-  - create and switch branch: `$git switch -b <branch>` #c, is create
+  - create and switch branch: `$git switch -b <branch>` , `c`, is create
   
   - switch branch using `-` record previous branch: `git switch -`
 
@@ -310,19 +315,18 @@ git reset <filename>
   
   - delete remote branch:　`git push --delete origin <branchname>`
 
-**Example:**
-After Creating master need to push like this:
+- **Example:**  After Creating master need to push like this:
+  
+  ```
+  $git add .
+  #create draft branch
+  $git checkout draft
+  $git commit -m "adding github comamnd"
+  #push origin draft
+  $git push origin draft
+  ```
 
-```
-$git add .
-#create draft branch
-$git checkout draft
-$git commit -m "adding github comamnd"
-#push origin draft
-$git push origin draft
-```
-
-### Merge and Rebase
+### Merge, Rebase, and squash
 
 After knowing how to create branch it's time to know how to merge branches. Therere many type of merging, there are merge with Fast forward, merge with no fastforward and Rebase. Default merge uses FF command which is `git merge <branchname>` is equivalent to` git merge <branch> --FF`
 
@@ -333,6 +337,34 @@ After knowing how to create branch it's time to know how to merge branches. Ther
 > git rebase <branchname>
 > 
 > git squash <branchname>
+
+- Merge
+  
+  - Fast Forward : linear merge
+       <img title="default merge" src="img/merge-FF.PNG" alt="title" width="614"> 
+  
+  - Non Fordward : recursive merge
+    
+    <img title="non-FF-merge" src="img/merge-noFF.PNG" alt="title" width="614">
+  
+  - not support using merge FF
+    
+    <img title="merge-FF_notsupport" src="img/merge-FF_notsupport.PNG" alt="title" width="614">
+
+- rebase: linear merge        <img title="rebase" src="img/rebase.PNG" alt="title" width="614">   
+
+- Squash    
+  
+  <img title="squash" src="img/squash.PNG" alt="title" width="614">   
+            
+
+### Deleting repository(local and remote)
+
+### Fetch/Pull
+
+### Tag
+
+
 
 ## reflog
 
