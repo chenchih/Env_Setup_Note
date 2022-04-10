@@ -341,6 +341,7 @@ After knowing how to create branch it's time to know how to merge branches. Ther
 - Merge
   
   - Fast Forward : linear merge
+  
        <img title="default merge" src="img/merge-FF.PNG" alt="title" width="614"> 
   
   - Non Fordward : recursive merge
@@ -351,7 +352,8 @@ After knowing how to create branch it's time to know how to merge branches. Ther
     
     <img title="merge-FF_notsupport" src="img/merge-FF_notsupport.PNG" alt="title" width="614">
 
-- rebase: linear merge        <img title="rebase" src="img/rebase.PNG" alt="title" width="614">   
+- rebase: linear merge      
+  <img title="rebase" src="img/rebase.PNG" alt="title" width="614">   
 
 - Squash    
   
@@ -378,3 +380,5 @@ This is really uuseful for restoring deleted branches and commits
 - https://www.maxlist.xyz/2020/05/03/git-reset-checkout/
 - https://w3c.hexschool.com/git/fd426d5a
 - https://june.monster/git-github-checkout-reset-revert/
+- https://tzuhui.github.io/2019/06/20/Git/fast-forward/
+- https://iter01.com/597403.html
