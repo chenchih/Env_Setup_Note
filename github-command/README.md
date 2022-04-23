@@ -169,6 +169,14 @@ This Git command will push all the modified local objects to the remote reposito
 
 > Syntax: `git clone https://github.com/<username>/repository.git`
 
+you can also use to duplicate anither repository 
+
+**Example:**
+
+- `git clone https://github.com/<username>/test1.git` orginal repository test1
+
+- `git clone https://github.com/<username>/test1.git test2` duplicate rep test2
+
 ### git remote: multiply remote repository
 
 We need to link our local repoistory to remote repoistory, we need to register by using this comamnd: `$git remote add origin　<remote repoistory url>`
@@ -269,15 +277,17 @@ git reset <filename>
 
 ### Branch
 
-- show listing your branch:
+- listing your branch:
   
-  - show branch: ` $git branch`
+  - show local branch: ` $git branch`
   
-  - show all branch include remote:　`$git branch -a`
+  - show remote branch: `$git branch -r`
+  
+  - show all branch remote and local:　`$git branch -a`
 
 - Create branch　
   
-  There are two command you can use, checkout, and switch (new command)
+  There are two command you can use, `checkout`, and `switch` (new command)
   
   > `checkout`: 
   
@@ -309,13 +319,19 @@ git reset <filename>
 
 - delete branch:  
   
-  - delete local branch: `$git branch -d new` 
+  - delete local branch: `$git branch -d <branchname>` 
   
-  - check log: `git log -a`
+  - delete remote branch:　`git push <remote> --delete <branchname>` or shorter way ` git push <remote> :<branch>`
+    
+    -  `-d` option will delete the branch only if it has already been pushed and merged with the remote branch. 
+    
+    -  `-D` instead if you want to force the branch to be deleted, even if it hasn't been pushed or merged yet.
   
-  - delete remote branch:　`git push --delete origin <branchname>`
-
-- **Example:**  After Creating master need to push like this:
+  - prume command to synch remote and lcoal
+    
+    `git fetch origin --prume`
+  
+  **Example:**  After Creating master need to push like this:    
   
   ```
   $git add .
@@ -341,7 +357,7 @@ After knowing how to create branch it's time to know how to merge branches. Ther
 - Merge
   
   - Fast Forward : linear merge
-  
+    
        <img title="default merge" src="img/merge-FF.PNG" alt="title" width="614"> 
   
   - Non Fordward : recursive merge
@@ -358,21 +374,22 @@ After knowing how to create branch it's time to know how to merge branches. Ther
 - Squash    
   
   <img title="squash" src="img/squash.PNG" alt="title" width="614">   
-            
-
-### Deleting repository(local and remote)
 
 ### Fetch/Pull
 
+Fetch: donwload to remote repository 
+
+Pull: Fetch+merge, which will update to your local file. 
+
 ### Tag
-
-
 
 ## reflog
 
 This is really uuseful for restoring deleted branches and commits
 
-## Fetch
+- `git reflog` to check all commit log 
+
+- `git reset <commitid>`  to restore your commit
 
 ## Reference:
 
