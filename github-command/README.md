@@ -327,20 +327,26 @@ git reset <filename>
     
     -  `-D` instead if you want to force the branch to be deleted, even if it hasn't been pushed or merged yet.
   
-  - prume command to synch remote and lcoal
+  - prume command to synch remote and local
     
-    `git fetch origin --prume`
+    - when you delete from remote branch, your local will still exist old remote branch. In order to sync you need to use this command
+    
+    - `git fetch origin --prume`
   
-  **Example:**  After Creating master need to push like this:    
   
-  ```
-  $git add .
-  #create draft branch
-  $git checkout draft
-  $git commit -m "adding github comamnd"
-  #push origin draft
-  $git push origin draft
-  ```
+
+### Remote Branch
+
+when you add branch and push to server. If you clone to local, it will not generate the branch. It will only clone the default master or main branch. To download the branch into local, you just have to use this comamnd: 
+
+```
+git branch -a #list all remote local branch, no branch 
+git checkout origin/test #test is remote branch
+git switch - #switch to master branch
+git switch test #test branch will display
+```
+
+  
 
 ### Merge, Rebase, and squash
 
@@ -377,9 +383,17 @@ After knowing how to create branch it's time to know how to merge branches. Ther
 
 ### Fetch/Pull
 
-Fetch: donwload to remote repository 
+- Fetch: donwload to remote repository 
+  
+  - Fetch will not merge to master, will only download 
+  
+  - we have to use `git diff` to see what's different
+  
+  - now we can do `git merge` it will update the file
 
-Pull: Fetch+merge, which will update to your local file. 
+- Pull: Fetch+merge, which will update to your local file. 
+
+
 
 ### Tag
 
