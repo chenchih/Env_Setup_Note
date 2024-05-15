@@ -1,20 +1,21 @@
 # Linux related Tutorial setting
-**Description:** This is Some technical command or Note 
+**Description:** In this page will record different setup cross platform setting: 
+> - Remote tool
+> - Terminal Tool
+> - Productive Tool	
 
-### TASK LIST
+### List Item
 
-- Done
+- [x]  **PXE** 
+	-  Ubuntu 2022: PXE automatic setup script
+	-  CentOS 2016(OLD)
+- [x] **Github-command**
+- [x] **Linux Command**
+- [ ] **Terminal Setting**
 
-- [x] **PXE For Ubuntu 2022**: PXE automatic setup script
-- [x] **PXE For CentOS 2016(OLD)**  
-- [x] **github-command**
-- Ongoing
-
-- [x] **Linux Command (ongoing)**
-- [ ] **Window Related  Setting  (ongoing)**
-
-## Update
+### Update 
 
 - 2022.03: inital update
 - 2022.08: update git on task list
-- 
+- 2024.05: Create PXE Folder and move orignal PXE inside
+- 2024.05: Create Terminal Folder 
