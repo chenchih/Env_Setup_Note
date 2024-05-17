@@ -1,0 +1,6 @@
+agnoster_modify.json: 
+https://github.com/anmalkov/yt-ohmyposh/tree/main
+https://www.youtube.com/watch?v=BW5z4TzT_a8&list=PLXkw_nbxxM_MqK_s6yB40FixQDSUB1CmS&index=13
+export FZF_DEFAULT_COMMAND='fd --type file'
+
+

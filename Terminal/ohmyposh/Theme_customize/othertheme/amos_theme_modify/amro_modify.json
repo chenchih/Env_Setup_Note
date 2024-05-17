@@ -1,0 +1,86 @@
+{
+  "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "blocks": [
+    {
+      "alignment": "left",
+      "segments": [
+	  	  {
+	  "type": "command",
+	  "style": "plain",
+	  "foreground":"#ff0000",
+	  "properties": {
+	  "shell":"bash",
+	  "command": "echo ' Youtube ' "
+	  },
+	  "template": "\uf16a {{ .Output }} "
+	  },
+	  
+        {
+          "foreground": "#45F1C2",
+          "style": "plain",
+          "template": "\ueb99 {{ .UserName }} \uf108 {{.HostName}}",
+          "type": "session"
+        },
+        {
+          "foreground": "#0CA0D8",
+          "properties": {
+            "folder_separator_icon": "/",
+            "style": "agnoster"
+          },
+          "style": "plain",
+          "template": " \uf07b {{ .Path }} ",
+          "type": "path"
+        },
+        {
+          "foreground": "#14A5AE",
+          "powerline_symbol": "\ue0b0",
+          "properties": {
+            "fetch_stash_count": true,
+            "fetch_upstream_icon": true
+          },
+          "style": "plain",
+          "template": "{{ .UpstreamIcon }}{{ .HEAD }}{{ if gt .StashCount 0 }} \ueb4b {{ .StashCount }}{{ end }} ",
+          "type": "git"
+        }, 
+		{
+		  "type": "battery",
+		  "style": "plain",
+		  "foreground": "#193549",
+		  "foreground": "#ffeb3b",
+		  "foreground_templates": [
+			"{{if eq \"Charging\" .State.String}}#40c4ff{{end}}",
+			"{{if eq \"Discharging\" .State.String}}#ff5722{{end}}",
+			"{{if eq \"Full\" .State.String}}#4caf50{{end}}"
+		  ],
+		  "template": " {{ if not .Error }}{{ .Icon }}{{ .Percentage }}{{ end }}% " ,
+		  "properties": {
+			"discharging_icon": " ",
+			"charging_icon": " ",
+			"charged_icon": " "
+		  }
+		}
+      ],
+      "type": "prompt"
+    },
+    {
+      "alignment": "left",
+      "newline": true,
+      "segments": [
+        {
+          "foreground": "#cd5e42",
+          "style": "plain",
+          "template": "\ue3bf ",
+          "type": "root"
+        },
+        {
+          "foreground": "#CD4277",
+          "style": "plain",
+          "template": "# ",
+          "type": "text"
+        }
+      ],
+      "type": "prompt"
+    }
+  ],
+  "version": 2
+}
