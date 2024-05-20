@@ -13,6 +13,13 @@
 - [x] **Linux Command**
 - [ ] **Terminal Setting**
 
+### Planning 
+- tmux 
+- starship
+- warp therminal
+
+
+
 ### Update 
 
 - 2022.03: inital update

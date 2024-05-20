@@ -44,12 +44,12 @@ Please refer [nerd font](https://www.nerdfonts.com/) to download and Install the
  2.3 install it 
 
 ### Step3:Open Window terminal and change some apperance 
-3.1 Go to setting>starup>
-default profile =>powershell core
-default terminal: womdpw terminal
+3.1 Go to `setting>starup>`
+default profile : `powershell core`
+default terminal: `window terminal`
 3.2 Change font to nerd font you download go to default or power shell core profile> appearance
 
-You can also change by using the json file, open windowterminal>open json file> and find your own profile, and add the `color scheme` as your nerd font name. Please refer my `setting,json` for my setting. 
+You can also change by using the json file, open `windowterminal>open json file>` and find your own profile, and add the `color scheme` as your nerd font name. Please refer my `setting,json` for my setting. 
 3.4 download color scheme(optional)
 if you don't like the default color scheme, you can download on this [page](https://windowsterminalthemes.dev/).  Select your favorite theme press get theme, will copy kjson code. Go to setting.setting, and paste under color scheme. 
 ```
@@ -121,8 +121,9 @@ notepad $profile
 oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH\<themename>.omp.json" | Invoke-Expression
 ```
 > profile location for powershell
->> **PS5.1:** C:\Users\test\Documents\WindowsPowerShell
->> **PS7.1:** C:\Users\test\Documents\PowerShell
+>> **PS5.X:** C:\Users\test\Documents\WindowsPowerShell
+>> 
+>> **PS7.3:** C:\Users\test\Documents\PowerShell
 
 > **Note:** 
 if you want to store your theme json file same location as profile, you can use this command in profile:
@@ -162,10 +163,10 @@ Prequisite: please finshed the installation tool first, should installed:
 - list OS to install: `wsl --list --online`
 - install ubuntu:`wsl --install -d ubuntu`
 
-### WSL Direcory 
+### WSL Directory 
 - Default wsl home directory is `\\wsl.localhost\Ubuntu`, you can also use `\\wsl$\ubuntu`
 - If you want to access to window drive:`/mnt/`
-- change you default director:
+- change default director:
 please go to window terminal and open setting.json, and change ubuntu porfile:
 ```
 #starting driectory allow to go to root directory
@@ -309,6 +310,9 @@ select automatic copy: `copyonselect=true`
 ###  Plugin
 There are many plugin please refer to below link for more detail:
 
+> - [gist profile1](https://gist.github.com/chenchih/37c0907a9ac00bd1c24e410d6cb4e112)
+
+
 
 #### terminal icon:
 ```
@@ -391,6 +395,35 @@ nvim $(fzf --preview 'bat --style=numbers --color=always --line-range :500 {}')
 }
 
 ```
+> Note:
+
+FZF and emac key for ALT+C will have somne conflict:
+
+Solution1: remove emac, and manual add the key function
+```
+Set-PSReadlineKeyHandler -Chord ctrl+x -Function ViExit
+Set-PSReadLineKeyHandler -Chord 'Ctrl+d' -Function DeleteChar	
+# 設定按下 Ctrl+w 可以刪除一個單字 delete one character
+Set-PSReadlineKeyHandler -Chord ctrl+w -Function BackwardDeleteWord
+# 設定按下 Ctrl+e 可以移動游標到最後面(End) move to end of word
+Set-PSReadlineKeyHandler -Chord ctrl+e -Function EndOfLine
+# 設定按下 Ctrl+a 可以移動游標到最前面(Begin) move begin of word
+Set-PSReadlineKeyHandler -Chord ctrl+a -Function BeginningOfLine
+```
+
+Solution2: put emac, but add fzf alternative code, please add in function
+```
+Get-ChildItem . -Recurse -Attributes Directory | Invoke-Fzf | Set-Location
+#edit file, please change your text edior
+Get-ChildItem . -Recurse -Attributes !Directory | Invoke-Fzf | % { notepad $_ }
+#add function 
+function FzfNav { Get-ChildItem . -Recurse -Attributes Directory | Invoke-Fzf | Set-Location }
+```
+
+
+
+
+
 #### zoxide (powerful than cd): `Install-Module -Name Z –Force`
 
 #### The Silver Searcher: ignore git ignore file
@@ -459,7 +492,7 @@ please install nerdfont by yourself
 - https://hamidmosalla.com/2022/12/26/how-to-customize-windows-terminal-and-powershell-using-fzf-neovim-and-beautify-it-with-oh-my-posh/
 - https://blog.miniasp.com/post/2021/11/24/PowerShell-prompt-with-Oh-My-Posh-and-Windows-Terminal(chinese)
 - https://dev.to/devteam/join-us-for-the-cloudflare-ai-challenge-3000-in-prizes-5f99
-- winget: https://winget.run/
+- https://winget.run/
 - https://github.com/craftzdog/dotfiles-public
 - https://dev.to/codeasy/8-tips-for-setting-up-powershell-on-windows-mjf
 - https://piinalpin.com/2023/11/make-terminal-powerfull-using-oh-my-posh/
@@ -471,7 +504,6 @@ please install nerdfont by yourself
 - [window terminal theme](https://windowsterminalthemes.dev/)
 - [Ohmyposh](https://ohmyposh.dev/)
 - [nerdfont](https://www.nerdfonts.com/)
-- [psreadline](https://learn.microsoft.com/zh-tw/powershell/module/psreadline/get-psreadlinekeyhandler?view=powershell-7.4
-https://github.com/PowerShell/PSReadLine)
+- [psreadline](https://learn.microsoft.com/zh-tw/powershell/module/psreadline/get-psreadlinekeyhandler?view=powershell-7.4)
 - [winget](https://learn.microsoft.com/en-us/windows/package-manager/winget/)
 

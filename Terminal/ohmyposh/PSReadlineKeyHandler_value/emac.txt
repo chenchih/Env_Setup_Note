@@ -1,0 +1,173 @@
+Basic editing functions
+=======================
+
+Key              Function              Description
+---              --------              -----------
+Ctrl+g           Abort                 Abort the current operation, e.g. incremental history search
+Ctrl+o           AcceptAndGetNext      Accept the current line and recall the next line from history after the current
+                                       line finishes executing
+Enter            AcceptLine            Accept the input or move to the next line if input is missing a closing token.
+Shift+Enter      AddLine               Move the cursor to the next line without attempting to execute the input
+Backspace        BackwardDeleteChar    Delete the character before the cursor
+Ctrl+Backspace   BackwardDeleteChar    Delete the character before the cursor
+Ctrl+h           BackwardDeleteChar    Delete the character before the cursor
+Ctrl+u           BackwardKillInput     Move the text from the cursor to the beginning of the input to the kill ring
+Ctrl+x,Backspace BackwardKillInput     Move the text from the cursor to the beginning of the input to the kill ring
+Alt+Backspace    BackwardKillWord      Move the text from the start of the current or previous word to the cursor to th
+                                       e kill ring
+Escape,Backspace BackwardKillWord      Move the text from the start of the current or previous word to the cursor to th
+                                       e kill ring
+Alt+c            CapitalizeWord        Find the next word starting from the current position and then upcase the first
+                                       character and downcase the remaining characters.
+Escape,c         CapitalizeWord        Find the next word starting from the current position and then upcase the first
+                                       character and downcase the remaining characters.
+Ctrl+c           CopyOrCancelLine      Either copy selected text to the clipboard, or if no text is selected, cancel ed
+                                       iting the line with CancelLine.
+Delete           DeleteChar            Delete the character under the cursor
+Ctrl+d           DeleteCharOrExit      Delete the character under the cursor, or if the line is empty, exit the process
+                                       .
+Alt+l            DowncaseWord          Find the next word starting from the current position and then make it lower cas
+                                       e.
+Escape,l         DowncaseWord          Find the next word starting from the current position and then make it lower cas
+                                       e.
+Ctrl+k           KillLine              Move the text from the cursor to the end of the input to the kill ring
+Alt+d            KillWord              Move the text from the cursor to the end of the current or next word to the kill
+                                        ring
+Escape,d         KillWord              Move the text from the cursor to the end of the current or next word to the kill
+                                        ring
+Alt+r            RevertLine            Equivalent to undo all edits (clears the line except lines imported from history
+                                       )
+Escape,r         RevertLine            Equivalent to undo all edits (clears the line except lines imported from history
+                                       )
+Ctrl+t           SwapCharacters        Swap the current character with the character before it.
+Ctrl+_           Undo                  Undo a previous edit
+Ctrl+x,Ctrl+u    Undo                  Undo a previous edit
+Ctrl+w           UnixWordRubout        Move the text from the cursor to the start of the current or previous whitespace
+                                        delimited word to the kill ring
+Alt+u            UpcaseWord            Find the next word starting from the current position and then make it upper cas
+                                       e.
+Escape,u         UpcaseWord            Find the next word starting from the current position and then make it upper cas
+                                       e.
+Ctrl+m           ValidateAndAcceptLine Accept the input or move to the next line if input is missing a closing token.
+                                       If there are other parse errors, unresolved commands, or incorrect parameters, s
+                                       how the error and continue editing.
+Ctrl+y           Yank                  Copy the text from the current kill ring position to the input
+Alt+.            YankLastArg           Copy the text of the last argument to the input
+Alt+_            YankLastArg           Copy the text of the last argument to the input
+Escape,.         YankLastArg           Copy the text of the last argument to the input
+Escape,_         YankLastArg           Copy the text of the last argument to the input
+Ctrl+Alt+y       YankNthArg            Copy the text of the first argument to the input
+Escape,Ctrl+y    YankNthArg            Copy the text of the first argument to the input
+Alt+y            YankPop               Replace the previously yanked text with the text from the next kill ring positio
+                                       n
+Escape,y         YankPop               Replace the previously yanked text with the text from the next kill ring positio
+                                       n
+
+Cursor movement functions
+=========================
+
+Key        Function        Description
+---        --------        -----------
+LeftArrow  BackwardChar    Move the cursor back one character
+Ctrl+b     BackwardChar    Move the cursor back one character
+Alt+b      BackwardWord    Move the cursor to the beginning of the current or previous word
+Escape,b   BackwardWord    Move the cursor to the beginning of the current or previous word
+Home       BeginningOfLine Move the cursor to the beginning of the line
+Ctrl+a     BeginningOfLine Move the cursor to the beginning of the line
+End        EndOfLine       Move the cursor to the end of the line
+Ctrl+e     EndOfLine       Move the cursor to the end of the line
+RightArrow ForwardChar     Move the cursor forward one character
+Ctrl+f     ForwardChar     Move the cursor forward one character
+Alt+f      ForwardWord     Move the cursor forward to the end of the current word, or if between words, to the end of t
+                           he next word.
+Escape,f   ForwardWord     Move the cursor forward to the end of the current word, or if between words, to the end of t
+                           he next word.
+
+History functions
+=================
+
+Key       Function             Description
+---       --------             -----------
+Alt+<     BeginningOfHistory   Move to the first item in the history
+Alt+>     EndOfHistory         Move to the last item (the current input) in the history
+Ctrl+s    ForwardSearchHistory Search history forward interactively
+DownArrow NextHistory          Replace the input with the next item in the history
+Ctrl+n    NextHistory          Replace the input with the next item in the history
+UpArrow   PreviousHistory      Replace the input with the previous item in the history
+Ctrl+p    PreviousHistory      Replace the input with the previous item in the history
+Ctrl+r    ReverseSearchHistory Search history backwards interactively
+
+Completion functions
+====================
+
+Key           Function            Description
+---           --------            -----------
+Tab           Complete            Complete the input if there is a single completion, otherwise complete the input with
+                                   common prefix for all completions.  Show possible completions if pressed a second ti
+                                  me.
+Ctrl+Spacebar MenuComplete        Complete the input if there is a single completion, otherwise complete the input by s
+                                  electing from a menu of possible completions.
+Alt+=         PossibleCompletions Display the possible completions without changing the input
+
+Prediction functions
+====================
+
+Key Function                  Description
+--- --------                  -----------
+F4  ShowFullPredictionTooltip Show the full tooltip of the selected list-view item in the terminal's alternate screen b
+                              uffer.
+F2  SwitchPredictionView      Switch between the inline and list prediction views.
+
+Miscellaneous functions
+=======================
+
+Key           Function              Description
+---           --------              -----------
+Ctrl+l        ClearScreen           Clear the screen and redraw the current line at the top of the screen
+Alt+0         DigitArgument         Start or accumulate a numeric argument to other functions
+Alt+1         DigitArgument         Start or accumulate a numeric argument to other functions
+Alt+2         DigitArgument         Start or accumulate a numeric argument to other functions
+Alt+3         DigitArgument         Start or accumulate a numeric argument to other functions
+Alt+4         DigitArgument         Start or accumulate a numeric argument to other functions
+Alt+5         DigitArgument         Start or accumulate a numeric argument to other functions
+Alt+6         DigitArgument         Start or accumulate a numeric argument to other functions
+Alt+7         DigitArgument         Start or accumulate a numeric argument to other functions
+Alt+8         DigitArgument         Start or accumulate a numeric argument to other functions
+Alt+9         DigitArgument         Start or accumulate a numeric argument to other functions
+Alt+-         DigitArgument         Start or accumulate a numeric argument to other functions
+PageDown      ScrollDisplayDown     Scroll the display down one screen
+Ctrl+PageDown ScrollDisplayDownLine Scroll the display down one line
+Ctrl+End      ScrollDisplayToCursor Scroll the display to the cursor
+Ctrl+Home     ScrollDisplayTop      Scroll the display to the top
+PageUp        ScrollDisplayUp       Scroll the display up one screen
+Ctrl+PageUp   ScrollDisplayUpLine   Scroll the display up one line
+F1            ShowCommandHelp       Shows help for the command at the cursor in an alternate screen buffer.
+Ctrl+Alt+?    ShowKeyBindings       Show all key bindings
+Alt+h         ShowParameterHelp     Shows help for the parameter at the cursor.
+Ctrl+x,Ctrl+e ViEditVisually        Invokes the console compatible editor specified by $env:VISUAL or $env:EDITOR on th
+                                    e current command line.
+Alt+?         WhatIsKey             Show the key binding for the next chord entered
+
+Selection functions
+===================
+
+Key              Function              Description
+---              --------              -----------
+Ctrl+x,Ctrl+x    ExchangePointAndMark  Mark the location of the cursor and move the cursor to the position of the previ
+                                       ous mark
+Shift+LeftArrow  SelectBackwardChar    Adjust the current selection to include the previous character
+Shift+Home       SelectBackwardsLine   Adjust the current selection to include from the cursor to the start of the line
+Alt+B            SelectBackwardWord    Adjust the current selection to include the previous word
+Alt+a            SelectCommandArgument Make visual selection of the command arguments.
+Shift+RightArrow SelectForwardChar     Adjust the current selection to include the next character
+Alt+F            SelectForwardWord     Adjust the current selection to include the next word using ForwardWord
+Shift+End        SelectLine            Adjust the current selection to include from the cursor to the end of the line
+Ctrl+@           SetMark               Mark the location of the cursor
+
+Search functions
+================
+
+Key        Function                Description
+---        --------                -----------
+Ctrl+]     CharacterSearch         Read a character and move the cursor to the next occurrence of that character
+Ctrl+Alt+] CharacterSearchBackward Read a character and move the cursor to the previous occurrence of that character

@@ -1,14 +1,17 @@
 # Terminal Related Folder 
-In this page I will record or note setup of different terminal or editor
+On this page, I will record or note the setup of different terminals or editor
 - Terminal Setup
-[] Zsh under Mac or Ubuntu
-[] Window-OhmyPosh Setup
-[] Window WSL
-[] FishShell
+  - [ ] Zsh under Mac or Ubuntu
+  - [X] Window-OhmyPosh Setup
+    - [X]  Window
+    - [X] WSL Linux
+    - [X] Fish Shell
 
 - Text Editor or other tool
-[] Neovim Related Setting 
+  - [ ] Neovim Related Setting
+  - [ ] starship
+
 
 ## Description
-I have been trying to play around with the fancy terminalm but never have time to write a note on it, so i will keep related seting. 
+I have been trying to play around with the fancy terminal but never have time to write a note on it, so i will keep related seting. 
 
