@@ -105,8 +105,8 @@ If you want to add same location as profile, which i will mention next step, you
 **Understand $env:** 
 We will use the $env, because of shorten the command, since it store as a variable, and you can indeed access environment variables. You can use this command `ChildItem env:`　to show all env variable. 
 
-**Set env:**  `Set-Item -Path env:MYCUSTOMVAR –Value “path location”`
-**remove env**:`$env:<name> = $null`
+- **Set env:**  `Set-Item -Path env:MYCUSTOMVAR –Value <path location>`
+- **remove env**:`$env:<name> = $null`
 
 
 ### Step5 adding profile
@@ -307,6 +307,7 @@ function which ($command) {
 These setting all set under window terminal: 
 paster multiply line disable pop warming: `Multipastingwarming=false`
 select automatic copy: `copyonselect=true`
+
 ###  Plugin
 There are many plugin please refer to below link for more detail:
 
@@ -378,6 +379,27 @@ Note:
 > `psreadline_profile.txt`: store psreadline some great function special character, you can decide to use or not
 
 #### fuzzy search
+> Default fzf uses find command (linux)
+> - ag: searching the content of files using regular expressions, like awk command.
+> - fd:  searching filenames based on patterns
+
+##### The AG Silver Searcher: ignore git ignore file
+```
+#install
+winget install "The Silver Searcher
+#add default 
+$env:FZF_DEFAULT_COMMAND="ag -l --hidden --ignore .git"
+```
+#####  fd: 'scoop install fd'
+default find use find command, change fd as default 
+```
+#install
+scoop install fd
+winget install sharkdp.fd
+
+```
+##### psfzf
+
 ```
 #install
 scoop install fzf #install fzf
@@ -426,21 +448,7 @@ function FzfNav { Get-ChildItem . -Recurse -Attributes Directory | Invoke-Fzf | 
 
 #### zoxide (powerful than cd): `Install-Module -Name Z –Force`
 
-#### The Silver Searcher: ignore git ignore file
-```
-#install
-winget install "The Silver Searcher
-#add default 
-$env:FZF_DEFAULT_COMMAND="ag -l --hidden --ignore .git"
-```
-####  fd: 'scoop install fd'
-default find use find command, change fd as default 
-```
-#install
-scoop install fd
-winget install sharkdp.fd
 
-```
 
 #### fastfetch 
 This is a plugin that allow you see system information like disk info, capacity, IP, CPU, GPU.
