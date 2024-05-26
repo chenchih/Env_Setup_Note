@@ -1,6 +1,18 @@
-#prompt 
 #oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH\atomic.omp.json" | Invoke-Expression
-oh-my-posh init pwsh --config "C:\Users\test\AppData\Local\Programs\oh-my-posh\themes\atomic.omp.json" | Invoke-Expression
+#oh-my-posh init pwsh --config "C:\Users\test\AppData\Local\Programs\oh-my-posh\themes\atomic.omp.json" | Invoke-Expression
+
+$omp_config = Join-Path $PSScriptRoot ".\shanselman_v3-v2.json"
+
+
+
+oh-my-posh --init --shell pwsh --config $omp_config | Invoke-Expression
+
+#alias
+Set-Alias ip ipconfig
+
+
+function hosts { notepad c:\windows\system32\drivers\etc\hosts }
+
 
 # Alias
 Set-Alias ll ls
@@ -21,11 +33,7 @@ function which ($command) {
 
 # Env
 $env:GIT_SSH = "C:\Windows\system32\OpenSSH\ssh.exe"
-
-
-# Env
-$env:GIT_SSH = "C:\Windows\system32\OpenSSH\ssh.exe"
-
+#plugin 
 Import-Module -Name Terminal-Icons
 
 # PSReadLine
@@ -39,4 +47,7 @@ Set-PSReadLineOption -PredictionSource History
 Import-Module PSFzf
 Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+f' -PSReadlineChordReverseHistory 'Ctrl+r'
 
+# hardward display 
+Write-Host "installing fastfetch"
+winget install fastfetch
 fastfetch -c hardware

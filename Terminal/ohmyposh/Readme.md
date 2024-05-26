@@ -7,11 +7,17 @@ I will show how to setup manual, I also write automation, please refer to the po
 Productive, Better Visualization 
 
 ### File:
+
 - `Theme_customize`: I have design my own theme, and some theme  deveopler by other people online.
 - `automation_ps_script`: store automation scipt for setup 
-- `basic_profile.txt`: basic function in profile
 - `profile2.txt`: profile function with alias 
 - `psreadline_profile.txt`: psreadline special character function
+
+- automationfile-directory
+	- `setup_testing_automation_me.ps1`: automation installation 
+	- `profile_basic.ps1`: basic porfile 
+	- `profile1.ps1`: contain many function 
+
 
 ## Part 1 Installation Tool
 In this section let first installation the most important tool in ordder to use this fancy theme:
@@ -505,7 +511,7 @@ please install nerdfont by yourself
 - https://dev.to/codeasy/8-tips-for-setting-up-powershell-on-windows-mjf
 - https://piinalpin.com/2023/11/make-terminal-powerfull-using-oh-my-posh/
 - https://medium.com/pragmatic-programmers/find-anything-you-need-with-fzf-the-linux-fuzzy-finder-tool-f48dfd0092b4
-- https://github.com/ChrisTitusTech/powershell-profile/tree/main
+- [automation config](https://github.com/ChrisTitusTech/powershell-profile/tree/main)
 
 
 ## link 

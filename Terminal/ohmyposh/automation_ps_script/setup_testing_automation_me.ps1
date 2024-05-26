@@ -1,5 +1,4 @@
 #CHECK WINGET AND INSTALL
-
 $progressPreference = 'silentlyContinue'
 # Check for Winget installation
 if ((Test-Path "%LOCALAPPDATA%\Microsoft\WindowsApps\winget.exe")) {
@@ -22,7 +21,6 @@ if ((Test-Path "%LOCALAPPDATA%\Microsoft\WindowsApps\winget.exe")) {
 
 
 #window terminal
-
 if (!(Test-Path "%LocalAppData%\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe.xml")) {
   Write-Host "Install Window terminal"
   winget install Microsoft.WindowsTerminal
@@ -55,7 +53,7 @@ else {
     winget install JanDeDobbeleer.OhMyPosh    
     Write-Host "Oh My Posh completed...."
     Write-Host "Oh My Posh upgrade"
-    winget upgrade JanDeDobbeleer.OhMyPosh -s winget
+    winget install -e --accept-source-agreements --accept-package-agreements JanDeDobbeleer.OhMyPosh
 }
 
 
@@ -89,11 +87,92 @@ catch {
 # install other tool
 Write-Host "Install VSCODE...."
 winget install vscode
+
 Write-Host "Install neovim"
-winget install --id=Neovim.Neovim ¡Ve
-Write-Host "Install git"
-winget install --id Git.Git -e --source winget
+winget install --id=Neovim.Neovim -e
+
+#install git 
+try {
+  # Check if Git is installed using a reliable method
+  if (!(Test-Path (Get-Item "C:\Program Files\Git\bin\git.exe"))){
+    winget install -e -h --accept-source-agreements --accept-package-agreements --id Git.Git -e --source winget
+        Write-Host "Git Installed com plete."
+  } else
+       {
+    Write-Host "Git  already  installed."
+       }
+} 
+catch {
+  Write-Error "Failed to install psreadline. Error: $_"
+} 
+
+
+
 Write-Host "Install nodejs"
 Install NODE: WINGET INSTALL OPENJS.NODEJS.ltS
+
+#install scoop 
 Write-Host "Install scoop"
 iwr -useb get.scoop.sh | iex
+
+# Choco install
+try {
+    Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+}
+catch {
+    Write-Error "Failed to install Chocolatey. Error: $_"
+}
+
+
+
+
+#check porfile exist, if  not create 
+if (!(Test-Path -Path $PROFILE -PathType Leaf)) {
+    try {
+        # Detect Version of PowerShell & Create Profile directories if they do not exist.
+        $profilePath = ""
+        if ($PSVersionTable.PSEdition -eq "Core") { 
+            $profilePath = "$env:userprofile\Documents\Powershell"
+        }
+        elseif ($PSVersionTable.PSEdition -eq "Desktop") {
+            $profilePath = "$env:userprofile\Documents\WindowsPowerShell"
+        }
+
+        if (!(Test-Path -Path $profilePath)) {
+            New-Item -Path $profilePath -ItemType "directory"
+        }
+	echo "ok1"
+        Invoke-RestMethod https://github.com/ChrisTitusTech/powershell-profile/raw/main/Microsoft.PowerShell_profile.ps1 -OutFile $PROFILE
+        Write-Host "The profile @ [$PROFILE] has been created."
+ 
+    }
+    catch {
+        Write-Error "Failed to create or update the profile. Error: $_"
+    }
+}
+#if profile exist, backup, and create profile
+else {
+    try {
+	#step1: backup file
+	#method1 Set-Content
+        #Get-Item -Path $PROFILE | Move-Item -Destination "oldprofile.ps1" -Force
+	#method2 copy-item (backup current profile)
+                 #copy old profile and backup the profile 
+	Copy-Item -Path $PROFILE -Destination $PROFILE'.bk' -Force
+        # Copy-Item -Path $PROFILE -Destination "oldprofile.ps1"
+
+	#step2 create profile
+	#create empty profile 
+	#New-Item -Path $PROFILE -Type File ¡VForce 
+	# create profile contain theme
+	oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH\iterm2.omp.json" | Invoke-Expression >> $profile
+
+	#create profile  by  download files from URLs
+        #$Inoke-RestMethod https://github.com/ChrisTitusTech/powershell-profile/raw/main/Microsoft.PowerShell_profile.ps1 -OutFile $PROFILE
+        Write-Host "The profile @ [$PROFILE] has been created and old profile removed."
+      
+    }
+    catch {
+        Write-Error "Failed to backup and update the profile. Error: $_"
+    }
+}
