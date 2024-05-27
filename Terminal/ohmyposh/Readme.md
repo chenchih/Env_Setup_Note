@@ -10,14 +10,17 @@ Productive, Better Visualization
 
 - `Theme_customize`: I have design my own theme, and some theme  deveopler by other people online.
 - `automation_ps_script`: store automation scipt for setup 
-- `profile2.txt`: profile function with alias 
 - `psreadline_profile.txt`: psreadline special character function
-
-- automationfile-directory
+- `Microsoft.PowerShell_profile.ps1`: my current profile. 
+- automationfile-directory: please refer these profile setting for reference
 	- `setup_testing_automation_me.ps1`: automation installation 
-	- `profile_basic.ps1`: basic porfile 
-	- `profile1.ps1`: contain many function 
-
+	- `profile_basic.ps1`: short profile 
+	- `profile1.ps1`: contain many useful function 
+	- `psreadline_profile.txt`: psreadline great module you can use
+	- `special_function_pluginNote.txt`: some function you can use
+> Note
+>> please refer `automationfile-directory` for more profile setting
+>> please refer `Theme_customize` for customize theme 
 
 ## Part 1 Installation Tool
 In this section let first installation the most important tool in ordder to use this fancy theme:
@@ -447,13 +450,8 @@ Get-ChildItem . -Recurse -Attributes !Directory | Invoke-Fzf | % { notepad $_ }
 #add function 
 function FzfNav { Get-ChildItem . -Recurse -Attributes Directory | Invoke-Fzf | Set-Location }
 ```
-
-
-
-
-
-#### zoxide (powerful than cd): `Install-Module -Name Z –Force`
-
+#### zoxide (powerful than cd): 
+> installation: `Install-Module -Name Z –Force`
 
 
 #### fastfetch 
@@ -506,18 +504,16 @@ please install nerdfont by yourself
 - https://hamidmosalla.com/2022/12/26/how-to-customize-windows-terminal-and-powershell-using-fzf-neovim-and-beautify-it-with-oh-my-posh/
 - https://blog.miniasp.com/post/2021/11/24/PowerShell-prompt-with-Oh-My-Posh-and-Windows-Terminal(chinese)
 - https://dev.to/devteam/join-us-for-the-cloudflare-ai-challenge-3000-in-prizes-5f99
-- https://winget.run/
-- https://github.com/craftzdog/dotfiles-public
 - https://dev.to/codeasy/8-tips-for-setting-up-powershell-on-windows-mjf
 - https://piinalpin.com/2023/11/make-terminal-powerfull-using-oh-my-posh/
 - https://medium.com/pragmatic-programmers/find-anything-you-need-with-fzf-the-linux-fuzzy-finder-tool-f48dfd0092b4
-- [automation config](https://github.com/ChrisTitusTech/powershell-profile/tree/main)
-
+- [ChrisTitusTech-automation config](https://github.com/ChrisTitusTech/powershell-profile/tree/main)
+= [Takuya profile cfg](https://github.com/craftzdog/dotfiles-public)
 
 ## link 
 - [window terminal theme](https://windowsterminalthemes.dev/)
 - [Ohmyposh](https://ohmyposh.dev/)
 - [nerdfont](https://www.nerdfonts.com/)
 - [psreadline](https://learn.microsoft.com/zh-tw/powershell/module/psreadline/get-psreadlinekeyhandler?view=powershell-7.4)
-- [winget](https://learn.microsoft.com/en-us/windows/package-manager/winget/)
-
+- [winget-Document](https://learn.microsoft.com/en-us/windows/package-manager/winget/)
+- [winget](https://winget.run/)

@@ -49,5 +49,5 @@ Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+f' -PSReadlineChordReverseHistory
 
 # hardward display 
 Write-Host "installing fastfetch"
-winget install fastfetch
+#winget install fastfetch
 fastfetch -c hardware

@@ -1,21 +1,62 @@
 Set-PSReadLineOption -PredictionSource History
 Set-PSReadLineOption -PredictionViewStyle ListView
 Set-PSReadLineOption -EditMode Windows
+Set-PSReadLineKeyHandler -Chord 'Alt+Shift+C' -Function CapitalizeWord
 
-# 設定按下 Ctrl+d 可以退出 PowerShell 執行環境
-Set-PSReadlineKeyHandler -Chord ctrl+d -Function ViExit
+# exit shell 
+Set-PSReadlineKeyHandler -Chord ctrl+x -Function ViExit
 
-# 設定按下 Ctrl+w 可以刪除一個單字
-Set-PSReadlineKeyHandler -Chord ctrl+w -Function BackwardDeleteWord
+#  Ctrl+w  deleting the previous word
+Set-PSReadlineKeyHandler -Chord ctrl+w -Function BackwardDeleteWord  
 
-# 設定按下 Ctrl+e 可以移動游標到最後面(End)
+# move back cursor, will alt+d will delete previous character
+Set-PSReadLineKeyHandler -Chord 'Ctrl+d' -Function DeleteChar	
+
+#  Ctrl+e move to end
 Set-PSReadlineKeyHandler -Chord ctrl+e -Function EndOfLine
 
-# 設定按下 Ctrl+a 可以移動游標到最前面(Begin)
+# Ctrl+a move to home or begin
 Set-PSReadlineKeyHandler -Chord ctrl+a -Function BeginningOfLine
 
-#Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward
-#Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
+# CaptureScreen is good for blog posts or email showing a transaction
+# of what you did when asking for help or demonstrating a technique.
+#ctrl+c and ctrl+d  to copy terminal 
+#ctrl+v to paste
+Set-PSReadLineKeyHandler -Chord 'Ctrl+d,Ctrl+c' -Function CaptureScreen
+
+
+#######################Bultin method (key) #########################################
+# The built-in word movement uses character delimiters, but token based word
+# movement is also very useful - these are the bindings you'd use if you
+# prefer the token based movements bound to the normal emacs word movement
+# key bindings. 
+
+# move back cursor, will alt+d will delete previous character
+#Set-PSReadLineKeyHandler -Key Alt+d -Function ShellKillWord 
+
+# deleting the previous word 
+#Set-PSReadLineKeyHandler -Key Alt+Backspace -Function ShellBackwardKillWord 
+
+# move to home or begin
+#Set-PSReadLineKeyHandler -Key Alt+b -Function ShellBackwardWord
+
+# move to move to end
+#Set-PSReadLineKeyHandler -Key Alt+f -Function ShellForwardWord
+
+# select word backward 
+Set-PSReadLineKeyHandler -Key Alt+B -Function SelectShellBackwardWord
+
+# select word afterward
+Set-PSReadLineKeyHandler -Key Alt+F -Function SelectShellForwardWord
+
+#display related keyword in history 
+Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward
+Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
+
+
+
+
+#######################Key F7##############################
 
 # This key handler shows the entire or filtered history using Out-GridView. The
 # typed text is used as the substring pattern for filtering. A selected command
@@ -74,7 +115,7 @@ Set-PSReadLineKeyHandler -Key F7 `
     }
 }
 
-
+######################Key F1###############################
 # F1 for help on the command line - naturally
 Set-PSReadLineKeyHandler -Key F1 `
                          -BriefDescription CommandHelp `
@@ -114,6 +155,8 @@ Set-PSReadLineKeyHandler -Key F1 `
     }
 }
 
+
+######################-Key '"',"'"###############################
 Set-PSReadLineKeyHandler -Key '"',"'" `
                          -BriefDescription SmartInsertQuote `
                          -LongDescription "Insert paired quotes if not already on a quote" `
@@ -212,6 +255,10 @@ Set-PSReadLineKeyHandler -Key '"',"'" `
     [Microsoft.PowerShell.PSConsoleReadLine]::Insert($quote)
 }
 
+
+
+######################-Key '(','{','[' ` ###############################
+
 Set-PSReadLineKeyHandler -Key '(','{','[' `
                          -BriefDescription InsertPairedBraces `
                          -LongDescription "Insert matching braces" `
@@ -245,6 +292,9 @@ Set-PSReadLineKeyHandler -Key '(','{','[' `
     }
 }
 
+
+######################-Key ')',']','}' ###############################
+
 Set-PSReadLineKeyHandler -Key ')',']','}' `
                          -BriefDescription SmartCloseBraces `
                          -LongDescription "Insert closing brace or skip" `
@@ -264,6 +314,9 @@ Set-PSReadLineKeyHandler -Key ')',']','}' `
         [Microsoft.PowerShell.PSConsoleReadLine]::Insert("$($key.KeyChar)")
     }
 }
+
+
+######################################
 
 Set-PSReadLineKeyHandler -Key Backspace `
                          -BriefDescription SmartBackspace `
