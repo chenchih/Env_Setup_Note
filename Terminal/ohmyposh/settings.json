@@ -54,18 +54,26 @@
         "list": 
         [
             {
+                "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
+                "hidden": false,
+                "name": "PowerShell",
+                "source": "Windows.Terminal.PowershellCore"
+            },
+            {
                 "commandline": "%SystemRoot%\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+                "cursorShape": "bar",
                 "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
                 "hidden": false,
                 "name": "Windows PowerShell",
-                "opacity": 66,
+                "opacity": 80,
                 "useAcrylic": true
             },
             {
                 "commandline": "%SystemRoot%\\System32\\cmd.exe",
                 "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
                 "hidden": false,
-                "name": "\u547d\u4ee4\u63d0\u793a\u5b57\u5143"
+                "name": "Command Prompt",
+                "tabTitle": "CMD"
             },
             {
                 "guid": "{b453ae62-4e3d-5e58-b989-0a998ec441b8}",
@@ -74,25 +82,29 @@
                 "source": "Windows.Terminal.Azure"
             },
             {
+                "colorScheme": "Ubuntu",
+                "cursorColor": "#58D858",
+                "cursorShape": "vintage",
+                "font": 
+                {
+                    "face": "Cascadia Mono"
+                },
                 "guid": "{2c4de342-38b7-51cf-b940-2309a097f518}",
                 "hidden": false,
                 "name": "Ubuntu",
                 "source": "Windows.Terminal.Wsl",
-                "cursorColor":"#58D858",
-                "cursorShape": "vintage",
-                "colorScheme": "Ubuntu",
-                "useAcrylic": true,
-                "fontFace": "Cascadia Mono"
-                
-
-              
+                "useAcrylic": true
             },
+           
             {
-                "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
-                "hidden": false,
-                "name": "PowerShell",
-                "source": "Windows.Terminal.PowershellCore"
+                "commandline": "cmd.exe /K \"C:\\ProgramData\\Anaconda3New\\Scripts\\activate.bat\"",
+                "guid": "{011ba2aa-11e7-4683-afc1-426617903f4b}",
+               "hidden": false,
+                "icon": "C:\\ProgramData\\Anaconda3New\\Menu\\anaconda-navigator.ico",
+               "name": "Anaconda3",
+                "startingDirectory": "%USERPROFILE%"
             }
+            
         ]
     },
     "schemes": 
@@ -328,6 +340,29 @@
             "yellow": "#C4A000"
         },
         {
+            "background": "#300A24",
+            "black": "#2E3436",
+            "blue": "#3465A4",
+            "brightBlack": "#555753",
+            "brightBlue": "#729FCF",
+            "brightCyan": "#34E2E2",
+            "brightGreen": "#8AE234",
+            "brightPurple": "#AD7FA8",
+            "brightRed": "#EF2929",
+            "brightWhite": "#EEEEEC",
+            "brightYellow": "#FCE94F",
+            "cursorColor": "#BBBBBB",
+            "cyan": "#06989A",
+            "foreground": "#EEEEEC",
+            "green": "#4E9A06",
+            "name": "Ubuntu",
+            "purple": "#75507B",
+            "red": "#CC0000",
+            "selectionBackground": "#B5D5FF",
+            "white": "#D3D7CF",
+            "yellow": "#C4A000"
+        },
+        {
             "background": "#000000",
             "black": "#000000",
             "blue": "#000080",
@@ -349,30 +384,7 @@
             "selectionBackground": "#FFFFFF",
             "white": "#C0C0C0",
             "yellow": "#808000"
-        },
-        {
-            "name": "Ubuntu",
-            "black": "#2e3436",
-            "red": "#cc0000",
-            "green": "#4e9a06",
-            "yellow": "#c4a000",
-            "blue": "#3465a4",
-            "purple": "#75507b",
-            "cyan": "#06989a",
-            "white": "#d3d7cf",
-            "brightBlack": "#555753",
-            "brightRed": "#ef2929",
-            "brightGreen": "#8ae234",
-            "brightYellow": "#fce94f",
-            "brightBlue": "#729fcf",
-            "brightPurple": "#ad7fa8",
-            "brightCyan": "#34e2e2",
-            "brightWhite": "#eeeeec",
-            "background": "#300a24",
-            "foreground": "#eeeeec",
-            "selectionBackground": "#b5d5ff",
-            "cursorColor": "#bbbbbb"
-          }
+        }
     ],
     "showTabsInTitlebar": true,
     "themes": [],
