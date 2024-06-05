@@ -1,3 +1,4 @@
+
 # Setup Fancy Terminal Oh-my-posh
 
 This is a tutorial of setting up ohmyposh under Window, and WSL linux platform. In this page, I will show how to setup it:
@@ -140,10 +141,12 @@ if you want to store your theme json file same location as profile, you can use 
 $omp_config = Join-Path $PSScriptRoot ".\theme.json"
 oh-my-posh --init --shell pwsh --config $omp_config | Invoke-Expression
 ```
+
 ### Step6 reload profile
 After set the profile, you either open new session, or reload the session this command: `. $profile`
 
 ### recap and summary of the command
+> window and powershell
 ```
 #install and download
 winget install JanDeDobbeleer.OhMyPosh -s winget
@@ -158,6 +161,31 @@ New-Item -Path $PROFILE -Type File –Force
 #add theme into profile 
 oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH\<themename>.omp.json" | Invoke-Expression
 ```
+
+> WSL and Ubuntu
+- Step1 install ohmyposh
+please create `bin` directory `mkdir ~/bin`
+
+```
+#change term color to 256 
+TERM=xterm-256color
+
+#install ohmyposh
+curl -s https://ohmyposh.dev/install.sh | bash -s -- -d ~/bin
+```
+- Step2 add profile
+```
+#adding profile, add below into the file
+$vi .bash_profile 
+
+export PATH=$PATH:/home/test/bin
+#POSH_THEME="paradox"
+#eval "$(oh-my-posh init bash --config ~/themes/$POSH_THEME.omp.json)"
+#atomic
+#eval "$(oh-my-posh init bash --config ~/themes/powerline_2.omp.json)"
+eval "$(oh-my-posh init bash)"
+```
+
 
 ## Part3 WSL ubuntu setting 
 Prequisite: please finshed the installation tool first, should installed:
@@ -253,7 +281,7 @@ clink set autosuggest.enable true
 ```
 
 ## Part 5 fish setup
-Please refer more setting on this [site] (https://github.com/oh-my-fish/oh-my-fish) 
+Please refer more setting on this [site](https://github.com/oh-my-fish/oh-my-fish) 
 
 ```
 #install
@@ -389,8 +417,8 @@ Note:
 
 #### fuzzy search
 > Default fzf uses find command (linux)
-> - ag: searching the content of files using regular expressions, like awk command.
-> - fd:  searching filenames based on patterns
+> - `ag`: searching the content of files using regular expressions, like awk command.
+> - `fd`:  searching filenames based on patterns
 
 ##### The AG Silver Searcher: ignore git ignore file
 ```
@@ -426,11 +454,11 @@ nvim $(fzf --preview 'bat --style=numbers --color=always --line-range :500 {}')
 }
 
 ```
-> Note:
+> **Note:**
 
-FZF and emac key for ALT+C will have somne conflict:
+FZF and `emac` key for `ALT+C` will have somne conflict:
 
-Solution1: remove emac, and manual add the key function
+**Solution1**: remove emac, and manual add the key function
 ```
 Set-PSReadlineKeyHandler -Chord ctrl+x -Function ViExit
 Set-PSReadLineKeyHandler -Chord 'Ctrl+d' -Function DeleteChar	
@@ -442,7 +470,7 @@ Set-PSReadlineKeyHandler -Chord ctrl+e -Function EndOfLine
 Set-PSReadlineKeyHandler -Chord ctrl+a -Function BeginningOfLine
 ```
 
-Solution2: put emac, but add fzf alternative code, please add in function
+**Solution2**: put emac, but add fzf alternative code, please add in function
 ```
 Get-ChildItem . -Recurse -Attributes Directory | Invoke-Fzf | Set-Location
 #edit file, please change your text edior
@@ -456,8 +484,8 @@ function FzfNav { Get-ChildItem . -Recurse -Attributes Directory | Invoke-Fzf | 
 
 #### fastfetch 
 This is a plugin that allow you see system information like disk info, capacity, IP, CPU, GPU.
-However there're many alternative tool you can refer this [awesome-fetch](https://github.com/beucismis/awesome-fetch)
-I use [fastfetch](https://github.com/beucismis/awesome-fetch)
+However there're many alternative tool you can refer this [awesome-fetch](https://github.com/beucismis/awesome-fetch) 
+But I use [fastfetch](https://github.com/beucismis/awesome-fetch)
 
 - generate config: `fastfetch --gen-config`
 - [preset example](https://github.com/fastfetch-cli/fastfetch/tree/dev/presets)
@@ -470,6 +498,22 @@ I use [fastfetch](https://github.com/beucismis/awesome-fetch)
 - COLORS 1-9, 5 BLINKING: `fastfetch --color 5`
 - no logo: `fastfetch --logo none`
 - pghoto: `fastfetch --logo ~/Pictures/avatar-transparency.png --logo-type iterm --logo-width 30 --logo-height 15`
+
+## window terminal profile
+
+### Profile Shell for anaconda
+
+```
+#cmd
+%windir%\System32\cmd.exe "/K" C:\ProgramData\anaconda3\Scripts\activate.bat C:\ProgramData\anaconda3
+
+#powershell
+%windir%\System32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy ByPass -NoExit -Command "& 'C:\ProgramData\anaconda3\shell\condabin\conda-hook.ps1' ; conda activate 'C:\ProgramData\anaconda3' "
+
+# powershell7
+ "commandline": "pwsh.exe -ExecutionPolicy ByPass -NoExit -Command \"& '\"C:\\ProgramData\\Anaconda3New\\shell\\condabin\\conda-hook.ps1\"' ; conda activate 'C:\\ProgramData\\Anaconda3New'\""
+```
+
 
 ## Automation
 I write some automation using powershell to help automatic install some tool
@@ -508,7 +552,7 @@ please install nerdfont by yourself
 - https://piinalpin.com/2023/11/make-terminal-powerfull-using-oh-my-posh/
 - https://medium.com/pragmatic-programmers/find-anything-you-need-with-fzf-the-linux-fuzzy-finder-tool-f48dfd0092b4
 - [ChrisTitusTech-automation config](https://github.com/ChrisTitusTech/powershell-profile/tree/main)
-= [Takuya profile cfg](https://github.com/craftzdog/dotfiles-public)
+- [Takuya profile cfg](https://github.com/craftzdog/dotfiles-public)
 
 ## link 
 - [window terminal theme](https://windowsterminalthemes.dev/)

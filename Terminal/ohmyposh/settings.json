@@ -103,7 +103,14 @@
                 "icon": "C:\\ProgramData\\Anaconda3New\\Menu\\anaconda-navigator.ico",
                "name": "Anaconda3",
                 "startingDirectory": "%USERPROFILE%"
-            }
+            },
+			      {
+                "commandline": "pwsh.exe -ExecutionPolicy ByPass -NoExit -Command \"& '\"C:\\ProgramData\\Anaconda3New\\shell\\condabin\\conda-hook.ps1\"' ; conda activate 'C:\\ProgramData\\Anaconda3New'\"",    
+                "guid": "{398a9d51-46dc-41fb-85e5-759c37028398}",
+                "hidden": false,
+                "icon": "C:\\ProgramData\\Anaconda3New\\Menu\\anaconda-navigator.ico",
+                "name": "Anaconda-PowerShell"
+				  }
             
         ]
     },
