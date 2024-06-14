@@ -22,6 +22,8 @@ Productive, Better Visualization
 > Note
 >> please refer `automationfile-directory` for more profile setting
 >> please refer `Theme_customize` for customize theme 
+<img title="" src="img/Segment_sample.PNG" alt="segementSample">
+
 
 ## Part 1 Installation Tool
 In this section let first installation the most important tool in ordder to use this fancy theme:
@@ -486,7 +488,8 @@ function FzfNav { Get-ChildItem . -Recurse -Attributes Directory | Invoke-Fzf | 
 This is a plugin that allow you see system information like disk info, capacity, IP, CPU, GPU.
 However there're many alternative tool you can refer this [awesome-fetch](https://github.com/beucismis/awesome-fetch) 
 But I use [fastfetch](https://github.com/beucismis/awesome-fetch)
-
+ > Install: `winget install fastfetch`
+ 
 - generate config: `fastfetch --gen-config`
 - [preset example](https://github.com/fastfetch-cli/fastfetch/tree/dev/presets)
 - reload different config: `fastfetch --load-config .\newconfig.jsonc`
@@ -541,6 +544,67 @@ please install nerdfont by yourself
 - List available module: `Get-module -ListAvailable`
 - uninstall module name: `Uninstall-Module -Name <module name>`
 - uninstall by pipline: `Get-InstalledModule -Name <module name> | Uninstall-Module`
+
+## Segment
+> - [sample](https://ohmyposh.dev/docs/configuration/segment)
+
+- 'new_v3.json': I custoimize my theme 
+- `takuya.json`: Takuya Matsuyama  
+- `shanselman_v3-v2.json`: scott shanselman devloper in micrsoft 
+- `theme1.json`: reference other people 
+- `theme2.json` : reference other people 
+- `agnoster_modify.json`: reference other people 
+
+### SAMPLE configure
+
+- json file
+```
+{
+  "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "final_space": true,
+  "version": 2,
+  "blocks": [
+    {
+      "type": "prompt",
+      "alignment": "left",
+      "segments": [
+        {
+          "type": "path",
+          "style": "diamond",
+          "powerline_symbol": "\uE0B0",
+          "foreground": "#ffffff",
+          "background": "#61AFEF",
+     "template": " {{ .Path }} ",
+          "properties": {
+            "style": "folder"
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
+- Yaml Format
+
+```
+$schema: https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json
+final_space: true
+version: 2
+blocks:
+  - type: prompt
+    alignment: left
+    segments:
+      - type: path
+        style: diamond
+        powerline_symbol: "\uE0B0"
+        foreground: "#ffffff"
+        background: "#61AFEF"
+        template: " {{ .Path }} "
+        properties:
+          style: folder
+```
+
 
 ## Reference
 - https://byodiandev.com/blog/how-set-up-powershell/

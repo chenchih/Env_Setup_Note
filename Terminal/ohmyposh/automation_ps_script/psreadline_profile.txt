@@ -1,3 +1,11 @@
+using namespace System.Management.Automation
+using namespace System.Management.Automation.Language
+
+if ($host.Name -eq 'ConsoleHost')
+{
+    Import-Module PSReadLine
+}
+Set-PSReadLineKeyHandler -Key Tab -Function Complete
 Set-PSReadLineOption -PredictionSource History
 Set-PSReadLineOption -PredictionViewStyle ListView
 Set-PSReadLineOption -EditMode Windows
@@ -53,8 +61,47 @@ Set-PSReadLineKeyHandler -Key Alt+F -Function SelectShellForwardWord
 Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward
 Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
 
+#######################Key F1##############################
 
 
+# F1 for help on the command line - naturally
+Set-PSReadLineKeyHandler -Key F1 `
+                         -BriefDescription CommandHelp `
+                         -LongDescription "Open the help window for the current command" `
+                         -ScriptBlock {
+    param($key, $arg)
+
+    $ast = $null
+    $tokens = $null
+    $errors = $null
+    $cursor = $null
+    [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$ast, [ref]$tokens, [ref]$errors, [ref]$cursor)
+
+    $commandAst = $ast.FindAll( {
+        $node = $args[0]
+        $node -is [CommandAst] -and
+            $node.Extent.StartOffset -le $cursor -and
+            $node.Extent.EndOffset -ge $cursor
+        }, $true) | Select-Object -Last 1
+
+    if ($commandAst -ne $null)
+    {
+        $commandName = $commandAst.GetCommandName()
+        if ($commandName -ne $null)
+        {
+            $command = $ExecutionContext.InvokeCommand.GetCommand($commandName, 'All')
+            if ($command -is [AliasInfo])
+            {
+                $commandName = $command.ResolvedCommandName
+            }
+
+            if ($commandName -ne $null)
+            {
+                Get-Help $commandName -ShowWindow
+            }
+        }
+    }
+}
 
 #######################Key F7##############################
 
@@ -114,47 +161,6 @@ Set-PSReadLineKeyHandler -Key F7 `
         [Microsoft.PowerShell.PSConsoleReadLine]::Insert(($command -join "`n"))
     }
 }
-
-######################Key F1###############################
-# F1 for help on the command line - naturally
-Set-PSReadLineKeyHandler -Key F1 `
-                         -BriefDescription CommandHelp `
-                         -LongDescription "Open the help window for the current command" `
-                         -ScriptBlock {
-    param($key, $arg)
-
-    $ast = $null
-    $tokens = $null
-    $errors = $null
-    $cursor = $null
-    [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$ast, [ref]$tokens, [ref]$errors, [ref]$cursor)
-
-    $commandAst = $ast.FindAll( {
-        $node = $args[0]
-        $node -is [CommandAst] -and
-            $node.Extent.StartOffset -le $cursor -and
-            $node.Extent.EndOffset -ge $cursor
-        }, $true) | Select-Object -Last 1
-
-    if ($commandAst -ne $null)
-    {
-        $commandName = $commandAst.GetCommandName()
-        if ($commandName -ne $null)
-        {
-            $command = $ExecutionContext.InvokeCommand.GetCommand($commandName, 'All')
-            if ($command -is [AliasInfo])
-            {
-                $commandName = $command.ResolvedCommandName
-            }
-
-            if ($commandName -ne $null)
-            {
-                Get-Help $commandName -ShowWindow
-            }
-        }
-    }
-}
-
 
 ######################-Key '"',"'"###############################
 Set-PSReadLineKeyHandler -Key '"',"'" `
@@ -224,6 +230,7 @@ Set-PSReadLineKeyHandler -Key '"',"'" `
             return
         }
     }
+    
 
     if ($null -eq $token -or
         $token.Kind -eq [TokenKind]::RParen -or $token.Kind -eq [TokenKind]::RCurly -or $token.Kind -eq [TokenKind]::RBracket) {
@@ -316,7 +323,7 @@ Set-PSReadLineKeyHandler -Key ')',']','}' `
 }
 
 
-######################################
+##################Backspace####################
 
 Set-PSReadLineKeyHandler -Key Backspace `
                          -BriefDescription SmartBackspace `

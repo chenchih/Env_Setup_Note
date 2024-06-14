@@ -2,6 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
   "version": 2,
   "final_space": true,
+  "console_title_template": "{{.UserName}}@{{.HostName}} : {{.Folder}}",
   "blocks": [
  
     {
@@ -9,9 +10,39 @@
       "type": "prompt",
       "alignment": "left",
       "segments": [
+	  {
+            "background": "#fbfbfb",
+            "foreground": "#0077c2",
+            "leading_diamond": "\ue0b6",
+            "properties": {
+              "arch": "\uf303",
+              "debian": "\uf306",
+              "fedora": "\uf30a",
+              "linux": "\uf17c",
+              "macos": "\uf179",
+              "manjaro": "\uf312",
+              "opensuse": "\uf314",
+              "ubuntu": "\uf31b",
+              "windows": "\uf17a"
+            },
+            "style": "diamond",
+            "template": " {{ if .WSL }}WSL at {{ end }}{{.Icon}} ",
+            "type": "os"
+          },
+          {
+            "background": "#fbfbfb",
+            "foreground": "#0077c2",
+            "powerline_symbol": "\ue0b0",
+            "properties": {
+              "display_host": true
+            },
+            "style": "powerline",
+            "template": "{{ .HostName }}</> ",
+            "type": "session"
+          },
         {
           "type": "path",
-          "style": "diamond",
+          "style": "powerline",
           "powerline_symbol": "",
           "foreground": "#ffffff",
           "background": "#ff479c",
@@ -64,6 +95,22 @@
             "display_mode": "disabled"
           }
         },
+		//virtual env
+		{
+            "background": "#FFDE57",
+            "foreground": "#111111",
+            "powerline_symbol": "\ue0b0",
+            "properties": {
+              "display_mode": "environment",
+              "fetch_virtual_env": true,
+              "home_enabled": true
+            },
+            "style": "powerline",
+          
+            "template": " \ue235 {{ if .Error }}{{ .Error }}{{ else }}{{ if .Venv }}{{ .Venv }} {{ end }}{{ .Full }}{{ end }} ",
+            "type": "python"
+           
+          },
         {
           "type": "node",
           "style": "powerline",
@@ -104,15 +151,38 @@
       ]
     },
 	
-    // second block display time
+    // second block display time, rprompt move below 
     {
-      "type": "prompt",
+      "type": "rprompt",
       "alignment": "right",
       "segments": [
+
+
 	  
+	   {
+		  "background": "#5f5cea",
+          "invert_powerline": true,
+          "foreground": "#FFBD00",
+          "style": "powerline",
+		  "powerline_symbol": "\ue0b2",
+          "template": "RAM:{{ (div ((sub .PhysicalTotalMemory .PhysicalFreeMemory)|float64) 1000000000.0) }}/{{ (div .PhysicalTotalMemory 1000000000.0) }}GB ",
+          "trailing_diamond": " ",
+          "type": "sysinfo"
+        },
+		    {
+          "background": "#c64a44",
+          "leading_diamond": "\u250b",
+          "properties": {
+            "style": "roundrock",
+            "threshold": 0
+          },
+          "style": "powerline",
+          "template": " {{ .FormattedMs }} ",
+          "type": "executiontime"
+        },
+		
         {
 		  "background": "p:bg",
-
           "invert_powerline": true,
 		  "powerline_symbol": "\ue0b2",
           "properties": {
@@ -124,9 +194,12 @@
           "background": "#B2AC88",
 		  "template": " {{ .CurrentDate | date .Format }} ",
 		      "properties": {
-            "time_format": "15:04:05"
+            "time_format": "15:04:05(Mon)"
+
           }
 	  },
+
+
 	  {
           "background": "p:bg",
           "background_templates": [
@@ -144,12 +217,7 @@
           "template": " {{ if gt .Code 0 }}\uf071{{ else }}\uf00c{{ end }} ",
           "type": "exit"
         }
-	  
-	  
-	  
-	  
-	  
-	  
+
 	  
       ]
     },
@@ -180,9 +248,11 @@
       "newline": true
 
     }
+
   ],
   "palette": {
     "bg": "#3f3f3f",
     "separator-fg": "#919191"
   }
+
 }
