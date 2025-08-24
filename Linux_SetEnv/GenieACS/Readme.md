@@ -1,10 +1,14 @@
 # Setup GenieACS (opensource)
 
-- Ubuntu Environment 
-- mongodb
-- geneacs: 
+This is a tutorial of how to setup genieacs server under ubuntu. Below are the step you can setup manually, but i also provide automation bash script, which will allow to automatic install and setup. The script support both libssl1.1 and libssl3.3. 
+- script name: `genie_acs_new.sh`
+- how to run: `./genie_acs_new.sh`
 
-Note: `Ubuntu 20.04` and `24.04` setup are diffrent I spend reinstall these OS and figure out. There are many resource teach you Ubuntu 20.04, however I will also write how to setup under 20.04 in case you want to see the comparison. 
+![flow of automation](img/genie_automatic.png)
+
+**Note:**  `Ubuntu 20.04` and `24.04` setup are different I spend reinstall these OS and figure out. There are many resource teach you Ubuntu 20.04, however I will also write how to setup under 20.04 in case you want to see the comparison. 
+- Ubuntu 20.04: SSL uses 1.1.1 and monodb use 4.4
+- Ubuntu 22.04 or 24.04: SSL uses 3.X and mogodb use 8.0
 
 ## Ubuntu 24.04 Setup
 
@@ -132,7 +136,6 @@ ExecStart=/usr/local/bin/genieacs-nbi
 
 [Install]
 WantedBy=default.target
-
 ```
 
 #### Create genieacs-fs systemd unit files
