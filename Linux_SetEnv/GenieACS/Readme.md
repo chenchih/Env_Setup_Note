@@ -8,9 +8,46 @@ This is a tutorial of how to setup genieacs server under ubuntu. Below are the s
 
 **Note:**  `Ubuntu 20.04` and `24.04` setup are different I spend reinstall these OS and figure out. There are many resource teach you Ubuntu 20.04, however I will also write how to setup under 20.04 in case you want to see the comparison. 
 - Ubuntu 20.04: SSL uses 1.1.1 and monodb use 4.4
-- Ubuntu 22.04 or 24.04: SSL uses 3.X and mogodb use 8.0
+- Ubuntu 22.04 or 24.04: SSL uses 3.X and mogodb use 8.0]
 
-## Ubuntu 24.04 Setup
+## Content
+
+- [Ubuntu 20.04](#ubuntu24)
+- [Ubuntu 22.04 or 24.04:](#ubuntu20)
+- [Run GenieACS](#RunGenieACS)
+
+
+##  <a id="systemcheck"> Raspeberry PI5 setting check OS </a>
+Let me show some of the OS information and PI5 setting
+
+- check OS version
+```
+lsb_release -a
+```
+![check os](img/checkOS.PNG)
+
+
+- check kernel 
+you can use either of this command: 
+> `uname -ar` or
+> `hostnamectl`
+
+- check cpu type
+This is important if you want to install specfic package you need to know it's arm cpu 
+```
+lscpu
+```
+![check cpu](img/CPUType.PNG)
+
+- check Raspeberry Model and type
+you can use either one to check model:
+
+> `cat /proc/device-tree/model`
+> `cat /proc/cpuinfo | grep 'Model'`
+
+![check model](img/modelType.PNG)
+
+## <a id="ubuntu24"> Ubuntu 24.04 Setup </a>
 
 Check your OS version using these command: 
 ```
@@ -211,7 +248,7 @@ sudo systemctl status genieacs-ui
 It should be able to access Genie ACS if nothing is wrong, navigate web: http://<IP>:3000
 YOu can use `ip a` or `hostname -I` to check your IP address
 
-## Ubuntu 20.04 Setup
+## <a id="ubuntu20"> Ubuntu 20.04 Setup</a>
 please run this command to allow running multiply process, in case execute command run `waiting for cache lock` this issue:
 ```
 sudo rm /var/lib/dpkg/lock-frontend
@@ -384,7 +421,7 @@ WantedBy=default.target
 
 ```
 
-## Run GenieACS
+##  <a id="RunGenieACS">  Run GenieACS </a>
 
 ### Enable and start services 
 ```

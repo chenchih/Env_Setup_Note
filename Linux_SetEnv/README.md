@@ -1,105 +1,270 @@
-# Linux Command Note
+# Linux Setup and Command Note
 
-This will noted linux basic command 
-
-## Basic Linux Command
-
-- [X] vsftp: ftp server`
+## Update setup services:
+- [X] vsftp: ftp server
 - [X] genieacs: acs server
 
-### mkdir: make directory
 
-I like to use option `vp`,  `v` is verbose which will show message, and `p`  is whether exist or not will create for you
+## Linux Command
+I will noted the lunux command often use as a cheatsheet
 
-> $mkdir -vp <directoryname>
 
-### /dev/null error not display
+<details open>
+<summary><b>(click to expand or hide)</b></summary>
+	
+[1. Basic Command](#basiccommand)
+[2. System Version Check](#checkSystem)
+[3. Install Package](#packageInstall)
+[4. Storage](#storage)
+[5. Network](#network)
+[6. System and Path setting](#filecompress)
+[7. Remote File transfer](#remotefile)
+[8. other advance command](#other)
 
-This command is when occur error and wish not to show on script.‵‵example:ls directory 2>/dev/null
+</details>
 
-```
-#iso file not found
-findiso=$(ls $isoname 2>/dev/null )
-if [[ $findiso == *.iso ]] ; then
-    :
-else
-    #echo $0>>/dev/null            
-    read -p "file not exist !!!! please try again. Press any key to continue"       
-fi
-```
+## <a id="basiccommand">1 Basic Command </a>
 
-### ln: symbol link
+### 1.1 Create directory: `mkdir`
+
+> Create directory: `mkdir -vp <directoryname>`
+> - `v`:verbose which will show message
+> - `p`:whether exist or not will create for you
+
+
+### 1.2 symbol link: `ln`
 
 This is like a shortcut in windows, it can link file or directory without copying or moving files
 
 - link directory 
-  
-  > $ln -s /media /test
+> `ln -s /media /test`
 
 - unlink directory
-  
-  > $unlink /test  #remove link test directory#  
+> `unlink /test`  #remove link test directory#  
 
-### cp and rynch
+### 1.3 copy file: `cp` and `rynch`
 
 This is copying files or directory, if copy directory need add `-V‵．
 
-- cp (copy comamnd)
-  `$cp -av <source directory> <destination directory>`
+- copy comamnd: `cp`
+ > `$cp -av <source directory> <destination directory>`
 
-- rsync (copy and show process)
-  `$rsync -av --progress <source directory> <destination directory>`
+- copy and show process: `rsync`
+>  `$rsync -av --progress <source directory> <destination directory>`
 
-### /dev/null error not display
 
-This command is when occur error and wish not to show on script.‵‵example:ls directory 2>/dev/null
+
+## <a id="checkSystem"> 2 System Version Check </a>
+### 2.1 Check SW and HW information
+
+- Check Linux version:  
+> - `lsb_release -a`
+    ```
+    Distributor ID: Ubuntu
+    Description:    Ubuntu 24.04 LTS
+    Release:        24.04
+    Codename:       noble
+
+    ```
+> - `cat /etc/lsb-release`
+> - `cat /etc/*release`
+ 
+-  2.2 Check Kernel version
+> - `uname -a`
+> - `hostnamectl`
+    ```
+    #uname -a
+    Linux chenchih-desktop 6.8.0-1032-raspi #36-Ubuntu SMP PREEMPT_DYNAMIC Mon Jul 21 22:27:49 UTC 2025 aarch64 aarch64 aarch64 GNU/Linux
+    #hostnamectl
+    Static hostname: chenchih-desktop
+       Icon name: computer
+      Machine ID: ab31dfdae9ee45e3a10dda9a8d1cde8a
+         Boot ID: 5067cf9739c143d9956296b295c66516
+    Operating System: Ubuntu 24.04 LTS
+          Kernel: Linux 6.8.0-1032-raspi
+    Architecture: arm64
+    ```
+
+### 2.3 Check CPU and MODEL 
+- Check CPU 
+    > - list cpu infor: `lscpu` 
+    ```
+Architecture:             aarch64
+  CPU op-mode(s):         32-bit, 64-bit
+  Byte Order:             Little Endian
+CPU(s):                   4
+  On-line CPU(s) list:    0-3
+Vendor ID:                ARM
+  Model name:             Cortex-A76
+    ```
+
+- Check model(Only for Rasperaspberrypi): 
+> -  `cat /proc/device-tree/model` #Raspberry Pi 5 Model B Rev 1.0c
+> - `cat /proc/cpuinfo | grep 'Model'` # Model : Raspberry Pi 5 Model B Rev 1.0
+
+### 2.4 Check bios version   
+>  - Check Legacy or UEFI : `ls /sys/firmware` 
+    > - EFI: uefi Mode 
+    > - AHCI: legacy or bios mode 
+
+
+
+## <a id="packageInstall"> 3. Installation Package </a>
+
+### 3.1 Remove lock 
+The lock only allow you to run one process, so need to remove it, else will occur Error not allow to install or update. 
 
 ```
-#iso file not found
-findiso=$(ls $isoname 2>/dev/null )
-if [[ $findiso == *.iso ]] ; then
-    :
-else
-    #echo $0>>/dev/null            
-    read -p "file not exist !!!! please try again. Press any key to continue"       
-fi
+sudo rm /var/lib/dpkg/lock-frontend
+sudo rm /var/lib/dpkg/lock
+sudo rm /var/cache/apt/archives/lock
+sudo dpkg --configure -a
+sudo apt update
+
 ```
 
-## System Version Check
 
-- Check Linux OS 
-  
-  > ls_release -a
+###  3.2 Install Packages 
 
-- Check Kernel version
-  
-  > uname -av 
+- install deb package 
+> - using dpg file: `sudo dpkg -i package-name.deb`
+> - using apt install dpg file: `sudo apt install ./package-name.deb`
 
-- Check bios version   
-  
-  > sudo dmidecode -s bios-version
 
-- Check Legacy or UEFI   
-  
-  > ls /sys/firmware/efi
-  
-    EFI: uefi Mode 
-    AHCI: legacy or bios mode 
+- uninstall specific package 
+> - remove: `sudo apt remove  <package>`
+> - autoremove: `sudo apt autoremove  <package> --purge`
 
-## Shell command
+- check installed package
+> - check installed pkg: `sudo apt list -- installed`
 
-- checking current SHELL: `$echo $PATH`
-- checking support SHELL: `cat /etc/shells` #list all support shell
 
-## Alias(custome comamnd line)
+
+
+## <a id="storage"> 4. Storage Command</a>
+
+### check DISK samrt value or Health
+
+please install smarttcl: `sudo apt-get install smarttcl`
+
+> - Check Smart value for HDD: `smarttcl -x /dev/sda1`
+
+
+## <a id="network"> 5. Network Command</a>
+
+### 5.1  set static or dhcp IP address with netplan 
+
+If you are using `2X.04` or above need to chnage to netplan command to set command. 
+
+#### Step1 Check you netplan confgiure
+netplan is been located under `/etc/netplan`, when you access in that path you might have notice they might occur multiple `.yaml` file. 
+
+> **Problem**: Which one should you edit? please go to next step to solve this issue. 
+
+```
+chenchih@chenchih-desktop:/etc/netplan$ ll
+total 28
+drwxr-xr-x   2 root root 4096 Aug 28 14:13 ./
+drwxr-xr-x 146 root root 8192 Aug 29 06:58 ../
+-rw-------   1 root root  422 Aug 28 14:13 50-cloud-init.yaml
+-rw-------   1 root root  157 Aug 28 14:07 50-cloud-init.yaml.bk
+-rw-------   1 root root  347 Aug 28 13:50 90-NM-626dd384-8b3d-3690-9511-192b2c79b3fd.yaml
+-rw-------   1 root root  670 Aug 28 13:28 90-NM-7e43fcda-6dc7-4e7f-be56-bd51225c11e5.yaml
+```
+
+#### Step2 check which yaml file to edit 
+Please use this commadn `nmcli device show | grep IP4.GATEWAY` to know which yaml file we need to edit. If it occur like this:
+```
+IP4.GATEWAY: --
+IP4.GATEWAY: --
+IP4.GATEWAY: --
+```
+nmcli shows all gateways as `--`, meaning NetworkManager isn’t setting a gateway for your NIC (so those `90-NM-*.yaml` files may not actually be in control). That suggests your system is probably using the `50-cloud-init.yaml` file as the active netplan config.
+
+> - `50-cloud-init.yaml` → auto-generated when the system was first installed.
+> - `90-NM-xxxx.yaml` → created/managed by NetworkManager (if your system uses it).
+
+#### Step3 check yaml file DHCP SETTING (default)
+So let edit this configure:  `50-cloud-init.yaml`, default is dhcp which look like below:
+
+```
+network:
+  version: 2
+  ethernets:
+    eth0:
+      match:
+        macaddress: "d8:3a:dd:bf:ac:7a"
+      dhcp4: true
+      dhcp6: true
+      set-name: "eth0"
+
+```
+#### Step4 edit yaml file and set static ip and default route
+
+I need to change my IP into this setting:
+- set ip: 172.21.201.244, 
+- default route and gateway :172.21.201.253
+
+```
+network:
+  version: 2
+  ethernets:
+    eth0:
+      match:
+        macaddress: "d8:3a:dd:bf:ac:7a"
+      set-name: "eth0"
+      dhcp4: false
+      dhcp6: false
+      addresses:
+        - 172.21.201.244/24
+      routes:
+        - to: default
+          via: 172.21.201.253
+      nameservers:
+        addresses: [8.8.8.8, 1.1.1.1]
+
+```
+
+### Step5 apply configure and test it
+```
+sudo netplan generate
+sudo netplan apply
+```
+
+- check route: `ip route`
+
+After set default route will occur like below first line occur default
+```
+default via 172.21.201.253 dev eth0 proto static metric 100
+172.21.201.0/24 dev eth0 proto kernel scope link src 172.21.201.244 metric 1
+```
+
+-  test by ping
+```
+ping -c2 8.8.8.8
+ping -c2 google.com
+```
+
+```
+
+## <a id="systempath">5. System and Path setting  </a>
+
+### 5.1 Check current Shell 
+
+> - checking current SHELL: `$echo $PATH`
+> - checking support SHELL: `cat /etc/shells` #list all support shell
+
+
+### 5.2 Alias (custom command line)
 
 **What is alias:** it's a custome command define by yourself. For example i don't like to use ifconfig, instead i wants to use ip, so i assign like this `alias ip=ifconfig`
 
-> Syntax: alias custom-command=<linux command>
+> Syntax: `alias custom-command=<linux command>`
+> ex: `alias ip='ip -a'`
 
 In order to add alias, you need to add inside `.bashrc,` or `.bashrc_aliases`, if not after reboot will be done. I'm going to show you two ways:
 
-- **Method 1 (.bash_aliases):**
+#### Method 1 (.bash_aliases):
   got to `cd` and open `.bashrc`,  you will see below script:
   
   ```
@@ -117,159 +282,143 @@ In order to add alias, you need to add inside `.bashrc,` or `.bashrc_aliases`, i
   #edit the file, and put your command for alias
   alias current-time="echo 'Current time: $(date)'"
   alias desktop="cd /home/test/Desktop"
-  
+  ```
+after modify it, you can use `source` to activate else you need to reboot. 
+
+```
   #run source to enable the alias command
   $source ~/.bash_aliases
   #logout will work
-  ```
+```
 
-- **Methood 2 (edit .bashrc)**
+#### Methood 2 (edit `.bashrc`)
   You can also add inside `.bashrc`, but I recommend you use *method 1*. `.bashrc` is system file, if you mess it out, might have problem during boot. You can do like this:
   
   ```
   #edit in .bashrc the same command as above will work also. 
   alias desktop="cd /home/test/Desktop"
+  source .bashrc
   ```
+ 
+## <a id="filecompress">6. File Extract and Compression  </a>
+There are many different compress and extract file type you can use. 
 
-## Packages
-
-- uninstall specific package 
-  
-  > $sudo apt remove  <package> 
-  
-   or 
-  
-  > $sudo apt autoremove  <package> --purge
-
-- check installed package
-  
-  > $sudo apt list -- installed
-
-## Extract File
-
-### Tar
+### 6.1 Tar
 
 - compress:
-  
-  > tar cvf filename.tar source-folder
+> `tar cvf filename.tar source-folder`
 
 - extract: 
-  
-  > tar -zxvf xxxx.tz.gz
+> `tar -zxvf xxxx.tz.gz`
 
-### unzip and zip
+### 6.2 unzip and zip
+Please install zip and unzip package:　`$sudo apt-get install zip unzip`
 
-- install package:　`$sudo apt-get install zip unzip`
-
-- compress (zip):
-  
-  > $zip -r file.zip file
+- compress (zip): 
+> `zip -r file.zip file`
 
 - extract (unzip)
-  
-  > unzip file.zip -d zip_extract
+> `unzip file.zip -d zip_extract`
 
-### unrar
+### 6.3 unrar
 
-- install package:　`$sudo apt-get install unrar`
+Please install zip and unzip package:　`$sudo apt-get install unrar`
 
 - compress (zip):
   
-  > unrar l filename.rar
+  > `unrar l filename.rar`
 
 - extract (unrar)
   
-  > unrar e filename.rar
+  > `unrar e filename.rar`
 
-## Remote Transfer file
 
-### wget
+## <a id="remotefile">7. Remote File transfer </a>
+### 7.1 wget: download
 
-- install package:　`$sudo apt-get install wget`
+Please install wget package:`$sudo apt-get install wget`
 
-- download:
+- download: `wget http://XXX.tar.gz`
+> - `-o` parameter to rename file name:
+> - example: `wget -O namefolder.tar.gz http:/xxxx.tar.gz`
+
+### 7.2 scp: Secure Copy
+Please install openssh-server package `sudo apt-get install openssh-server`
   
-  > $wget http://XXX.tar.gz
-
-using `-o` parameter to rename file name:
-`wget -O namefolder.tar.gz http:/xxxx.tar.gz`
-
-### scp Secure Copy
-
-- install package:　 `sudo apt-get install openssh-server`
+> Syntax: `scp -rp filename username(linux)@ip:<destination>`
+> - `-r`: recursive
+> - `-p`: Preserves modification
   
-  > Syntax: scp -rp filename username(linux)@ip:<destination> 
-  
-  > -r: recursive
-  > -p: Preserves modification
-  
-  Example 
-  
-  > scp -rp file [test@192.168.2.1](mailto:test@192.168.2.1):/home/test
+Example:  `scp -rp file [test@192.168.2.1](mailto:test@192.168.2.1):/home/test`
 
-## dd command
+
+## <a id="other">8. other advance command </a>
+
+### 8.1 dd generate to image
 
 This comamnd can do generate file, and create usb disk to images 
 
-- Create images to iso
-  
-  - Create ISO file:  `dd if=/dev/sdx of=/path/xxx.iso`    
-  - Create ISO file to usb: dd if=/path/xxx.iso of=/dev/sdx`
+> - Create images to iso:
+    > Create ISO file:  `dd if=/dev/sdx of=/path/xxx.iso`    
+    > Create ISO file to usb: `dd if=/path/xxx.iso of=/dev/sdx`
 
-- Generate X size file: 
-  
-  - dd command: `dd if=/dev/zero of=test.img bs=1024 count=0 seek=1024 ` 
-  - fallocate command:  `fallocate -l 100M file.txt`
-
-## Storage Command:
-
-- smarttcl: check DISK samrt value or Health 
-  Check Smart value for HDD
-  `$sudo apt-get install smarttcl`
-  `$smarttcl -x /dev/sda1` 
-
-## SED and AWK
-
-### SED
+> - Generate X size file: 
+    > - dd command: `dd if=/dev/zero of=test.img bs=1024 count=0 seek=1024` 
+    > - fallocate command:  `fallocate -l 100M file.txt`
+### 8.2 SED
 
 This is powerful to do parsing:
 
 - Search and replace string:
+> Syntax: `sed -i -e 's/<search string> <replace string> /g'`
+
+    - **Example1**: anonymous_enable=NO to anonymous_enable=YES
+    ```
+    sed -i -e 's/anonymous_enable=NO/anonymous_enable=YES/g' /etc/vsftpd.conf
+    ```
   
-  > Syntax: sed -i -e 's/<search string> <replace string> /g'
-  
-  - **Example1**: anonymous_enable=NO to anonymous_enable=YES
-    
-    > sed -i -e 's/anonymous_enable=NO/anonymous_enable=YES/g' /etc/vsftpd.conf
-  
-  - **Example2**: TFTP_DIRECTORY=/srv/tftp into TFTP_DIRECTORY=/tftpboot
-    
+    - **Example2**: TFTP_DIRECTORY=/srv/tftp into TFTP_DIRECTORY=/tftpboot
     ```
     sed -i -e 's/TFTP_DIRECTORY="\/srv\/tftp"/TFTP_DIRECTORY="\'$tftp_dir'"/g' /tftpd-hpa
     ```
 
-### AWK
-
+### 8.3 AWK
 - ls directory and get the first string: 
-  
-  > detectLanint=$(ls /sys/class/net/ |grep en)
-  > ethInt=$(echo $detectLanint |awk '{print $1}')
+  > - `detectLanint=$(ls /sys/class/net/ |grep en)`
+  > - `ethInt=$(echo $detectLanint |awk '{print $1}')`
 
-## EOF and tee
+### EOF and tee
 
 You can write into a file without vi or echo command. 
 
-- EOF with cat
-  
-  > Syntax:　cat  << EOF > filename
-  
-    Example1:
-  
-  > cat << EOF > /etc/samba/smb.conf
-  >   workgroup = WORKGROUP
-  >   EOF
+- EOF with `cat` example
+  > Syntax:　`cat  << EOF > filename`
+    ```
+    cat << EOF > /etc/samba/smb.conf
+    workgroup = WORKGROUP
+    EOF
+    ```
+- tee with `echo`
+> `echo 'network:' | sudo tee /etc/netplan/00-installer-config.yaml`
 
-- tee with echo
-  Example1:
-  
-  > echo 'network:' | sudo tee /etc/netplan/00-installer-config.yaml
+
+## Bash Script
+
+### error not display: `/dev/null`
+
+This command is when occur error and wish not to show on script, for example:`ls directory 2>/dev/null`
+
+```
+#iso file not found
+findiso=$(ls $isoname 2>/dev/null )
+if [[ $findiso == *.iso ]] ; then
+    :
+else
+    #echo $0>>/dev/null            
+    read -p "file not exist !!!! please try again. Press any key to continue"       
+fi
+```
+
+
+
+
