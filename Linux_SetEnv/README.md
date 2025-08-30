@@ -20,7 +20,7 @@ I will noted the lunux command often use as a cheatsheet
 	- [check Kernel](#checkkernel)
 	- [check cpu](#checkcpu)	
 	- [check bios](#checkbios)		
-- [3. Install Package](#packageInstall)
+- [3. Install Package](#packageInstall)  
 	- [Remove lock](#Removelock)
 	- [Install Package](#package)
 - [4. Storage](#storage)
@@ -61,25 +61,30 @@ I will noted the lunux command often use as a cheatsheet
 This is like a shortcut in windows, it can link file or directory without copying or moving files
 
 - link directory 
-> `ln -s /media /test`
+```
+ln -s /media /test
+```
 
 - unlink directory
-> `unlink /test`  #remove link test directory#  
+```
+unlink /test  #remove link test directory
+```
 
 ###  <a id="copy"> 1.3 copy file: `cp` and `rynch` </a>
 
 This is copying files or directory, if copy directory need add `-V‵．
 
 - copy comamnd: `cp`
- > `$cp -av <source directory> <destination directory>`
+	```
+	cp -av <source directory> <destination directory>
+	```
 
 - copy and show process: `rsync`
->  `$rsync -av --progress <source directory> <destination directory>`
-
-
+	```
+	rsync -av --progress <source directory> <destination directory>
+	```
 
 ## <a id="checkSystem"> 2 System Version Check </a> [🔝](#toc)
-
 ### <a id="checkos"> 2.1 Check SW and HW information  </a>
 
 - Check Linux version:  
@@ -96,23 +101,24 @@ This is copying files or directory, if copy directory need add `-V‵．
 ###  <a id="checkkernel">  2.2 Check Kernel version </a>
 > - `uname -a`
 > - `hostnamectl`
-    ```
-    #uname -a
-    Linux chenchih-desktop 6.8.0-1032-raspi #36-Ubuntu SMP PREEMPT_DYNAMIC Mon Jul 21 22:27:49 UTC 2025 aarch64 aarch64 aarch64 GNU/Linux
-    #hostnamectl
-    Static hostname: chenchih-desktop
-       Icon name: computer
-      Machine ID: ab31dfdae9ee45e3a10dda9a8d1cde8a
-         Boot ID: 5067cf9739c143d9956296b295c66516
-    Operating System: Ubuntu 24.04 LTS
-          Kernel: Linux 6.8.0-1032-raspi
-    Architecture: arm64
-    ```
+```
+#uname -a
+Linux chenchih-desktop 6.8.0-1032-raspi #36-Ubuntu SMP PREEMPT_DYNAMIC Mon Jul 21 22:27:49 UTC 2025 aarch64 aarch64 aarch64 GNU/Linux
+
+#hostnamectl
+Static hostname: chenchih-desktop
+Icon name: computer
+Machine ID: ab31dfdae9ee45e3a10dda9a8d1cde8a
+Boot ID: 5067cf9739c143d9956296b295c66516
+Operating System: Ubuntu 24.04 LTS
+Kernel: Linux 6.8.0-1032-raspi
+Architecture: arm64
+```
 
 ### <a id="checkcpu"> 2.3 Check CPU and MODEL  </a>
 - Check CPU 
-    > - list cpu infor: `lscpu` 
-    ```
+  > - list cpu infor: `lscpu` 
+```
 Architecture:             aarch64
   CPU op-mode(s):         32-bit, 64-bit
   Byte Order:             Little Endian
@@ -120,17 +126,19 @@ CPU(s):                   4
   On-line CPU(s) list:    0-3
 Vendor ID:                ARM
   Model name:             Cortex-A76
-    ```
+ ```
 
 - Check model(Only for Rasperaspberrypi): 
 > -  `cat /proc/device-tree/model` #Raspberry Pi 5 Model B Rev 1.0c
 > - `cat /proc/cpuinfo | grep 'Model'` # Model : Raspberry Pi 5 Model B Rev 1.0
 
 ### <a id="checkbios"> 2.4 Check bios version </a>  
->  - Check Legacy or UEFI : `ls /sys/firmware` 
-    > - EFI: uefi Mode 
-    > - AHCI: legacy or bios mode 
-
+>  - Check Legacy or UEFI :
+>> - EFI: uefi Mode 
+>> - AHCI: legacy or bios mode 
+```
+ls /sys/firmware
+```
 
 
 ## <a id="packageInstall"> 3. Installation Package </a> [🔝](#toc)
@@ -144,26 +152,35 @@ sudo rm /var/lib/dpkg/lock
 sudo rm /var/cache/apt/archives/lock
 sudo dpkg --configure -a
 sudo apt update
-
 ```
 
 
 ###  <a id="package"> 3.2 Install Packages </a>
 
 - install deb package 
-> - using dpg file: `sudo dpkg -i package-name.deb`
-> - using apt install dpg file: `sudo apt install ./package-name.deb`
-
-
+	- using dpg file:
+	```
+	sudo dpkg -i package-name.deb
+	```
+	- using apt install dpg file:
+	```
+	sudo apt install ./package-name.deb
+	```
 - uninstall specific package 
-> - remove: `sudo apt remove  <package>`
-> - autoremove: `sudo apt autoremove  <package> --purge`
+	- remove:
+	```
+	sudo apt remove  <package>
+	```
+	- autoremove:
+	```
+	sudo apt autoremove  <package> --purge
+	```
 
 - check installed package
-> - check installed pkg: `sudo apt list -- installed`
-
-
-
+	- check installed pkg: `
+	```
+	sudo apt list -- installed
+	```
 
 ## <a id="storage"> 4. Storage Command</a> [🔝](#toc)
 
@@ -171,9 +188,10 @@ sudo apt update
 
 Please install smarttcl: `sudo apt-get install smarttcl`
 
-> - Check Smart value for HDD: `smarttcl -x /dev/sda1`
-
-
+- Check Smart value for HDD:
+	```
+	smarttcl -x /dev/sda1
+	```
 ## <a id="network"> 5. Network Command</a> [🔝](#toc)
 
 ### <a id="netplan"> 5.1  set static or dhcp IP address with netplan </a>
@@ -317,42 +335,52 @@ after modify it, you can use `source` to activate else you need to reboot.
   You can also add inside `.bashrc`, but I recommend you use *method 1*. `.bashrc` is system file, if you mess it out, might have problem during boot. You can do like this:
   
   ```
-  #edit in .bashrc the same command as above will work also. 
+  #edit in .bashrc, the same command as above will also work. 
   alias desktop="cd /home/test/Desktop"
   source .bashrc
   ```
  
 ## <a id="filecompress">7. File Extract and Compression  </a> [🔝](#toc)
-There are many different compress and extract file type you can use. 
+There are many different compression and extraction file types you can use. 
 
 ### <a id="Tar"> 7.1 Tar  </a>
 
 - compress:
-> `tar cvf filename.tar source-folder`
+	```
+	tar cvf filename.tar source-folder
+	```
 
 - extract: 
-> `tar -zxvf xxxx.tz.gz`
+	```
+	tar -zxvf xxxx.tz.gz
+	```
 
 ### <a id="zip"> 7.2 unzip and zip </a>
-Please install zip and unzip package:　`$sudo apt-get install zip unzip`
+Please install the zip and unzip packages:　`$sudo apt-get install zip unzip`
 
 - compress (zip): 
-> `zip -r file.zip file`
+	```
+	zip -r file.zip file
+	```
 
 - extract (unzip)
-> `unzip file.zip -d zip_extract`
+	```
+	unzip file.zip -d zip_extract
+	```
 
 ### <a id="unrar"> 7.3 unrar </a>
 
 Please install zip and unzip package:　`$sudo apt-get install unrar`
 
 - compress (zip):
-  
-  > `unrar l filename.rar`
+	```
+	unrar l filename.rar
+	```
 
 - extract (unrar)
-  
-  > `unrar e filename.rar`
+	```
+	unrar e filename.rar
+	```
 
 
 ## <a id="remotefile"> 8. Remote File transfer </a> [🔝](#toc)
@@ -362,8 +390,10 @@ Please install zip and unzip package:　`$sudo apt-get install unrar`
 Please install wget package:`$sudo apt-get install wget`
 
 - download: `wget http://XXX.tar.gz`
-> - `-o` parameter to rename file name:
-> - example: `wget -O namefolder.tar.gz http:/xxxx.tar.gz`
+> - `-o` parameter to rename file name
+```
+wget -O namefolder.tar.gz http:/xxxx.tar.gz
+```
 
 ### <a id="scp"> 8.2 scp: Secure Copy </a>
 Please install openssh-server package `sudo apt-get install openssh-server`
@@ -372,16 +402,15 @@ Please install openssh-server package `sudo apt-get install openssh-server`
 >> - `-r`: recursive
 >> - `-p`: Preserves modification
   
-- Example:
-	> - upload: 
+- upload: 
 	```
 	scp /path/file1 myuser@192.168.1.1:/path/file2
 	```
-	> - download:
+ - download:
 	```
 	scp myuser@192.168.1.1:/path/file /path/file1
 	```
-	> - copy directory 
+- copy directory 
 	```
 	scp -r /path/folder1 myuser@192.168.0.1:/path/folder2
 	```
@@ -391,15 +420,26 @@ Please install openssh-server package `sudo apt-get install openssh-server`
 
 ### <a id="dd"> 9.1 dd generate to image </a>
 
-This comamnd can do generate file, and create usb disk to images 
+This command can generate a file, and create usb disk to images 
 
-> - Create images to iso:
-    > Create ISO file:  `dd if=/dev/sdx of=/path/xxx.iso`    
-    > Create ISO file to usb: `dd if=/path/xxx.iso of=/dev/sdx`
-
-> - Generate X size file: 
-    > - dd command: `dd if=/dev/zero of=test.img bs=1024 count=0 seek=1024` 
-    > - fallocate command:  `fallocate -l 100M file.txt`
+- Create images to iso:
+	- Create ISO file:
+ 	```
+	dd if=/dev/sdx of=/path/xxx.iso
+	```
+	- Create ISO file to usb:
+   	```
+    dd if=/path/xxx.iso of=/dev/sdx
+    ```
+- Generate X size file: 
+	- dd command:
+ 	```
+	dd if=/dev/zero of=test.img bs=1024 count=0 seek=1024
+	```
+    - fallocate command:
+  	```
+	fallocate -l 100M file.txt
+	```
 	
 ### <a id="sed"> 9.2 SED </a>
 
@@ -408,15 +448,15 @@ This is powerful to do parsing:
 - Search and replace string:
 > Syntax: `sed -i -e 's/<search string> <replace string> /g'`
 
-    - **Example1**: anonymous_enable=NO to anonymous_enable=YES
-    ```
-    sed -i -e 's/anonymous_enable=NO/anonymous_enable=YES/g' /etc/vsftpd.conf
-    ```
+- **Example1**: anonymous_enable=NO to anonymous_enable=YES
+	 ```
+	sed -i -e 's/anonymous_enable=NO/anonymous_enable=YES/g' /etc/vsftpd.conf
+	 ```
   
-    - **Example2**: TFTP_DIRECTORY=/srv/tftp into TFTP_DIRECTORY=/tftpboot
-    ```
-    sed -i -e 's/TFTP_DIRECTORY="\/srv\/tftp"/TFTP_DIRECTORY="\'$tftp_dir'"/g' /tftpd-hpa
-    ```
+ - **Example2**: TFTP_DIRECTORY=/srv/tftp into TFTP_DIRECTORY=/tftpboot
+	```
+	sed -i -e 's/TFTP_DIRECTORY="\/srv\/tftp"/TFTP_DIRECTORY="\'$tftp_dir'"/g' /tftpd-hpa
+	```
 
 ### <a id="awk"> 9.3 AWK  </a>
 - ls directory and get the first string: 
@@ -428,14 +468,16 @@ This is powerful to do parsing:
 You can write into a file without vi or echo command. 
 
 - EOF with `cat` example
-  > Syntax:　`cat  << EOF > filename`
-    ```
-    cat << EOF > /etc/samba/smb.conf
-    workgroup = WORKGROUP
-    EOF
-    ```
+> Syntax:　`cat  << EOF > filename`
+```
+cat << EOF > /etc/samba/smb.conf
+workgroup = WORKGROUP
+EOF
+```
 - tee with `echo`
-> `echo 'network:' | sudo tee /etc/netplan/00-installer-config.yaml`
+```
+echo 'network:' | sudo tee /etc/netplan/00-installer-config.yaml
+```
 
 
 ## <a id="bashscript"> 10. Bash Script </a> [🔝](#toc)
