@@ -12,27 +12,53 @@ I will noted the lunux command often use as a cheatsheet
 <details open>
 <summary><b>(click to expand or hide)</b></summary>
 	
-[1. Basic Command](#basiccommand)
-[2. System Version Check](#checkSystem)
-[3. Install Package](#packageInstall)
-[4. Storage](#storage)
-[5. Network](#network)
-[6. System and Path setting](#filecompress)
-[7. Remote File transfer](#remotefile)
-[8. other advance command](#other)
+- [1. Basic Command](#basiccommand)
+	- [mkdir](#mkdir)
+	- [ln](#ln)
+	- [cp](#cp)	
+- [2. System Version Check](#checkSystem)
+	- [check os ver](#checkos)
+	- [check Kernel](#checkkernel)
+	- [check cpu](#checkcpu)	
+	- [check bios](#checkbios)	
+	
+- [3. Install Package](#packageInstall)
+	- [Remove lock](#Removelock)
+	- [Install Package](#package)
+- [4. Storage](#storage)
+	- [check ssd health: smarttcl](#smarttcl) 
+- [5. Network](#network)
+	- [netplan set IP address](#netplan)
+- [6. System and Path setting](#systempath)
+	- [Check current Shell](#shellpath)
+	- [Alias](#alias)
+- [7. File Extract and Compression](#filecompress)
+	- [Tar](#Tar)
+	- [unzip and zip](#zip)
+	- [unrar](#unrar)
+- [8. Remote File transfer](#remotefile)
+	- [ wget: download](#wget)
+	- [scp: Secure Copy](#scp)
+- [9. other advance command](#other)
+	- [dd generate to image](#dd)
+	- [sed](#sed)
+	- [awk](#awk)
+	- [EOF and tee](eof)
+- [10. Bash Script](#bashscript)
+
 
 </details>
 
-## <a id="basiccommand">1 Basic Command </a>
+## <a id="basiccommand"> 1 Basic Command </a>
 
-### 1.1 Create directory: `mkdir`
+###  <a id="mkdir"> 1.1 Create directory: `mkdir` </a>
 
 > Create directory: `mkdir -vp <directoryname>`
 > - `v`:verbose which will show message
 > - `p`:whether exist or not will create for you
 
 
-### 1.2 symbol link: `ln`
+###  <a id="ln"> 1.2 symbol link: `ln`  </a>
 
 This is like a shortcut in windows, it can link file or directory without copying or moving files
 
@@ -42,7 +68,7 @@ This is like a shortcut in windows, it can link file or directory without copyin
 - unlink directory
 > `unlink /test`  #remove link test directory#  
 
-### 1.3 copy file: `cp` and `rynch`
+###  <a id="copy"> 1.3 copy file: `cp` and `rynch` </a>
 
 This is copying files or directory, if copy directory need add `-V‵．
 
@@ -55,7 +81,8 @@ This is copying files or directory, if copy directory need add `-V‵．
 
 
 ## <a id="checkSystem"> 2 System Version Check </a>
-### 2.1 Check SW and HW information
+
+### <a id="checkos"> 2.1 Check SW and HW information  </a>
 
 - Check Linux version:  
 > - `lsb_release -a`
@@ -69,7 +96,7 @@ This is copying files or directory, if copy directory need add `-V‵．
 > - `cat /etc/lsb-release`
 > - `cat /etc/*release`
  
--  2.2 Check Kernel version
+###  <a id="checkkernel">  2.2 Check Kernel version </a>
 > - `uname -a`
 > - `hostnamectl`
     ```
@@ -85,7 +112,7 @@ This is copying files or directory, if copy directory need add `-V‵．
     Architecture: arm64
     ```
 
-### 2.3 Check CPU and MODEL 
+### <a id="checkcpu"> 2.3 Check CPU and MODEL  </a>
 - Check CPU 
     > - list cpu infor: `lscpu` 
     ```
@@ -102,7 +129,7 @@ Vendor ID:                ARM
 > -  `cat /proc/device-tree/model` #Raspberry Pi 5 Model B Rev 1.0c
 > - `cat /proc/cpuinfo | grep 'Model'` # Model : Raspberry Pi 5 Model B Rev 1.0
 
-### 2.4 Check bios version   
+### <a id="checkbios"> 2.4 Check bios version </a>  
 >  - Check Legacy or UEFI : `ls /sys/firmware` 
     > - EFI: uefi Mode 
     > - AHCI: legacy or bios mode 
@@ -111,7 +138,7 @@ Vendor ID:                ARM
 
 ## <a id="packageInstall"> 3. Installation Package </a>
 
-### 3.1 Remove lock 
+### <a id="Removelock"> 3.1 Remove lock </a>
 The lock only allow you to run one process, so need to remove it, else will occur Error not allow to install or update. 
 
 ```
@@ -124,7 +151,7 @@ sudo apt update
 ```
 
 
-###  3.2 Install Packages 
+###  <a id="package"> 3.2 Install Packages </a>
 
 - install deb package 
 > - using dpg file: `sudo dpkg -i package-name.deb`
@@ -143,7 +170,7 @@ sudo apt update
 
 ## <a id="storage"> 4. Storage Command</a>
 
-### check DISK samrt value or Health
+### <a id="smarttcl"> smarttcl: check DISK smart value or Health </a>
 
 please install smarttcl: `sudo apt-get install smarttcl`
 
@@ -152,7 +179,7 @@ please install smarttcl: `sudo apt-get install smarttcl`
 
 ## <a id="network"> 5. Network Command</a>
 
-### 5.1  set static or dhcp IP address with netplan 
+### <a id="netplan "> 5.1  set static or dhcp IP address with netplan </a>
 
 If you are using `2X.04` or above need to chnage to netplan command to set command. 
 
@@ -245,17 +272,17 @@ ping -c2 8.8.8.8
 ping -c2 google.com
 ```
 
-```
 
-## <a id="systempath">5. System and Path setting  </a>
 
-### 5.1 Check current Shell 
+## <a id="systempath"> 6. System and Path setting  </a>
+
+### <a id="shellpath"> 6.1 Check current Shell  </a>
 
 > - checking current SHELL: `$echo $PATH`
 > - checking support SHELL: `cat /etc/shells` #list all support shell
 
 
-### 5.2 Alias (custom command line)
+###  <a id="alias">  6.2 Alias (custom command line) </a>
 
 **What is alias:** it's a custome command define by yourself. For example i don't like to use ifconfig, instead i wants to use ip, so i assign like this `alias ip=ifconfig`
 
@@ -264,7 +291,7 @@ ping -c2 google.com
 
 In order to add alias, you need to add inside `.bashrc,` or `.bashrc_aliases`, if not after reboot will be done. I'm going to show you two ways:
 
-#### Method 1 (.bash_aliases):
+#### Method 1 (`.bash_aliases`):
   got to `cd` and open `.bashrc`,  you will see below script:
   
   ```
@@ -291,7 +318,7 @@ after modify it, you can use `source` to activate else you need to reboot.
   #logout will work
 ```
 
-#### Methood 2 (edit `.bashrc`)
+#### Methood 2 (`.bashrc`)
   You can also add inside `.bashrc`, but I recommend you use *method 1*. `.bashrc` is system file, if you mess it out, might have problem during boot. You can do like this:
   
   ```
@@ -300,10 +327,10 @@ after modify it, you can use `source` to activate else you need to reboot.
   source .bashrc
   ```
  
-## <a id="filecompress">6. File Extract and Compression  </a>
+## <a id="filecompress">7. File Extract and Compression  </a>
 There are many different compress and extract file type you can use. 
 
-### 6.1 Tar
+### <a id="Tar"> 7.1 Tar  </a>
 
 - compress:
 > `tar cvf filename.tar source-folder`
@@ -311,7 +338,7 @@ There are many different compress and extract file type you can use.
 - extract: 
 > `tar -zxvf xxxx.tz.gz`
 
-### 6.2 unzip and zip
+### <a id="zip"> 7.2 unzip and zip </a>
 Please install zip and unzip package:　`$sudo apt-get install zip unzip`
 
 - compress (zip): 
@@ -320,7 +347,7 @@ Please install zip and unzip package:　`$sudo apt-get install zip unzip`
 - extract (unzip)
 > `unzip file.zip -d zip_extract`
 
-### 6.3 unrar
+### <a id="unrar"> 7.3 unrar </a>
 
 Please install zip and unzip package:　`$sudo apt-get install unrar`
 
@@ -333,8 +360,9 @@ Please install zip and unzip package:　`$sudo apt-get install unrar`
   > `unrar e filename.rar`
 
 
-## <a id="remotefile">7. Remote File transfer </a>
-### 7.1 wget: download
+## <a id="remotefile"> 8. Remote File transfer </a>
+
+### <a id="wget"> 8.1 wget: download </a>
 
 Please install wget package:`$sudo apt-get install wget`
 
@@ -342,7 +370,7 @@ Please install wget package:`$sudo apt-get install wget`
 > - `-o` parameter to rename file name:
 > - example: `wget -O namefolder.tar.gz http:/xxxx.tar.gz`
 
-### 7.2 scp: Secure Copy
+### <a id="scp"> 8.2 scp: Secure Copy </a>
 Please install openssh-server package `sudo apt-get install openssh-server`
   
 > Syntax: `scp -rp filename username(linux)@ip:<destination>`
@@ -352,9 +380,9 @@ Please install openssh-server package `sudo apt-get install openssh-server`
 Example:  `scp -rp file [test@192.168.2.1](mailto:test@192.168.2.1):/home/test`
 
 
-## <a id="other">8. other advance command </a>
+## <a id="other"> 9. other advance command </a> 
 
-### 8.1 dd generate to image
+### <a id="dd"> 9.1 dd generate to image </a>
 
 This comamnd can do generate file, and create usb disk to images 
 
@@ -365,7 +393,8 @@ This comamnd can do generate file, and create usb disk to images
 > - Generate X size file: 
     > - dd command: `dd if=/dev/zero of=test.img bs=1024 count=0 seek=1024` 
     > - fallocate command:  `fallocate -l 100M file.txt`
-### 8.2 SED
+	
+### <a id="sed"> 9.2 SED </a>
 
 This is powerful to do parsing:
 
@@ -382,12 +411,12 @@ This is powerful to do parsing:
     sed -i -e 's/TFTP_DIRECTORY="\/srv\/tftp"/TFTP_DIRECTORY="\'$tftp_dir'"/g' /tftpd-hpa
     ```
 
-### 8.3 AWK
+### <a id="awk"> 9.3 AWK  </a>
 - ls directory and get the first string: 
   > - `detectLanint=$(ls /sys/class/net/ |grep en)`
   > - `ethInt=$(echo $detectLanint |awk '{print $1}')`
 
-### EOF and tee
+### <a id="eof"> 9.4 EOF and tee </a>
 
 You can write into a file without vi or echo command. 
 
@@ -402,7 +431,7 @@ You can write into a file without vi or echo command.
 > `echo 'network:' | sudo tee /etc/netplan/00-installer-config.yaml`
 
 
-## Bash Script
+## <a id="bashscript"> 10. Bash Script  </a>
 
 ### error not display: `/dev/null`
 
