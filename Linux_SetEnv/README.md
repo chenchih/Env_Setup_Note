@@ -15,12 +15,12 @@ I will noted the lunux command often use as a cheatsheet
 	- [mkdir](#mkdir)
 	- [ln](#ln)
 	- [cp](#copy)	
-- [2. System Version Check](#checkSystem)
+- [2. System Version Check](#chkver)
 	- [check os ver](#checkos)
 	- [check Kernel](#checkkernel)
 	- [check cpu](#checkcpu)	
 	- [check bios](#checkbios)		
-- [3. Install Package](#packageInstall)  
+- [3. Install Package](#install_pkg)  
 	- [Remove lock](#Removelock)
 	- [Install Package](#package)
 - [4. Storage](#storage)
@@ -84,7 +84,9 @@ This is copying files or directory, if copy directory need add `-V‵．
 	rsync -av --progress <source directory> <destination directory>
 	```
 
-## <a id="checkSystem"> 2 System Version Check </a> [🔝](#toc)
+## <a id="chkver"> 2 System Version Check </a> [🔝](#toc)
+
+
 ### <a id="checkos"> 2.1 Check SW and HW information  </a>
 
 - Check Linux version:  
@@ -141,7 +143,7 @@ ls /sys/firmware
 ```
 
 
-## <a id="packageInstall"> 3. Installation Package </a> [🔝](#toc)
+## <a id="install_pkg"> 3. Installation Package </a> [🔝](#toc)
 
 ### <a id="Removelock"> 3.1 Remove lock </a>
 The lock only allow you to run one process, so need to remove it, else will occur Error not allow to install or update. 
