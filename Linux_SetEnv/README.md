@@ -1,27 +1,25 @@
 # Linux Setup and Command Note
 
-## Update setup services:
+# Update setup services:
 - [X] vsftp: ftp server
 - [X] genieacs: acs server
 
-
-## Linux Command
+# Linux Command
 I will noted the lunux command often use as a cheatsheet
 
-
+##  <a id="toc"> Table to content </a>
 <details open>
 <summary><b>(click to expand or hide)</b></summary>
 	
 - [1. Basic Command](#basiccommand)
 	- [mkdir](#mkdir)
 	- [ln](#ln)
-	- [cp](#cp)	
+	- [cp](#copy)	
 - [2. System Version Check](#checkSystem)
 	- [check os ver](#checkos)
 	- [check Kernel](#checkkernel)
 	- [check cpu](#checkcpu)	
-	- [check bios](#checkbios)	
-	
+	- [check bios](#checkbios)		
 - [3. Install Package](#packageInstall)
 	- [Remove lock](#Removelock)
 	- [Install Package](#package)
@@ -49,13 +47,13 @@ I will noted the lunux command often use as a cheatsheet
 
 </details>
 
-## <a id="basiccommand"> 1 Basic Command </a>
+## <a id="basiccommand"> 1 Basic Command </a> [🔝](#toc)
 
-###  <a id="mkdir"> 1.1 Create directory: `mkdir` </a>
+###  <a id="mkdir"> 1.1 Create directory: `mkdir` </a> 
 
 > Create directory: `mkdir -vp <directoryname>`
-> - `v`:verbose which will show message
-> - `p`:whether exist or not will create for you
+>> - `v`:verbose which will show message
+>> - `p`:whether exist or not will create for you
 
 
 ###  <a id="ln"> 1.2 symbol link: `ln`  </a>
@@ -80,19 +78,18 @@ This is copying files or directory, if copy directory need add `-V‵．
 
 
 
-## <a id="checkSystem"> 2 System Version Check </a>
+## <a id="checkSystem"> 2 System Version Check </a> [🔝](#toc)
 
 ### <a id="checkos"> 2.1 Check SW and HW information  </a>
 
 - Check Linux version:  
 > - `lsb_release -a`
-    ```
+```
     Distributor ID: Ubuntu
     Description:    Ubuntu 24.04 LTS
     Release:        24.04
     Codename:       noble
-
-    ```
+```
 > - `cat /etc/lsb-release`
 > - `cat /etc/*release`
  
@@ -136,7 +133,7 @@ Vendor ID:                ARM
 
 
 
-## <a id="packageInstall"> 3. Installation Package </a>
+## <a id="packageInstall"> 3. Installation Package </a> [🔝](#toc)
 
 ### <a id="Removelock"> 3.1 Remove lock </a>
 The lock only allow you to run one process, so need to remove it, else will occur Error not allow to install or update. 
@@ -168,25 +165,25 @@ sudo apt update
 
 
 
-## <a id="storage"> 4. Storage Command</a>
+## <a id="storage"> 4. Storage Command</a> [🔝](#toc)
 
 ### <a id="smarttcl"> smarttcl: check DISK smart value or Health </a>
 
-please install smarttcl: `sudo apt-get install smarttcl`
+Please install smarttcl: `sudo apt-get install smarttcl`
 
 > - Check Smart value for HDD: `smarttcl -x /dev/sda1`
 
 
-## <a id="network"> 5. Network Command</a>
+## <a id="network"> 5. Network Command</a> [🔝](#toc)
 
-### <a id="netplan "> 5.1  set static or dhcp IP address with netplan </a>
+### <a id="netplan"> 5.1  set static or dhcp IP address with netplan </a>
 
-If you are using `2X.04` or above need to chnage to netplan command to set command. 
+If you are using `2X.04` or above need to change to the netplan command to set the command. 
 
-#### Step1 Check you netplan confgiure
-netplan is been located under `/etc/netplan`, when you access in that path you might have notice they might occur multiple `.yaml` file. 
+#### Step1 :  Check you netplan configuration
+netplan is been located under `/etc/netplan`, when you access that path, you might have noticed they might occur multiple `.yaml` files. 
 
-> **Problem**: Which one should you edit? please go to next step to solve this issue. 
+> **Problem**: Which one should you edit? please go to the next step to solve this issue. 
 
 ```
 chenchih@chenchih-desktop:/etc/netplan$ ll
@@ -199,8 +196,8 @@ drwxr-xr-x 146 root root 8192 Aug 29 06:58 ../
 -rw-------   1 root root  670 Aug 28 13:28 90-NM-7e43fcda-6dc7-4e7f-be56-bd51225c11e5.yaml
 ```
 
-#### Step2 check which yaml file to edit 
-Please use this commadn `nmcli device show | grep IP4.GATEWAY` to know which yaml file we need to edit. If it occur like this:
+#### Step2: Check which YAML file to edit 
+Please use this command `nmcli device show | grep IP4.GATEWAY` to know which yaml file we need to edit. If it occur like this:
 ```
 IP4.GATEWAY: --
 IP4.GATEWAY: --
@@ -212,7 +209,7 @@ nmcli shows all gateways as `--`, meaning NetworkManager isn’t setting a gatew
 > - `90-NM-xxxx.yaml` → created/managed by NetworkManager (if your system uses it).
 
 #### Step3 check yaml file DHCP SETTING (default)
-So let edit this configure:  `50-cloud-init.yaml`, default is dhcp which look like below:
+So let edit this configuration:  `50-cloud-init.yaml`, the default is dhcp, which looks like below:
 
 ```
 network:
@@ -226,11 +223,11 @@ network:
       set-name: "eth0"
 
 ```
-#### Step4 edit yaml file and set static ip and default route
+#### Step 4 edit yaml file and set the static IP and the default route
 
-I need to change my IP into this setting:
+I need to change my IP to this setting:
 - set ip: 172.21.201.244, 
-- default route and gateway :172.21.201.253
+- default route and gateway:172.21.201.253
 
 ```
 network:
@@ -252,7 +249,7 @@ network:
 
 ```
 
-### Step5 apply configure and test it
+### Step 5 Apply configuration and test it
 ```
 sudo netplan generate
 sudo netplan apply
@@ -272,27 +269,25 @@ ping -c2 8.8.8.8
 ping -c2 google.com
 ```
 
-
-
-## <a id="systempath"> 6. System and Path setting  </a>
+## <a id="systempath"> 6. System and Path setting  </a> [🔝](#toc)
 
 ### <a id="shellpath"> 6.1 Check current Shell  </a>
 
 > - checking current SHELL: `$echo $PATH`
-> - checking support SHELL: `cat /etc/shells` #list all support shell
+> - checking support SHELL: `cat /etc/shells` #list all support shells
 
 
 ###  <a id="alias">  6.2 Alias (custom command line) </a>
 
-**What is alias:** it's a custome command define by yourself. For example i don't like to use ifconfig, instead i wants to use ip, so i assign like this `alias ip=ifconfig`
+**What is an alias:** It's a custom command defined by yourself. For example, I don't like to use ifconfig, instead I want to use ip, so I assign like this `alias ip=ifconfig`
 
 > Syntax: `alias custom-command=<linux command>`
 > ex: `alias ip='ip -a'`
 
-In order to add alias, you need to add inside `.bashrc,` or `.bashrc_aliases`, if not after reboot will be done. I'm going to show you two ways:
+In order to add an alias, you need to add it inside `.bashrc,` or `.bashrc_aliases`, if not after reboot will be done. I'm going to show you two ways:
 
 #### Method 1 (`.bash_aliases`):
-  got to `cd` and open `.bashrc`,  you will see below script:
+  got to `cd` and open `.bashrc`,  you will see script below:
   
   ```
   if [ -f ~/.bash_aliases ]; then
@@ -327,7 +322,7 @@ after modify it, you can use `source` to activate else you need to reboot.
   source .bashrc
   ```
  
-## <a id="filecompress">7. File Extract and Compression  </a>
+## <a id="filecompress">7. File Extract and Compression  </a> [🔝](#toc)
 There are many different compress and extract file type you can use. 
 
 ### <a id="Tar"> 7.1 Tar  </a>
@@ -360,7 +355,7 @@ Please install zip and unzip package:　`$sudo apt-get install unrar`
   > `unrar e filename.rar`
 
 
-## <a id="remotefile"> 8. Remote File transfer </a>
+## <a id="remotefile"> 8. Remote File transfer </a> [🔝](#toc)
 
 ### <a id="wget"> 8.1 wget: download </a>
 
@@ -373,14 +368,26 @@ Please install wget package:`$sudo apt-get install wget`
 ### <a id="scp"> 8.2 scp: Secure Copy </a>
 Please install openssh-server package `sudo apt-get install openssh-server`
   
-> Syntax: `scp -rp filename username(linux)@ip:<destination>`
-> - `-r`: recursive
-> - `-p`: Preserves modification
+> - Syntax: `scp -rp filename username(linux)@ip:<destination>`
+>> - `-r`: recursive
+>> - `-p`: Preserves modification
   
-Example:  `scp -rp file [test@192.168.2.1](mailto:test@192.168.2.1):/home/test`
+- Example:
+	> - upload: 
+	```
+	scp /path/file1 myuser@192.168.1.1:/path/file2
+	```
+	> - download:
+	```
+	scp myuser@192.168.1.1:/path/file /path/file1
+	```
+	> - copy directory 
+	```
+	scp -r /path/folder1 myuser@192.168.0.1:/path/folder2
+	```
 
 
-## <a id="other"> 9. other advance command </a> 
+## <a id="other"> 9. other advance command </a>  [🔝](#toc)
 
 ### <a id="dd"> 9.1 dd generate to image </a>
 
@@ -431,7 +438,7 @@ You can write into a file without vi or echo command.
 > `echo 'network:' | sudo tee /etc/netplan/00-installer-config.yaml`
 
 
-## <a id="bashscript"> 10. Bash Script  </a>
+## <a id="bashscript"> 10. Bash Script </a> [🔝](#toc)
 
 ### error not display: `/dev/null`
 
