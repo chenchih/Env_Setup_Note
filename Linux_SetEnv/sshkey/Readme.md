@@ -130,14 +130,16 @@ I have set password for private key, if you didn't set password then you can lea
 ![terateam set privatekey ](img/terateam_login.png)
 
 
-
-
 ### Case2
 - Bsic Envirnoment information
-	- Local PC: window
-	- Server: Ubuntu server
+	- testserver: client side (172.21.201.107)
+	- testserver2:server side (172.21.201.249)
 
-Why would you want to generate under server side? In some case like some devices ex: router, or system developer for some security issue might design user login without password, instead using the private key. User make ssh connection just out the private key in `.ssh` it will conenct from clien to server.
+Why would you want to generate under server side? In some case like some devices ex: router, or system developer for some security issue might design user login without password, instead using the private key. User make ssh connection just out the private key in `.ssh` it will connect from client to server.
+
+in this case your client just need a private key it is able to access the server side. 
+
+
 
 Below is the diagram if you generate key under server:
 ![Case2 generate key under server side ](img/Case2_diagram_generate.png)
@@ -146,11 +148,13 @@ Below is the diagram if you generate key under server:
 ```
 ssh-keygen -t rsa -b 4096
 ```
+![generate key server ](img/server_generate.PNG)
 
 - 2. added the public key to authorized_keys
 ```
 cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 ```
+![dump public key](img/dump_publickey.PNG)
 
 - 3, set permission
 ```
@@ -166,11 +170,37 @@ In case if you set using root account to set above permission, please change to 
 sudo chown -R chenchih:chenchih /home/chenchih/.ssh
 ```
 
-- 4. sudo systemctl restart sshd
+- 4. restart ssh 
+```
+sudo systemctl restart sshd
+```
 
 - 5. copy your id_rsa (private key) into window pc
+You have to manual copy like 
+```
+#server(server) 
+cat id_rsa #copy private key
+#server2(client)
+touch id_rsa
+vi id_rsa #paste the private key content
+```
+you can also download and upload file with ftp or tftp or smb these tool. 
 
+- 6 connect ssh from client to server 
 
+![connection from cleint to server](img/generateserver_connection.PNG)
+
+## summary
+
+You can either generate your key on either side:
+- generate public and private key on client(often use case, like git)
+	- copy public key to server side with name `authorized_keys`
+
+- generate key on server side(use often on devices, not allow user to enter password)
+	- dump public key to `authorized_keys` file
+	- provide your private key to who want to connect. 	
+
+![diagram of public and private key](img/diagram_pub_private.PNG)
 
 ## reference
 

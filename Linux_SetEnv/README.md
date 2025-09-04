@@ -27,6 +27,8 @@ I will noted the lunux command often use as a cheatsheet
 	- [check ssd health: smarttcl](#smarttcl) 
 - [5. Network](#network)
 	- [netplan set IP address](#netplan)
+	- [wired Network connection](#network_services)
+	- [wifi connection](#wifi_show)
 - [6. System and Path setting](#systempath)
 	- [Check current Shell](#shellpath)
 	- [Alias](#alias)
@@ -83,6 +85,8 @@ This is copying files or directory, if copy directory need add `-V‵．
 	```
 	rsync -av --progress <source directory> <destination directory>
 	```
+
+
 
 ## <a id="chkver"> 2 System Version Check </a> [🔝](#toc)
 
@@ -179,10 +183,15 @@ sudo apt update
 	```
 
 - check installed package
-	- check installed pkg: `
+	- check installed pkg: 
 	```
 	sudo apt list -- installed
 	```
+	- check service install
+	```
+	dpkg -l openssh-server
+	```
+
 
 ## <a id="storage"> 4. Storage Command</a> [🔝](#toc)
 
@@ -289,6 +298,78 @@ ping -c2 8.8.8.8
 ping -c2 google.com
 ```
 
+
+### <a id="network_services"> 5.2 network connection </a>
+If you set network you need to restart services there are couples of way to do it:
+
+- Restart the Network Manager
+
+This is default service for managing network connections on Ubuntu desktop 
+```
+sudo systemctl restart NetworkManager
+```
+
+This is the default network management service on Ubuntu server systems.
+```
+sudo systemctl restart systemd-networkd
+```
+
+-  Restart the Network Interface: ifup/ifdown Command
+```
+sudo ifdown eth0
+sudo ifup eth0
+
+sudo ip link set enp0s3 up
+sudo ip link set enp0s3 down
+```
+- nmcli(NetworkManager Command Line Interface )
+> View Network Status
+```
+#Shows the overall state of NetworkManager
+nmcli general status
+
+#Lists all network interfaces and their current status (e.g., connected, disconnected, unmanaged).
+nmcli device status
+
+#Lists all saved network connection profiles.
+nmcli connection show
+```
+> Manage Connections
+```
+sudo nmcli networking off
+sudo nmcli networking on
+
+# Activates a saved connection.
+nmcli connection up "Connection Name"
+
+# Deactivates a connection.
+nmcli connection down "Connection Name"
+
+# Creates a new wired connection.
+nmcli connection add type ethernet con-name "MyWired" ifname eth0:
+```
+ 
+### <a id="wifi_show"> 5.3 wifi </a>
+
+- show wifi 
+```
+#show ssid
+nmcli connection show
+
+#filter password of specfic ssid
+sudo nmcli connection show "My Home WiFi" | grep psk
+```
+
+- Scans for available wireless networks
+```
+nmcli device wifi list
+```
+- Connects to a Wi-Fi network.
+```
+nmcli device wifi connect "SSID" password "mysecretpass":
+```
+
+
 ## <a id="systempath"> 6. System and Path setting  </a> [🔝](#toc)
 
 ### <a id="shellpath"> 6.1 Check current Shell  </a>
@@ -341,6 +422,23 @@ after modify it, you can use `source` to activate else you need to reboot.
   alias desktop="cd /home/test/Desktop"
   source .bashrc
   ```
+  
+###  <a id="alias">  6.3 change PC name </a>
+if you want to change your pc name or hostname for example: `chenchih@chen` to `testserver@chenchih`, please use this command
+
+#### Method 1 use `hostnamectl`
+- Step1: check hostname using command `hostnamectl`
+- Step2: use command to set 
+```
+sudo hostnamectl set-hostname new-name
+#ex: sudo hostnamectl set-hostname testserver
+```
+#### Method 2 manually set
+
+- Step 1: modify /etc/hostname and change `chenchih` to `testserver`
+- Step 2:  modify /etc/hosts and change `chenchih` to `testserver`
+- Step 3: reboot
+ 
  
 ## <a id="filecompress">7. File Extract and Compression  </a> [🔝](#toc)
 There are many different compression and extraction file types you can use. 

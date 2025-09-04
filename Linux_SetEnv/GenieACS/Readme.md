@@ -421,7 +421,7 @@ WantedBy=default.target
 
 ```
 
-##  <a id="RunGenieACS">  Run GenieACS </a>
+## <a id="RunGenieACS">Run GenieACS</a>
 
 ### Enable and start services 
 ```
