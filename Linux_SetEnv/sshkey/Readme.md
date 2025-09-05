@@ -24,14 +24,14 @@ Let me show most commonly use method when you access to server side with key. Yo
 ![generate key localside](img/Case1_diagram_generate.png)
 
 
-- Step1: Generate key under local side(window)
+#### Step1: Generate key under local side(window)
 You can either use which algorithms you like `ssh-keygen -t rsa -b 4096` or `ssh-keygen -t ed25519`
 Note: recommend use ed25519, but in this example I will show using rsa method. 
 
 
 ![generate key localside](img/case1_keygen_window.png)
 
-- Step2: List directory it will generate public and private key
+#### Step2: List directory it will generate public and private key
 
 
 ![list generate key](img/case1_publickey.png)
@@ -60,7 +60,7 @@ Let compare public key under local and server side:
 
 
 
-- Step3: modify your `sshd_config` to access by key 
+#### Step3: modify your `sshd_config` to access by key 
 
 > Note: 
 >> Ubuntu Server defaults to using SSH keys for remote access via SSH.
@@ -97,7 +97,7 @@ use the command to ssh server: `ssh test` will make ssh connection without typin
 
 
 
-#### Use Putty 
+##### Use Putty 
 Continue from above if you use putty it will pop error "No support authernication methods available" , because putty have it's own private and public key, and I will how how it work. 
 
 ![login](img/putty_error.png)
@@ -116,7 +116,7 @@ Continue from above if you use putty it will pop error "No support authernicatio
 
 this is the method of using thirdparty tool 
 
-#### Terateam 
+##### Terateam 
 If you use terateam will also have problem, you just follow the step below. 
 
 - Step1: open terateam and click setup>ssh authentication> 
@@ -144,19 +144,19 @@ in this case your client just need a private key it is able to access the server
 Below is the diagram if you generate key under server:
 ![Case2 generate key under server side ](img/Case2_diagram_generate.png)
 
-- 1. ubuntu server generate key
+#### Step 1 ubuntu server generate key
 ```
 ssh-keygen -t rsa -b 4096
 ```
 ![generate key server ](img/server_generate.PNG)
 
-- 2. added the public key to authorized_keys
+#### Step 2 added the public key to authorized_keys
 ```
 cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 ```
 ![dump public key](img/dump_publickey.PNG)
 
-- 3, set permission
+#### Step 3 set permission
 ```
 chmod 700 /home/chenchih/.ssh
 chmod 600 /home/chenchih/.ssh/authorized_keys
@@ -170,12 +170,12 @@ In case if you set using root account to set above permission, please change to 
 sudo chown -R chenchih:chenchih /home/chenchih/.ssh
 ```
 
-- 4. restart ssh 
+#### Step 4 restart ssh 
 ```
 sudo systemctl restart sshd
 ```
 
-- 5. copy your id_rsa (private key) into window pc
+#### Step 5 copy your id_rsa (private key) into window pc
 You have to manual copy like 
 ```
 #server(server) 
@@ -186,7 +186,7 @@ vi id_rsa #paste the private key content
 ```
 you can also download and upload file with ftp or tftp or smb these tool. 
 
-- 6 connect ssh from client to server 
+#### 6 connect ssh from client to server 
 
 ![connection from cleint to server](img/generateserver_connection.PNG)
 
