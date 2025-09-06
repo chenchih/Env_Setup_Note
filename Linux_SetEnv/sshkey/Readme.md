@@ -1,18 +1,29 @@
-# SSH Connection Note 
+# How to Use SSH with key
 
-Today I want to make some note on how to use SSH include generate key and connect without password. I will show you:
+This guide will show you how to use SSH, including how to generate keys and connect without a password. We'll cover two common methods:
 - case1: generate under local side (clinet), this is mostly used for most people 
 - case2: generate under server side, I recentely study this method. 
+### Getting Started
 
-Please install ssh package before using it: `sudo apt install openssh-server`
-
-## Acces SSH with key 
+First, make sure you have the SSH package installed on your system. You can do this with the following command:
+```
+sudo apt install openssh-server
+```
+### Understanding SSH Keys
 
 When you use the key to connect server, you will need a public key, and private key:
 - private key: Stored on your local machine and must be kept safe. 
-- public key: Can be stored anywhere and is linked to the private key.
+- public key: Can be stored anywhere and is linked to the private key.  
+---
 
-### CASE 1 Ubuntu Desktop as server
+## Content
+
+- [CASE 1 generate key under client side (common use case)](#case1)
+- [Case2 generate key under server side](#case2)
+- [Third Party tool(putty, gemini) ](#third)
+
+
+## <a id="case1"> CASE 1 generate key under client side (common use case) </a>  [🔝](#Content)
 This method is use often 
 - Bsic Envirnoment information
 	- Local PC: window
@@ -24,20 +35,20 @@ Let me show most commonly use method when you access to server side with key. Yo
 ![generate key localside](img/Case1_diagram_generate.png)
 
 
-#### Step1: Generate key under local side(window)
+### Step1: Generate key under local side(window)
 You can either use which algorithms you like `ssh-keygen -t rsa -b 4096` or `ssh-keygen -t ed25519`
 Note: recommend use ed25519, but in this example I will show using rsa method. 
 
 
 ![generate key localside](img/case1_keygen_window.png)
 
-#### Step2: List directory it will generate public and private key
+### Step2: List directory it will generate public and private key
 
 
 ![list generate key](img/case1_publickey.png)
 
 
-- Step3: copy id_rsa.pub into server, with the `ssh-copy-id` or copy file 
+### Step3: copy id_rsa.pub into server, with the `ssh-copy-id` or copy file 
 
 If you use linux it should have the command. 
 
@@ -60,7 +71,7 @@ Let compare public key under local and server side:
 
 
 
-#### Step3: modify your `sshd_config` to access by key 
+### Step4: modify your `sshd_config` to access by key 
 
 > Note: 
 >> Ubuntu Server defaults to using SSH keys for remote access via SSH.
@@ -77,7 +88,7 @@ sudo systemctl restart sshd
 ```
 ![edit sshd configure ](img/edit_sshd_config_desktop.png)
 
-- Step 4 connect ssh with key, no password
+### Step 5 connect ssh with key, no password
 
 ![login](img/login_key_desktop.png)
 
@@ -95,10 +106,71 @@ Host test
 use the command to ssh server: `ssh test` will make ssh connection without typing long HostName
 ![ssh config setting](img/ssh_config_storedata.png)
 
+## <a id="case2"> Case2 generate key under server side  </a> [🔝](#Content)
+- Bsic Envirnoment information
+	- testserver: client side (172.21.201.107)
+	- testserver2:server side (172.21.201.249)
+
+Why would you want to generate under server side? In some case like some devices ex: router, or system developer for some security issue might design user login without password, instead using the private key. User make ssh connection just out the private key in `.ssh` it will connect from client to server.
+
+in this case your client just need a private key it is able to access the server side, so you just copy the private key from server and paste into client and make connection 
+
+Below is the diagram if you generate key under server:
+![Case2 generate key under server side ](img/Case2_diagram_generate.png)
+
+### Step 1 ubuntu server generate key
+```
+ssh-keygen -t rsa -b 4096
+```
+![generate key server ](img/server_generate.PNG)
+
+### Step 2 added the public key to authorized_keys
+```
+cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+```
+![dump public key](img/dump_publickey.PNG)
+
+### Step 3 set permission
+```
+chmod 700 /home/chenchih/.ssh
+chmod 600 /home/chenchih/.ssh/authorized_keys
+chmod 600 /home/chenchih/.ssh/id_rsa   # Only if you copied id_rsa there
+chmod 644 /home/chenchih/.ssh/id_rsa.pub
+```
+
+In case if you set using root account to set above permission, please change to normal user, and change ownership and groupship to username
+
+```
+sudo chown -R chenchih:chenchih /home/chenchih/.ssh
+```
+
+### Step 4 restart ssh 
+```
+sudo systemctl restart sshd
+```
+
+### Step 5 copy your id_rsa (private key) into window pc
+You have to manual copy like 
+```
+#server(server) 
+cat id_rsa #copy private key
+#server2(client)
+touch id_rsa
+vi id_rsa #paste the private key content
+```
+you can also download and upload file with ftp or tftp or smb these tool. 
+
+### Step 6 connect ssh from client to server 
+
+![connection from cleint to server](img/generateserver_connection.PNG)
 
 
-##### Use Putty 
-Continue from above if you use putty it will pop error "No support authernication methods available" , because putty have it's own private and public key, and I will how how it work. 
+## <a id="third">Third Party Tool </a> [🔝](#Content)
+If you perfer using thridparty tool like putty or terateam, then this is the setting you might need to know else will not be able to connect. 
+This method is use on both case 1 and case2, but in my example I use base on case1 as example due to it's common usecase. 
+
+### Use Putty 
+If you connect using putty it will pop error "No support authernication methods available" , because putty have it's own private and public key, and I will how how it work. 
 
 ![login](img/putty_error.png)
 
@@ -116,7 +188,7 @@ Continue from above if you use putty it will pop error "No support authernicatio
 
 this is the method of using thirdparty tool 
 
-##### Terateam 
+### Terateam 
 If you use terateam will also have problem, you just follow the step below. 
 
 - Step1: open terateam and click setup>ssh authentication> 
@@ -130,67 +202,7 @@ I have set password for private key, if you didn't set password then you can lea
 ![terateam set privatekey ](img/terateam_login.png)
 
 
-### Case2
-- Bsic Envirnoment information
-	- testserver: client side (172.21.201.107)
-	- testserver2:server side (172.21.201.249)
-
-Why would you want to generate under server side? In some case like some devices ex: router, or system developer for some security issue might design user login without password, instead using the private key. User make ssh connection just out the private key in `.ssh` it will connect from client to server.
-
-in this case your client just need a private key it is able to access the server side. 
-
-
-
-Below is the diagram if you generate key under server:
-![Case2 generate key under server side ](img/Case2_diagram_generate.png)
-
-#### Step 1 ubuntu server generate key
-```
-ssh-keygen -t rsa -b 4096
-```
-![generate key server ](img/server_generate.PNG)
-
-#### Step 2 added the public key to authorized_keys
-```
-cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
-```
-![dump public key](img/dump_publickey.PNG)
-
-#### Step 3 set permission
-```
-chmod 700 /home/chenchih/.ssh
-chmod 600 /home/chenchih/.ssh/authorized_keys
-chmod 600 /home/chenchih/.ssh/id_rsa   # Only if you copied id_rsa there
-chmod 644 /home/chenchih/.ssh/id_rsa.pub
-```
-
-In case if you set using root account to set above permission, please change to normal user, and change ownership and groupship to username
-
-```
-sudo chown -R chenchih:chenchih /home/chenchih/.ssh
-```
-
-#### Step 4 restart ssh 
-```
-sudo systemctl restart sshd
-```
-
-#### Step 5 copy your id_rsa (private key) into window pc
-You have to manual copy like 
-```
-#server(server) 
-cat id_rsa #copy private key
-#server2(client)
-touch id_rsa
-vi id_rsa #paste the private key content
-```
-you can also download and upload file with ftp or tftp or smb these tool. 
-
-#### 6 connect ssh from client to server 
-
-![connection from cleint to server](img/generateserver_connection.PNG)
-
-## summary
+## summary [🔝](#Content)
 
 You can either generate your key on either side:
 - generate public and private key on client(often use case, like git)
@@ -202,7 +214,7 @@ You can either generate your key on either side:
 
 ![diagram of public and private key](img/diagram_pub_private.PNG)
 
-## reference
+## reference [🔝](#Content)
 
 - https://phoenixnap.com/kb/generate-setup-ssh-key-ubuntu
 - https://medium.com/@natlee_/ubuntu-%E8%88%87-windows-%E4%BD%BF%E7%94%A8-ssh-%E9%87%91%E9%91%B0%E5%BF%AB%E9%80%9F%E7%99%BB%E5%85%A5%E7%9A%84%E6%96%B9%E6%B3%95-823a8b0211e3
