@@ -1,59 +1,60 @@
 # Setup GenieACS (opensource)
 
-This is a tutorial of how to setup genieacs server under ubuntu. Below are the step you can setup manually, but i also provide automation bash script, which will allow to automatic install and setup. The script support both libssl1.1 and libssl3.3. 
-- script name: `genie_acs_new.sh`
-- how to run: `./genie_acs_new.sh`
+This is a tutorial on how to set up Genieacs server under Ubuntu. Below are the steps you can set up manually. 
 
 ![flow of automation](img/genie_automatic.png)
 
-**Note:**  `Ubuntu 20.04` and `24.04` setup are different I spend reinstall these OS and figure out. There are many resource teach you Ubuntu 20.04, however I will also write how to setup under 20.04 in case you want to see the comparison. 
-- Ubuntu 20.04: SSL uses 1.1.1 and monodb use 4.4
-- Ubuntu 22.04 or 24.04: SSL uses 3.X and mogodb use 8.0]
+**Note:**  `Ubuntu 20.04` and `24.04` setups are different. There are many resources to teach you Ubuntu 20.04, however, I will also write how to setup under 20.04 in case you want to see the comparison. 
+- Ubuntu 20.04: SSL uses 1.1.1 and MongoDB use 4.4
+- Ubuntu 22.04 or 24.04: SSL uses 3.X and MongoDB use 8.0
+
+## Automation
+I also provide an automation that will allow for automatic installation and setup. The script supports both `libssl1.1` and `libssl3.3`. 
+- script name: `genie_acs_new.sh`
+- how to run: `./genie_acs_new.sh`
 
 ## Content
-
+- [Check PI Model/OS ver](#systemcheck) 
 - [Ubuntu 20.04](#ubuntu24)
 - [Ubuntu 22.04 or 24.04:](#ubuntu20)
 - [Run GenieACS](#RunGenieACS)
+- [CPE Set Acs server](cperegister)
 
+##  <a id="systemcheck"> Raspeberry PI5 setting check OS </a> [🔝](#Content)
+Let me show some of the OS information and PI5 settings
 
-##  <a id="systemcheck"> Raspeberry PI5 setting check OS </a>
-Let me show some of the OS information and PI5 setting
-
-- check OS version
+### check OS version
 ```
 lsb_release -a
 ```
 ![check os](img/checkOS.PNG)
 
-
-- check kernel 
-you can use either of this command: 
+### check kernel 
+You can use either of these commands: 
 > `uname -ar` or
 > `hostnamectl`
 
-- check cpu type
-This is important if you want to install specfic package you need to know it's arm cpu 
+- check CPU type
+This is important if you want to install a specfic package, you need to know its ARM CPU 
 ```
 lscpu
 ```
 ![check cpu](img/CPUType.PNG)
 
-- check Raspeberry Model and type
-you can use either one to check model:
+### check Raspberry Model and type
+You can use either one to check the model:
 
-> `cat /proc/device-tree/model`
-> `cat /proc/cpuinfo | grep 'Model'`
+> - `cat /proc/device-tree/model`
+> - `cat /proc/cpuinfo | grep 'Model'`
 
 ![check model](img/modelType.PNG)
 
-## <a id="ubuntu24"> Ubuntu 24.04 Setup </a>
+## <a id="ubuntu24"> Ubuntu 24.04 Setup </a> [🔝](#Content)
 
-Check your OS version using these command: 
-```
-lsb_release -a
-cat /etc/*release
-```
+Check your OS version using these commands: 
+> - `lsb_release -a`
+> - `cat /etc/*release`
+
 ### Step1: Install node.js
 
 ```
@@ -63,7 +64,7 @@ sudo apt install nodejs
 node -v
 ```
 ### Step2: Install MongoDB
-Skip install SSL, default ubuntu 20.04 already install and use libssl3, you can check by this command `dpkg -l | grep libssl3`
+Skip installing SSL, default Ubuntu 20.04 already installs and uses libssl3, you can check by this command `dpkg -l | grep libssl3`
 
 #### 2.1 MogoDB GPG Key
 ```
@@ -71,19 +72,25 @@ Skip install SSL, default ubuntu 20.04 already install and use libssl3, you can 
 sudo apt update 
 #install curl
 sudo apt install gnupg curl -y 
-#use curl to download mogodb
+#use curl to download MongoDB
 curl -fsSL https://www.mongodb.org/static/pgp/server-8.0.asc | \ sudo gpg -o /usr/share/keyrings/mongodb-server-8.0.gpg \ --dearmor
 ```
-#### 2.2 Mogo installation
+#### 2.2 Mongodb installation
+
 ```
 #add the url into sources.list
 echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-8.0.gpg ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/8.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-8.0.list
 #update 
 sudo apt update
-
+```
+- install mogodb
+```
 # Install MongoDB
 sudo apt install -y mongodb-org
+```
 
+- start mongod services
+```
 # Start and Enable the MongoDB Service
 sudo systemctl start mongod 
 sudo systemctl enable mongod 
@@ -101,11 +108,10 @@ sudo useradd --system --no-create-home --user-group genieacs
 mkdir /opt/genieacs
 mkdir /opt/genieacs/ext
 chown genieacs:genieacs /opt/genieacs/ext
-
 ```
 
 ### Step4: Configure GenieACS
-You cab refer this [GenieACS](#http://docs.genieacs.com/en/latest/installation-guide.html#install-genieacs)
+You can refer to this [GenieACS](#http://docs.genieacs.com/en/latest/installation-guide.html#install-genieacs)
 
 #### edit genieacs.env
 > `vi /opt/genieacs/genieacs.env` 
@@ -126,7 +132,7 @@ sudo chmod 600 /opt/genieacs/genieacs.env
 ```
 
 #### add jwt secret
-Add jwt secret if not it will occur error like below picture: 
+Add `jwt secret`, if not, an error will occur, like the picture below: 
 ```
 node -e "console.log(\"GENIEACS_UI_JWT_SECRET=\" + require('crypto').randomBytes(128).toString('hex'))" >> /opt/genieacs/genieacs.env
 ```
@@ -223,7 +229,6 @@ WantedBy=default.target
     delaycompress
     dateext
 }
-
 ```
 
 ### Enable and start services 
@@ -246,10 +251,10 @@ sudo systemctl status genieacs-ui
 ```
 
 It should be able to access Genie ACS if nothing is wrong, navigate web: http://<IP>:3000
-YOu can use `ip a` or `hostname -I` to check your IP address
+You can use `ip a` or `hostname -I` to check your IP address
 
-## <a id="ubuntu20"> Ubuntu 20.04 Setup</a>
-please run this command to allow running multiply process, in case execute command run `waiting for cache lock` this issue:
+## <a id="ubuntu20"> Ubuntu 20.04 Setup</a> [🔝](#Content)
+Please run this command to allow running multiple processes. In case you execute the command run `waiting for cache lock`, this issue:
 ```
 sudo rm /var/lib/dpkg/lock-frontend
 sudo rm /var/lib/dpkg/lock
@@ -267,12 +272,12 @@ node -v
 ```
 ### Step2: Install MongoDB
 
-- 1 download libssl
+#### download libssl
 ```
 echo "deb http://security.ubuntu.com/ubuntu impish-security main" | sudo tee /etc/apt/sources.list.d/impish-security.list
 sudo apt-get update
 ```
-- install mogodb
+#### install mogodb
 ```
 sudo apt update
 sudo apt install mongodb-org
@@ -280,7 +285,6 @@ sudo systemctl start mongod.service
 sudo systemctl status mongod
 sudo systemctl enable mongod
 mongo --eval 'db.runCommand({ connectionStatus: 1 })'
-
 ```
 
 ### Step3: Install GenieACS
@@ -300,7 +304,7 @@ chown genieacs:genieacs /opt/genieacs/ext
 ```
 
 ### Step4: Configure GenieACS
-You cab refer this [GenieACS](#http://docs.genieacs.com/en/latest/installation-guide.html#install-genieacs)
+You can refer to this [GenieACS](#http://docs.genieacs.com/en/latest/installation-guide.html#install-genieacs)
 
 #### edit genieacs.env
 > `vi /opt/genieacs/genieacs.env` 
@@ -314,7 +318,7 @@ NODE_OPTIONS=--enable-source-maps
 GENIEACS_EXT_DIR=/opt/genieacs/ext
 ```
 
-- Set file ownership and permissions:
+#### Set file ownership and permissions:
 ```
 sudo chown genieacs:genieacs /opt/genieacs/genieacs.env
 sudo chmod 600 /opt/genieacs/genieacs.env
@@ -443,15 +447,16 @@ sudo systemctl status genieacs-ui
 ```
 
 It should be able to access Genie ACS if nothing is wrong, navigate web: http://<IP>:3000
-YOu can use `ip a` or `hostname -I` to check your IP address
+You can use `ip a` or `hostname -I` to check your IP address
 
-- step1 Navigate your web to `http://<IP>:3000` and click link to activate
+### Navigate your web to `http://<IP>:3000` and click link to activate
 
 ![activate_genieacs](img/activate.PNG)
 
-### CPE Set acs URL to do register
+## <a id="cperegister"> CPE Set Acs server</a> [🔝](#Content)
+### CPE Set ACS URL to register
 
-Please use the correct command to set acs server, every command might be different 
+Please use the correct command to set acs server; every command might be different 
 ```
 setvalue Device.ManagementServer.URL="http://172.21.201.111:7547"
 setvalue Device.ManagementServer.ConnectionRequestUsername="admin"
@@ -459,25 +464,28 @@ setvalue Device.ManagementServer.ConnectionRequestPassword="admin"
 ```
 ![check_cpeOnline_genieacs](img/acs_online.PNG)
 
-### You can also do fw upgrade
-#### setup your file setting
-- Step1: Click on devices to check register success 
-- Step2: copy the correct OUI, product class
-- Step3: click on Admin page and click files
-- Step4: Enter the correct information OUI, product class, and version
+### CPE fw upgrade
+#### Set FW Image
+- Step 1: Set up your file settings
+- Step 2: Click on devices to check register success 
+- Step 3: Copy the correct OUI, product class
+- Step 4: Click on the Admin page and click on files
+- Step 5: Enter the correct information OUI, product class, and version
 ![check_cpeOnline_genieacs](img/upgrade_image.PNG)
 
-- Step5: please select your image and uplaod it
+- Step 6: Please select your image and upload it
+
 ![check_cpeOnline_genieacs](img/img_list.PNG)
 
 #### CPE Upgrade
-Continue from above you have to add image first. 
+Continue from above, you have to add the image first. 
 
-- click on device your want to upgrade
+- Click on the device you want to upgrade
 - select the devices you want to upgrade 
 - click push file 
 - select the image you want to upgrade
 - click queue and commit 
 
-You can refer below pciture: 
+You can refer picture below: 
+
 ![upgrade_cpe](img/upload_fw.PNG)

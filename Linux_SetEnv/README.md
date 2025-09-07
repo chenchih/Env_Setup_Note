@@ -3,6 +3,9 @@
 # Update setup services:
 - [X] vsftp: ftp server
 - [X] genieacs: acs server
+- [X] sshkey: ssh generate key
+- [X] ngix: http server
+
 
 # Linux Command
 I will noted the lunux command often use as a cheatsheet
