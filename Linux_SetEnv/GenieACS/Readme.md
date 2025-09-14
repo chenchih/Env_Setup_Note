@@ -6,7 +6,7 @@ This is a tutorial on how to set up Genieacs server under Ubuntu. Below are the 
 
 **Note:**  `Ubuntu 20.04` and `24.04` setups are different. There are many resources to teach you Ubuntu 20.04, however, I will also write how to setup under 20.04 in case you want to see the comparison. 
 - Ubuntu 20.04: SSL uses 1.1.1 and MongoDB use 4.4
-- Ubuntu 22.04 or 24.04: SSL uses 3.X and MongoDB use 8.0
+- Ubuntu 22.04 ~25.04: SSL uses 3.X and MongoDB use 8.0
 
 ## Automation
 I also provide an automation that will allow for automatic installation and setup. The script supports both `libssl1.1` and `libssl3.3`. 
@@ -15,8 +15,8 @@ I also provide an automation that will allow for automatic installation and setu
 
 ## Content
 - [Check PI Model/OS ver](#systemcheck) 
-- [Ubuntu 20.04](#ubuntu24)
-- [Ubuntu 22.04 or 24.04:](#ubuntu20)
+- [Ubuntu 20.04](#ubuntu20)
+- [Ubuntu 22.04 ~ 25.04:](#ubuntu24)
 - [Run GenieACS](#RunGenieACS)
 - [CPE Set Acs server](cperegister)
 
@@ -34,7 +34,8 @@ You can use either of these commands:
 > `uname -ar` or
 > `hostnamectl`
 
-- check CPU type
+### check CPU type
+
 This is important if you want to install a specfic package, you need to know its ARM CPU 
 ```
 lscpu
@@ -64,7 +65,12 @@ sudo apt install nodejs
 node -v
 ```
 ### Step2: Install MongoDB
-Skip installing SSL, default Ubuntu 20.04 already installs and uses libssl3, you can check by this command `dpkg -l | grep libssl3`
+Skip installing SSL, different ubuntu version have differnt SSL version:
+- Ubuntu 20.04  use ssl v1.1 
+- ubuntu 22.04 or above uses  `ssl v3`, you can check by this command `dpkg -l | grep libssl3`
+
+you can check full version with this command: `openssl version ` or `SSL_VERSION=$(openssl version | awk '{print $2}')`
+
 
 #### 2.1 MogoDB GPG Key
 ```
@@ -156,8 +162,7 @@ After=network.target
 [Service]
 User=genieacs
 EnvironmentFile=/opt/genieacs/genieacs.env
-ExecStart=/usr/bin/genieacs-cwmp
-
+ExecStart=/usr/local/bin/genieacs-cwmp
 [Install]
 WantedBy=default.target
 ```
@@ -272,7 +277,7 @@ node -v
 ```
 ### Step2: Install MongoDB
 
-#### download libssl
+#### download libssl (SKIP no need)
 ```
 echo "deb http://security.ubuntu.com/ubuntu impish-security main" | sudo tee /etc/apt/sources.list.d/impish-security.list
 sudo apt-get update
@@ -348,8 +353,8 @@ After=network.target
 [Service]
 User=genieacs
 EnvironmentFile=/opt/genieacs/genieacs.env
+#ExecStart=/usr/bin/genieacs-cwmp
 ExecStart=/usr/bin/genieacs-cwmp
-
 [Install]
 WantedBy=default.target
 ```
@@ -367,8 +372,8 @@ After=network.target
 [Service]
 User=genieacs
 EnvironmentFile=/opt/genieacs/genieacs.env
+#ExecStart=/usr/bin/genieacs-nbi
 ExecStart=/usr/bin/genieacs-nbi
-
 [Install]
 WantedBy=default.target
 
@@ -386,8 +391,8 @@ After=network.target
 [Service]
 User=genieacs
 EnvironmentFile=/opt/genieacs/genieacs.env
+#ExecStart=/usr/bin/genieacs-fs
 ExecStart=/usr/bin/genieacs-fs
-
 [Install]
 WantedBy=default.target
 
@@ -405,8 +410,8 @@ After=network.target
 [Service]
 User=genieacs
 EnvironmentFile=/opt/genieacs/genieacs.env
+#ExecStart=/usr/bin/genieacs-ui
 ExecStart=/usr/bin/genieacs-ui
-
 [Install]
 WantedBy=default.target
 ```
@@ -466,11 +471,12 @@ setvalue Device.ManagementServer.ConnectionRequestPassword="admin"
 
 ### CPE fw upgrade
 #### Set FW Image
-- Step 1: Set up your file settings
-- Step 2: Click on devices to check register success 
-- Step 3: Copy the correct OUI, product class
-- Step 4: Click on the Admin page and click on files
-- Step 5: Enter the correct information OUI, product class, and version
+- Step 1: Click on devices to check register success 
+- Step 2: Copy the correct OUI, product class
+- Step 3: Click on the Admin page
+- Step 4: Click on files settings, and  Select "1. Firmware Upgrade img" , and enter the correct information OUI, product class, and version
+- Step 5: Upload your images
+
 ![check_cpeOnline_genieacs](img/upgrade_image.PNG)
 
 - Step 6: Please select your image and upload it
@@ -489,3 +495,7 @@ Continue from above, you have to add the image first.
 You can refer picture below: 
 
 ![upgrade_cpe](img/upload_fw.PNG)
+
+
+## Reference
+- https://docs.genieacs.com/en/latest/installation-guide.html#install-genieacs
