@@ -20,8 +20,8 @@ brew --version
 If you run the previous command not able find then you need to add homebre to your path. 
 - check your path: `echo $PATH` 
 > please check below exist:
->> intel: `/usr/local/bin`
->> Silicon: `/opt/homebrew/bin`
+>> - **intel**: `/usr/local/bin`
+>> - **Silicon**: `/opt/homebrew/bin`
 
 - create path 
 If homebrew path not exist please edit `~/.zshrc` or `~/.bashrc` at the end of file add below either one:
@@ -40,7 +40,7 @@ source ~/.zshrc
 **Why do you need to add:**
 When you install a tool using Homebrew (e.g., brew install git), Homebrew places the git executable in its own bin directory (/opt/homebrew/bin or /usr/local/bin).
 
-##2. zsh
+## 2. zsh
 
 ### Install zsh
 - check zsh installed 
@@ -107,12 +107,12 @@ cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
 source ~/.zshrc
 ```
 
-[ohmyzsh install](img/ohmyzsh_install.PNG)
+![ohmyzshinstall](img/ohmyzsh_install.PNG)
 
 ### change zsh theme  
 When you install ohmyzsh, the theme is already download in this path  `~/.oh-my-zsh/themes/`
 
-[ohmyzsh theme](img/ohmyzsh_theme.PNG)
+![ohmyzsh theme](img/ohmyzsh_theme.PNG)
 
 - theme description or other theme 
 Please download theme [theme description](https://github.com/ohmyzsh/ohmyzsh/wiki/Themes)
@@ -124,11 +124,10 @@ please edit theme: `vim ~/.zshrc` and change to different theme name
 ZSH_THEME='agnoster' # default use robbyrussell change to agnoster
 exec $SHELL
 ```
-[change theme](img/ohmyzsh_zshrc.PNG)
+![change theme](img/ohmyzsh_zshrc.PNG)
 
-now when you activate the theme it will look like below really ugly, we need to change to iterms2 and install font to fix this problem. 
-This only happen if you use macbook, becuse mac therminal lack of font setting 
-[agnoster theme](img/changetheme.PNG)
+Now when you activate the theme it will look like below really ugly, you need to install font to fix this problem. 
+![agnoster theme](img/changetheme.PNG)
 
 
 
@@ -161,7 +160,7 @@ You will have realize the font look ugly, so we need to install iterm2 therminal
 
 
 ### install iterm2
-you can [download](https://iterm2.com/downloads.html) iterms manual, or with below command:
+you can [download](https://iterm2.com/downloads.html) iterm2 and install manual, or with below command which download and install:
 ```
 brew install --cask iterm2    
 ```
@@ -172,7 +171,7 @@ Now after chnage it, ther iterm2 terminal look perfect right
 [item2 change font ](img/iterm2_text.PNG)
 
 You can also change terminal app to this font, else it will look ugly.  If you don't need it in future then you can ignore this 
-[terminal text](img/terminal_textsetting.PNG)
+![terminal text](img/terminal_textsetting.PNG)
 
 
 
@@ -189,18 +188,19 @@ You can download iterm2 color or copy the code with below link:
 
 You can use two method, one download file, or copy the code and create file
 
-[color method](img/color_method.PNG)
+![color method](img/color_method.PNG)
 
 
-- (method1)import color
-Step1: Navigate to below path 
-Path: iterm →  preference →  profiles →  colors →  Color Presets → import
-Step2: import you download color plugin 
-Step3: choose the color you import just now
-[iterm setting](img/itern2.PNG)
+**(method1) import color plugin**
+> Step1: Navigate to below path
+>> Path: iterm →  preference →  profiles →  colors →  Color Presets → import
 
+> Step2: import you download color plugin 
+> Step3: choose the color you import just now
 
-- (method2) create file by copy url code and paste into file
+![iterm setting](img/itern2.PNG)
+
+**(method2)** create file by copy url code and paste into file
 ```
 go to https://iterm2colorschemes.com/ and select your best color format and copy or download
 touch Ryuuko.itermcolors
@@ -210,9 +210,9 @@ item import the file you create
 ```
 
 I Now after set the color let see the comparsion of the iterm2 color
-[color method](img/color_compare.PNG)
+![color method](img/color_compare.PNG)
 
-Note: When you download a color scheme from a site and import to use it, however you are not limited to that scheme's default settings. This mean if you use it and realize the color is great, then you want to change specfic color you aren't able to change it. 
+**Note:** When you download a color scheme from a site and import to use it, however you are not limited to that scheme's default settings. This mean if you use it and realize the color is great, then you want to change specfic color you aren't able to change it. 
  
 
 ## powerlevel 10k
@@ -248,31 +248,30 @@ apply?
 
 ### edit zshrc theme
  
-- method 1 edit `.zshrc`
+**method 1: ** edit `.zshrc`
 
 > `vi ~.zshrc`
 ```
 ZSH_THEME="powerlevel10k/powerlevel10k"
 ```
 
-- method 2  dump powerlevel10k to zshrc
+**method 2**  dump powerlevel10k to zshrc
 ```
 echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc
 exec $SHELL
 ```
 
-- activate it
+**activate it**
 when you set the setting you can activate it with below command else you have to reboot. 
 ```
 source ~/.zshrc
 ```
 
-- summary theme: 
+**summary theme:**
 ```
 ZSH_THEME="agnoster"
 ZSH_THEME="random" #randome theme  
 ZSH_THEME="powerlevel10k/powerlevel10k" 
-
 ```
 
 ## plugin 
