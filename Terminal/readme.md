@@ -1,9 +1,11 @@
 # Terminal Related Folder 
 On this page, I will record or note the setup of different terminals or editor
 - Terminal Setup
-  - [ ] Zsh under Mac or Ubuntu
+  - [ ] Zsh
+	- [ ] under Ubuntu
+	- [ ] under Macs
   - [X] Window-OhmyPosh Setup
-    - [X]  Window
+    - [X] Window
     - [X] WSL Linux
     - [X] Fish Shell
 
