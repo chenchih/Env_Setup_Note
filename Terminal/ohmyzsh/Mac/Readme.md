@@ -386,24 +386,45 @@ Everything have been setup, let add some great plugin which will make you more p
 - Step 1: Search for plugin name 
 You can refer to this link for different plugin [offical site](# https://ohmyz.sh/) [github plugin](#https://github.com/ohmyzsh/ohmyzsh/wiki/Plugins)
 - Step 2: Download plugin
-- Step 3: Add your plugin into `~.zshrc`
- Copy the name of the plugin you want from above web and paste it into `plugins=()` like below 
- 
-```
-plugins= (git) 
-```
-
-default git is been added `plugins= (git)`, after added, 
-
-- Step4: reload `.zshrc`
+- Step 3: Add your plugin into `~.zshrc` to enable
+ Copy the name of the plugin you want from above web and paste it like `plugins=(git)` default git is added. 
+- Step 4: reload `.zshrc`
+After you add plugin into zshrc, please reload it
 ```
 source ~.zshrc
+```
+- Remove plugin if you use git to install
+
+If you want to disable plugin just remove plugin name in `plugins=()`. To remove it you can use this command:
+
+**Check plugin:**
+```
+#check plugin install location
+ls ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/
+```
+
+**Remove Plugin:**
+```
+rm -rf ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-completions
+```
+- Remove plugin when use brew to install
+
+```
+#check plugin
+brew list | grep zsh-completions
+
+#Remove
+brew uninstall zsh-completions
+
+#cleanup your zshrc 
+fpath+=("$(brew --prefix)/share/zsh-completions")
+autoload -U compinit && compinit
 ```
 
 ### Auto Suggestions
 It will recognize the command you run in the past something, and while typing command it will give you suggestion according to previous command you use to run. 
 
-In short it watches your typing and suggests commands based on history.
+In short it provide auto suggestion **based on your previous command history**.
 
 - Download autosuggestions plugin
 ```
@@ -416,9 +437,48 @@ plugins=(git zsh-autosuggestions)
 - reload `.zshrc`
 
 - How to use
+
+> - Case1: I use to run `ifconfig`, after activate this plugin when i press `i` it will auto suggest `ifconfig`
+> - Case2: if i type ping 8.8.8.8 , ping 127.0.0.1. When i type ping + up and down will only show ping hsitory Command
+
 ![auto suggestion plugin](img/plugin_autosugg.png)
 
-I use to run `ifconfig`, after activate this plugin when i press `i` it will auto suggest `ifconfig`
+> key bind:
+>> - `Command+F` or arrow right: moving forward to prompt
+>> - `Command+B` or arrow left: moving backward to prompt
+>> - `Control +A`: Jump to the start of the prompt
+>> - `Control +E`: Jump to the end of the prompt
+>> - `Control + p` or `Control+N` or arrow up or down: move backward and forward through auto suggestion history
+
+#### Customize Setting in zshrc 
+Let add some add some terminal history setting. That allow to :
+- share command accross terminal
+- save the history command 
+
+Each terminal keeps its own local history in memory. When you close Terminal A, its history is written to the history file.Then you close Terminal B — but it overwrites the history file with only B’s commands.
+So the Result: Commands from A are lost.
+
+> Default:
+>> HISTSIZE=30 → only 30 commands in memory.
+>> SAVEHIST=0 → nothing gets saved to file.
+
+- append_history= must-have → avoids losing commands when closing terminals.
+- share_history = nice-to-have → syncs history across open shells in real time.
+- HISTSIZE = how many commands in memory.
+- SAVEHIST = how many commands written to disk.
+- HISTDUP = how duplicates are handled.
+
+```
+HISTFILE=~/.zsh_history
+HISTSIZE=5000
+#SAVEHIST=10000
+SAVEHIST=$HISTSIZE
+setopt APPEND_HISTORY       # don’t overwrite history file
+setopt SHARE_HISTORY        # share history across terminals
+setopt HIST_IGNORE_DUPS     # don’t record duplicates
+setopt HIST_IGNORE_SPACE    # ignore commands starting with space
+setopt HIST_IGNORE_ALL_DUPS #Clean history when searching (Ctrl+R)
+```
 
 ### Syntax Highlighting
 This allow to check command is valid or not, if you type cdx it will highlight red because it invalid command, cd will be green, which is valid command. 
@@ -464,29 +524,37 @@ I type `cd Download` it recognize the directory, cd back to home directory, and 
 
 ### fzf: fuzzy searching anything (skip)
 It lets you quickly search files, history, git branches, processes, etc.
+- Method1: install fzf 
+```
+git clone https://github.com/Aloxaf/fzf-tab ~/.oh-my-zsh/custom/plugins/fzf-tab
+```
+After it add plugin to `~/.zshrc`
+```
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting zsh-z fzf)
+```
 
-
-
-- install fzf 
+- Method2: install fzf
+If you install problem especially older IOS version above will fail
 ```
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install
 ```
-- add plugin to `~/.zshrc`
+It will add this in zshrc, you cna check
 ```
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting zsh-z fzf)
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 ```
 
 - reload `~/.zshrc`
 
 - How to use:
+![fzf plugin](img/fzf_plugin.png)
+
+> - `Command+R`: fuzzy search command history.
+> - `Command+T` fuzzy Search files in current dir
+> - `Alt +C`: fuzzy pick a directory and cd into it.
+> - `**<TAB>`: fzf completion trigger
+
 ```
-# Search command history
-Ctrl+R
-
-# Search files in current dir
-Ctrl+T
-
 # Files under the current directory
 # - You can select multiple items with TAB key
 vim **<TAB>
@@ -507,8 +575,6 @@ cd **<TAB>
 # Directories under ~/github that match `fzf`
 cd ~/github/fzf**<TAB>
 ```
-
-![fzf plugin](img/fzf_plugin.png)
 
 ### web-search
 look thing up with browser
