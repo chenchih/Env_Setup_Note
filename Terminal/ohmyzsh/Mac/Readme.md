@@ -150,6 +150,8 @@ You can use
 brew install --cask font-meslo-lg-nerd-font
 ```
 
+There's an alternative to download nerd font by this [nerdfont url](https://www.nerdfonts.com)
+
 If you like other nerd font you can search with this command that perfer you:
 ```
 brew search nerd
@@ -212,7 +214,23 @@ I Now after set the color let see the comparsion of the iterm2 color
 ![color method](img/color_compare.PNG)
 
 **Note:** When you download a color scheme from a site and import to use it, however you are not limited to that scheme's default settings. This mean if you use it and realize the color is great, then you want to change specfic color you aren't able to change it. 
- 
+
+#### Enable natura text selection
+
+By default word jumps (option + left or option+ right) and word deletions(option + backspace) not work, need to enale in iterm setting: 
+
+> iterm2 setting:
+>> `Iterm2> Profiles> keys> Key bindings> presets> Natural Text Setting 
+
+After enable it you can use
+
+![natural text setting](img/natural_Text.png)
+
+```
+move word　from right to left :option + left 
+move word　from left to right :option + right
+deletion word: option+backspace
+```
 
 ## PowerLevel10K
 Let install another powerful prompt theme if you think ohmyzsh is ok you can ignore it
@@ -286,7 +304,7 @@ enable transient prompt?n
 Instant prompt mode? 1
 apply?y
 ```
-after chaning it if you use vscode you need to change some setting, I conver in the next section. 
+after chaning it if you use vscode you need to change some setting, I convert in the next section. 
 
 ### edit zshrc theme
 
@@ -333,6 +351,41 @@ p10k configure
 rm ~/.p10k.zsh
 ```
 After it restart your terminal it will run cofigure again. 
+
+#### P10K customize prompt (optional)
+
+If you head over to `.zshrc` in the last line it will show your P10K prompt configure liek this: 
+```
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+```
+
+Let customize P10K prompt: `vi ~/.p10k.zsh` or `nano ~/.p10k.zsh` 
+![p10k customize](img/p10k_customize.png)
+
+For example I add `ram` option like below and save and reopen iterm2 will see the ram occur on left side
+```
+  typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
+    # =========================[ Line #1 ]=========================
+    os_icon                 # os identifier
+    dir                     # current directory
+    vcs                     # git status
+    ram
+    # =========================[ Line #2 ]=========================
+    newline                 # \n
+    # prompt_char           # prompt symbol
+    
+  )
+```
+
+![p10k customize ram](img/p10k_customize_ram.png)
+
+
+You can use this command to see all the color type as below
+```
+for i in {0..255}; do print -Pn "%K{$i}  %k%F{$i}${(l:3::0:)i}%f " ${${(M)$((i%6)):#3}:+$'\n'}; done
+```
+
+For more detail, please refer to this [p10k site](https://github.com/romkatv/powerlevel10k?tab=readme-ov-file)
 
 ### summary
 - this is the theme we set
@@ -601,7 +654,7 @@ DEFAULT_USER=$USER
 - reload `.zshrc`
 
 ## reference
-- https://www.youtube.com/watch?v=CF1tMjvHDRA&t=10s
+- [English-YT] https://www.youtube.com/watch?v=CF1tMjvHDRA&t=10s
 - https://medium.com/airfrance-klm/beautify-your-iterm2-and-prompt-40f148761a49
 - https://medium.com/nitas-learning-journey/mac%E7%B5%82%E7%AB%AF%E6%A9%9F-terminal-%E8%A8%AD%E5%AE%9A-iterm2-ba63efd0df6a- https://medium.com/nitas-learning-journey/mac%E7%B5%82%E7%AB%AF%E6%A9%9F-terminal-%E8%A8%AD%E5%AE%9A-iterm2-ba63efd0df6a
 - https://github.com/josean-dev/dev-environment-files/tree/oh-my-zsh-zshrc-config
@@ -613,4 +666,6 @@ DEFAULT_USER=$USER
 - https://medium.com/nitas-learning-journey/mac%E7%B5%82%E7%AB%AF%E6%A9%9F-terminal-%E8%A8%AD%E5%AE%9A-iterm2-ba63efd0df6a
 - https://wshs0713.github.io/posts/8078f16/
 - https://holychung.medium.com/%E5%88%86%E4%BA%AB-oh-my-zsh-powerlevel10k-%E5%BF%AB%E9%80%9F%E6%89%93%E9%80%A0%E5%A5%BD%E7%9C%8B%E5%A5%BD%E7%94%A8%E7%9A%84-command-line-%E7%92%B0%E5%A2%83-f66846117921
-- https://www.kwchang0831.dev/dev-env/ubuntu/oh-my-zsh
+- [Chinese] https://www.kwchang0831.dev/dev-env/ubuntu/oh-my-zsh
+
+- [English-YT] https://www.youtube.com/watch?v=D2PSsnqgBiw
