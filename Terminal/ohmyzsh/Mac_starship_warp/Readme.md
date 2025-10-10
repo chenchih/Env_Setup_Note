@@ -1,6 +1,6 @@
 # Setup startship prompt 
 
-In this note, I am going to share how to setup startship prompt using warp terminal. 
+In this note, I am going to share how to setup startship prompt using warp terminal, you don't have to use wrap, you can also use iterm2 + starship. 
 
 - **Warp Terminal**: This is a fast, modern terminal application built in Rust and Swift, known for its AI command features and block-based interface.
 - **Starship Prompt**: A minimal, blazing-fast, and infinitely customizable prompt. Starship's major advantage is that it is cross-shell (works with Bash, Zsh, Fish, PowerShell, etc.).
@@ -14,6 +14,23 @@ Overall, Many people recommend `Starship` is better than `P10k`, and `Warp` is b
 You can refer to link below for Starship documentation: 
 - https://starship.rs/
 - https://starship.rs/config/#conditional-format-strings
+
+
+
+
+## File Name
+
+I have create serveral configure for reference, mac hidden file are hide, please use `control + shift+ .` to show up. 
+- `.zshrc` file: In case ig you want to use different terminal + prompt I add for you:
+	- `.zshrc`: only contain starship configure+ warp fixed
+	- `.zhrc_warp_iterm`: detected terminal warp or item2, allow to use P10K+ starship
+	- `.zhrc_multiple_terminal`: detected Terminal like warp, iterms or other Terminal 
+- `themename.yaml`: warp theme cofigure
+	- `elementarish.yaml` (**source**:[warp](https://github.com/warpdotdev/themes.git)
+	- `coolnight.yaml` (**source** [theRubberDuckuiee](https://github.com/theRubberDuckiee/dev-environment-files) )  
+- `starship.toml`: starship cfg (**source** reference:[theRubberDuckuiee](https://github.com/theRubberDuckiee/dev-environment-files) )  
+
+If you want to use `zshrc`, please use copy `.zhrc_warp_iterm` `.zshrc`
 
 
 
@@ -237,18 +254,6 @@ eval "$(starship init zsh)"
 mkdir -p $HOME/.warp/themes/
 touch  $HOME/.warp/themes/themename.yaml
 ```
-
-## File Name
-
-I have create serveral configure for reference, mac hidden file are hide, please use `control + shift+ .` to show up. 
-- `.zshrc` file: In case ig you want to use different terminal + prompt I add for you:
-	- `.zshrc`: only contain starship configure+ warp fixed
-	- `.zhrc_warp_iterm`: detected terminal warp or item2, allow to use P10K+ starship
-	- `.zhrc_multiple_terminal`: detected Terminal like warp, iterms or other Terminal 
-- `themename.yaml`: warp theme cofigure
-	- `elementarish.yaml` (**source**:[warp](https://github.com/warpdotdev/themes.git)
-	- `coolnight.yaml` (**source** [theRubberDuckuiee](https://github.com/theRubberDuckiee/dev-environment-files) )  
-- `starship.toml`: starship cfg (**source** reference:[theRubberDuckuiee](https://github.com/theRubberDuckiee/dev-environment-files) )  
 
 
 ## Reference: 
