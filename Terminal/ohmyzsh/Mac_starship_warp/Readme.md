@@ -99,23 +99,78 @@ brew install --cask font-meslo-lg-nerd-font
 
 We want to use `Starship` configure, not using `P10K`, so you need to create a `starship` configure file:
 
-- create a starship configuration
+#### create a starship configuration
 It will create the `starship.toml` configuration file, you can refer to this [link](#https://starship.rs/config/)
 ```
 mkdir -p ~/.config && touch ~/.config/starship.toml
 ```
-- edit `starship.toml` for customization of the prompt:
 
+You just have to modify the confgiure `vi ~/.config/starship.toml`
+
+You can also refer [preset setting](https://starship.rs/presets/) to download `starship.toml` file without create it. 
+
+
+- You can refer this [configure page](https://starship.rs/config/)teach your how to set the starship customize prompt. 
+
+#### Customize Prompt 
+
+To customize prompt tou can refer https://starship.rs/config/ for more detail
+
+
+Let me show you some easy example the syntax how to define :
+
+- Declare the layout with format : `format="'`:
+**single line**
 ```
-vi ~/.config/starship.toml
+format = "$time $directory $git_branch $git_status $character"
+```
+**Multiply line**
+```
+format = """
+$time \
+$directory \
+$git_branch \
+$git_status \
+$character """
 ```
 
-You can reference [theRubberDuckuiee](https://github.com/theRubberDuckiee/dev-environment-files/blob/main/starship.toml) prompt configure
+- Right prompt in bash: 
 
-This page also explains designing the [preset setting](https://starship.rs/presets/)
+RIght prompt don't show if use bash shell, so please use zsh or fish. Above is left prompt, which is default. 
+```
+right_format = """
+$battery\
+$time
+"""
+```
+
+- Customize each module’s look
+```
+[time]
+format = "🕒 $time"
+style = "fg:cyan"
+
+[directory]
+format = "📁 $path"
+style = "bold green"
+```
+
+![Styling prompt](img/customize_prompt_example.png)
+
+
+Let me explain more detail on the styling, I reference [theRubberDuckuiee](https://github.com/theRubberDuckiee/dev-environment-files/blob/main/starship.toml) this prompt configure, which look great
+
+You can see it’s a combination of different Nerd Font symbols used together to create a customized Powerline-style prompt in Starship, please refer below picture. 
+![understand prompt](img/style_prompt_order.png)
+
+You can see below picture it's place in order `symbol..$time ...$other option`, and notice if i remove `directory` style it will use default color with no layout. 
+
+![compare remove styling](img/compare_with_remove_customizestyle.png)
+
+
 
 ### Step5 add starship location into zshrc
-- edit zshrc.sh
+- edit `zshrc.sh`
 If you ever configured `ohmyzsh` or `P10K`, please comment `P10K` like below:
 ```
 #ZSH_THEME="agnoster"
@@ -131,7 +186,7 @@ After setting it reload you zsh (optional)
 ```
 source ~.zshrc.sh
 ```
-### Step6: Wrap customized theme
+### Step6: Warp customized theme
 
 You can refer to this [link customize theme](https://docs.warp.dev/terminal/appearance/custom-themes)
 
@@ -182,56 +237,6 @@ mkdir -p ~/.config && touch ~/.config/starship.toml
 ```
 Please refer to this link for how to set the [prompt theme ](https://starship.rs/config/)
 
-#### Customize prompt setup
-Please refer more detail for [starship configure documentaion](https://starship.rs/config/#conditional-format-strings)
-
-You can refer [link dotfiles](https://github.com/hendrikmi/dotfiles/blob/3cf2c969323e1f33255743b04d9d7750cfee7496/starship/starship.toml)
-```
-format = """
-$directory\
-$git_branch\
-$git_status\
-$fill\
-$python\
-$nodejs\
-$haskell\
-$package\
-$aws\
-$docker_context\
-$jobs\
-$cmd_duration\
-$line_break\
-$character"""
-add_newline = true
-palette = 'nord'
-
-[directory.substitutions]
-'Documents' = '󰈙'
-'Downloads' = ' '
-'Music' = ' '
-'Pictures' = ' '
-
-[git_branch]
-style = 'fg:green'
-symbol = ' '
-format = '[on](white) [$symbol$branch ]($style)'
-
-[git_status]
-style = 'fg:green'
-format = '([$all_status$ahead_behind]($style) )'
-
-[fill]
-symbol = ' '
-
-[python]
-style = 'teal'
-symbol = ' '
-format = '[${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
-pyenv_version_name = true
-pyenv_prefix = 
-
-
-```
 
 ### Modify zshrc file
 add your starship cfg into `zshrc.sh`

@@ -10,8 +10,24 @@ $git_branch\
 $git_status\
 $git_metrics\
 [](fg:#FCF392 bg:#030B16)\
+
 $character\
 """
+add_newline = true
+palette = 'nord'
+
+right_format = """
+$python\
+$nodejs\
+$docker_context\
+$cmd_duration
+
+"""
+
+[fill]
+symbol = " "
+style  = "fg:#3B76F0"
+
 
 [directory]
 format = "[ ﱮ $path ]($style)"
@@ -36,7 +52,9 @@ disabled = false
 format = "[ $symbol$branch ]($style)"
 symbol = " "
 
+
 [cmd_duration]
+min_time = 500
 format = "[  $duration ]($style)"
 style = "fg:bright-white bg:18"
 
@@ -50,3 +68,46 @@ time_format = "%R" # Hour:Minute Format
 style = "bg:#1d2230"
 format = '[[ 󱑍 $time ](bg:#1C3A5E fg:#8DFBD2)]($style)'
 
+
+[python]
+#style = 'teal'
+symbol = " "
+#style = "fg:bright-white bg:18"
+style = "bg:#030B16 fg:#7DF9AA"
+format = "[ ${symbol}${version} ($virtualenv) ]($style)"
+#pyenv_version_name = true
+#pyenv_prefix = ''
+
+
+[palettes.nord]
+dark_blue = '#5E81AC'
+blue = '#81A1C1'
+teal = '#88C0D0'
+red = '#BF616A'
+orange = '#D08770'
+green = '#A3BE8C'
+yellow = '#EBCB8B'
+purple = '#B48EAD'
+gray = '#434C5E'
+black = '#2E3440'
+white='#D8DEE9'
+
+[palettes.onedark]
+dark_blue='#61afef'
+blue='#56b6c2'
+red='#e06c75'
+green='#98c379'
+purple='#c678dd'
+cyan='#56b6c2'
+orange='#be5046'
+yellow='#e5c07b'
+gray='#828997'
+white ='#abb2bf'
+black='#2c323c'
+
+[docker_context]
+symbol = ' '
+style = 'fg:#06969A'
+format = '[$symbol]($style) $path'
+detect_files = ['docker-compose.yml', 'docker-compose.yaml', 'Dockerfile']
+detect_extensions = ['Dockerfile']
