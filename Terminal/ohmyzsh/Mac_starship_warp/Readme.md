@@ -16,12 +16,22 @@ You can refer to link below for Starship documentation:
 - https://starship.rs/config/#conditional-format-strings
 
 
+<a name="top"></a>
+## TOC(Table of content)
+Please click to which you're interest topic or section:
+- [File Name Description of each file](#filename)
+- [Wrap and starship](#wrapStarShipSetup)
+	- Download and install
+	- warp setting prompt
+	
+- [Summary(quick summary of all command)](#summary)
+- [Reference](#Reference)
 
-
-## File Name
+<a name="filename"></a>
+## File Name[🔝](#top)
 
 I have create serveral configure for reference, mac hidden file are hide, please use `control + shift+ .` to show up. 
-- `.zshrc` file: In case ig you want to use different terminal + prompt I add for you:
+- `.zshrc` file: In case if you want to use different terminal + prompt I add for you:
 	- `.zshrc`: only contain starship configure+ warp fixed
 	- `.zhrc_warp_iterm`: detected terminal warp or item2, allow to use P10K+ starship
 	- `.zhrc_multiple_terminal`: detected Terminal like warp, iterms or other Terminal 
@@ -32,9 +42,92 @@ I have create serveral configure for reference, mac hidden file are hide, please
 
 If you want to use `zshrc`, please use copy `.zhrc_warp_iterm` `.zshrc`
 
+<a name="wrapStarShipSetup"></a>
+## Setup Warp and StarShip [🔝](#top)
+
+prerequisite Note:
+I have mention if you want to use warp and starship, you don't need ohmyzsh, however in my environment already have zsh, ohmyzsh, P10k these related tool install, which might not be clean envirnoment歐
+In case if you envirnomnet are CLEAN or PURE envirnoment, please refer below setting; I'll teach you how to setup `zsh` shell. 
+
+Last Note: You don't need ohmyzsh or P10k to be able to use starship, BUT you need to have zsh install, default `zsh` might not have installed. 
+
+- check current shell:`echo "$SHELL"`
+Default shell use `bash`, you can use above command to check it will show `/bin/bash` 
+```
+echo $SHELL
+/bin/bash
+```
+
+- Check your system support shells:
+> `cat /etc/shells`
 
 
-## Setup Warp and StarShip 
+It will display supoort shell as below, notice zsh is not available
+```
+/bin/sh
+/bin/bash
+/usr/bin/bash
+/bin/rbash
+/usr/bin/rbash
+/bin/dash
+/usr/bin/dash
+```
+
+- install zsh 
+```
+#ubuntu
+sudo apt install zsh -y
+#mac
+brew install zsh
+```
+
+When you configure it, 
+
+- check zsh version to make sure it's installed
+When it installed it will also write the zsh into shell file
+```
+#ubuntu
+command -v zsh && zsh --version
+
+#mac(silicon)
+echo "/opt/homebrew/bin/zsh" | sudo tee -a /etc/shells
+
+# mac(intel)
+echo "/usr/local/bin/zsh" | sudo tee -a /etc/shells
+
+```
+> output:
+>> `/usr/bin/zsh
+>> `zsh 5.8 (x86_64-ubuntu-linux-gnu)`
+
+- change default shell to zsh 
+
+```
+chsh -s $(which zsh)
+```
+Ubuntu please logout, mac close your terminal and reopen it will take effect 
+
+When you logout it will have a z configure, just press `0` it will create `.zshrc` file. You will notice the terminal look stange username are not colored, and history are gone. The reason is because `.zshrc` file is empty, orignal use is bash now we swap to z shell. To fix the problem just add this into `~.zshrc` 
+```
+# --- Zsh History Settings ---
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt share_history
+setopt inc_append_history
+setopt hist_ignore_dups
+setopt hist_ignore_space
+
+# --- Zsh Prompt/Color Settings (You can remove this when you install Starship) ---
+autoload -U colors && colors
+PROMPT='%F{green}%n@%m%f %F{blue}%~%f %# '
+```
+
+Alternative I recomment is install ohmyzsh, it will configure `.zshrc` for you
+```
+wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
+sh install.sh
+```
 
 ### Step1: Download and install
 
@@ -214,8 +307,8 @@ edit your theme: `vi $HOME/.warp/themes/coolnight.yaml`
 
 ![load theme](img/load_warptheme.png)
 
-
-## Summary
+<a name="summary"></a>
+## Summary [🔝](#top)
 
 Let quick summary on setting it, in above it might be a lot of stuff, because my envirnoment might contain P10K.
 
@@ -238,7 +331,7 @@ mkdir -p ~/.config && touch ~/.config/starship.toml
 Please refer to this link for how to set the [prompt theme ](https://starship.rs/config/)
 
 
-### Modify zshrc file
+### Modify zshrc file 
 add your starship cfg into `zshrc.sh`
 
 ```
@@ -261,7 +354,7 @@ touch  $HOME/.warp/themes/themename.yaml
 ```
 
 
-## Reference: 
+## Reference [🔝](#top)
 - Jessica Wang:
 	- YT: https://www.youtube.com/watch?v=Xyr_EOmEB_g
 	- gitcfg: https://github.com/theRubberDuckiee/dev-environment-files
