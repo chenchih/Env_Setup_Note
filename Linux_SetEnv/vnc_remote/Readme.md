@@ -1,12 +1,12 @@
 # VNCServer Setup
 
-If you like to use remote GUI rather than cli command like ssh, then vncserver is a better option. You just have to setup a vncserver on your Ubuntu Server, and you can install vncviewer on window PC. It will allow you to remote to your Ubuntu Server. 
+If you like to use a remote GUI rather than cli command like `ssh`, then VNCServer is a better option. You just have to set up a VNC server on your Ubuntu Server, and you can install VNC viewer on a Windows PC. It will allow you to remotely to your Ubuntu Server. 
 
-VNCViewer I like to use [realvnc](https://www.realvnc.com/en/) which there're many related vncviewer tool you can download or install
+VNCViewer I like to use [realvnc](https://www.realvnc.com/en/), where there are many related VNCViewer tools you can download or install
 
 - Update Note status
-	- [X]x11vnc: tested PASS
-	- [] tigervnc: not tested yer
+	- [X] x11vnc: tested PASS
+	- [ ] tigervnc: not tested yet
 
 ## x11vnc method
 
@@ -51,7 +51,7 @@ systemctl daemon-reload
 systemctl enable x11vnc.service
 systemctl start x11vnc.service
 
-#check saervices is it enable
+#check if services are enabled
 systemctl status x11vnc.service 
 ```
 
@@ -65,18 +65,18 @@ Access to `Setting>Privacy>ScreenLock` and disable it
 
 ![disable screenlock](img/screenlock_disable.png)
 
-- Step6: VNCviewer to access Server
+- Step6: VNCViewer to access the Server
 
-Since in Step4 my port is `5900` so i will access `192.168.1.104:5900`
+Since in Step4 my port is `5900` so I will access `192.168.1.104:5900`
 
 ![vnc connection](img/vncviewer_connect.png)
 
 ## tigervnc method
 
 - Install the Xfce Desktop
-VNC requires a desktop environment, using Xfce is a lightweight desktop tool for linux
+VNC requires a desktop environment using Xfce is a lightweight desktop tool for Linux
 
-If not install your screen might be black screen even if you remote success
+If not install, your screen might be a black screen even if you remotely succeed
 
 ```
 sudo apt-get update
@@ -89,9 +89,9 @@ sudo apt-get install tightvncserver
 ```
 
 -  Start VNC Server services 
-We need to start inital vncserver, which will ask for your password, and show your sncserver port. The port is important it tell vncviewer to connect with which port. 
+We need to start initial VNC server, which will ask for your password, and show your VNC server port. The port is important, it tells VNCViewer to connect with which port. 
 
-Note:　Please DO NOT　run this as root user. 
+Note:　Please DO NOT　run this as the root user. 
 ```
 vncserver`
 ```
@@ -103,7 +103,7 @@ vncserver -kill :1
 
 -  Edit the xstartup Script
 
-You have to modify file `.vnc\xstartup`, but `.vnc` is a hidden file, so you might not see it. You have to use command line to edit this file name and copy below information in it
+You have to modify the file `.vnc\xstartup`, but `.vnc` is a hidden file, so you might not see it. You have to use command line to edit this file name and copy information below in it
 
 ```
 unset SESSION_MANAGER
@@ -119,13 +119,13 @@ vncserver :1 -geometry 1280x720
 
 - connect vncserver
 
-If you are window you might need vncviewer tool such as vncviewer or utravnc something like it.
+If you are Windows you might need a VNC viewer tool such as vncviewer or utravnc, something like it.
 
 > Connect it by 
 >> `<IP address> <port> `, which port is optional
 
 
-- Enable multiply user use this command:
+- Enable multiple users use this command:
 ```
 vncserver :1 -geometry 1280x720 -alwaysshared
 ```
@@ -139,7 +139,7 @@ ps aux | grep tightvnc
 
 You have to go in this directory `cd /etc/systemd/system`
 
-> Create VNCservices with single Desktop
+> Create VNC services witha  single Desktop
 >> `sudo vim vncserver@1.service` , this is single vnc desktop1, if you ahve multiply please add more file 
 
 ```
@@ -178,7 +178,7 @@ sudo systemctl restart vncserver@1.service
 vncpasswd
 ```
 
-More detail please refer [configserverfirewall](https://www.configserverfirewall.com/ubuntu-linux/vnc-ubuntu-server-24/)
+More details, please refer [configserverfirewall](https://www.configserverfirewall.com/ubuntu-linux/vnc-ubuntu-server-24/)
 
 ## Reference: 
 - https://www.crazy-logic.co.uk/projects/computing/how-to-install-x11vnc-vnc-server-as-a-service-on-ubuntu-20-04-for-remote-access-or-screen-sharing
