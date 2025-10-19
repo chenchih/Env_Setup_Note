@@ -357,7 +357,7 @@ echo "*********Detected Ubuntu version: $OS_VERSION*************"
 
 # Use a case statement to handle different Ubuntu versions.
 case "$OS_VERSION" in
-    "20.04"|"22.04"|"24.04")
+    "20.04"|"22.04"|"24.04"| "25.04")
     	# For all supported Ubuntu versions, first install Node.js, then MongoDB, and then GenieACS.
         # Clear any locks before starting      
 	clear_apt_locks

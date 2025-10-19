@@ -1,0 +1,72 @@
+#default
+
+- type: "'tags'"
+- type: "'ping'"
+- type: "'parameter-list'"
+  parameters:
+    - element: "'span.inform'"
+      label: "'Last inform'"
+      parameter: DATE_STRING(Events.Inform)
+      type: "'container'"
+      components:
+        - type: "'parameter'"
+        - chart: "'online'"
+          type: "'overview-dot'"
+        - type: "'summon-button'"
+          parameters:
+            - InternetGatewayDevice.DeviceInfo.HardwareVersion
+            - InternetGatewayDevice.DeviceInfo.SoftwareVersion
+            - InternetGatewayDevice.WANDevice.*.WANConnectionDevice.*.WANIPConnection.*.MACAddress
+            - InternetGatewayDevice.WANDevice.*.WANConnectionDevice.*.WANIPConnection.*.ExternalIPAddress
+            - InternetGatewayDevice.LANDevice.*.WLANConfiguration.*.SSID
+            - InternetGatewayDevice.LANDevice.*.WLANConfiguration.*.KeyPassphrase
+            - InternetGatewayDevice.LANDevice.*.Hosts.Host.*.HostName
+            - InternetGatewayDevice.LANDevice.*.Hosts.Host.*.IPAddress
+            - InternetGatewayDevice.LANDevice.*.Hosts.Host.*.MACAddress
+    - label: "'Serial number'"
+      parameter: DeviceID.SerialNumber
+    - label: "'Product class'"
+      parameter: DeviceID.ProductClass
+    - label: "'OUI'"
+      parameter: DeviceID.OUI
+    - label: "'Manufacturer'"
+      parameter: DeviceID.Manufacturer
+    - label: "'Hardware version'"
+      parameter: InternetGatewayDevice.DeviceInfo.HardwareVersion
+    - label: "'Software version'"
+      parameter: InternetGatewayDevice.DeviceInfo.SoftwareVersion
+    - label: "'MAC'"
+      parameter: InternetGatewayDevice.WANDevice.1.WANConnectionDevice.1.WANIPConnection.1.MACAddress
+    - label: "'IP'"
+      parameter: InternetGatewayDevice.WANDevice.1.WANConnectionDevice.1.WANIPConnection.1.ExternalIPAddress
+    - label: "'WLAN SSID'"
+      parameter: InternetGatewayDevice.LANDevice.1.WLANConfiguration.1.SSID
+    - label: "'WLAN passphrase'"
+      parameter: InternetGatewayDevice.LANDevice.1.WLANConfiguration.1.KeyPassphrase
+- label: "'LAN hosts'"
+  parameter: InternetGatewayDevice.LANDevice.1.Hosts.Host
+  type: "'parameter-table'"
+  childParameters:
+    - label: "'Host name'"
+      parameter: HostName
+    - label: "'IP address'"
+      parameter: IPAddress
+    - label: "'MAC address'"
+      parameter: MACAddress
+- element: "'div'"
+  type: "'container'"
+  components:
+    - element: "'h3'"
+      type: "'container'"
+      components:
+        - "'Faults'"
+    - type: "'device-faults'"
+- element: "'div.container-full-width'"
+  type: "'container'"
+  components:
+    - element: "'h3'"
+      type: "'container'"
+      components:
+        - "'All parameters'"
+    - type: "'all-parameters'"
+- type: "'device-actions'"

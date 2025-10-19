@@ -497,5 +497,33 @@ You can refer picture below:
 ![upgrade_cpe](img/upload_fw.PNG)
 
 
+## Stimulate CPE 
+If you want to test your genieacs server, you can stimulate a cpe using a docker. 
+
+- Create docker image
+```
+#stimulate your acs server
+
+sudo docker run --rm \
+    --network=host \
+    --add-host genieacs:192.168.1.105 \
+    -e GENIEACS_SIM_CWMP_URL="http://192.168.1.105:7547" \
+    -e GENIEACS_SIM_SERIAL_NUMBER="SIMULATOR-001" \
+    -e GENIEACS_SIM_DATA_MODEL="device-H640GV" \
+    -e GENIEACS_SIM_CONNECTION_REQUEST_HOST="192.168.1.105" \
+    drumsergio/genieacs-sim
+```
+
+- Stop container or kill it 
+```
+# Find the container IDs/names, then stop them:
+sudo docker ps -a 
+
+# stop docker or kill process
+sudo docker stop <container_id>
+sudo docker rm <container_id>
+```
+
+
 ## Reference
 - https://docs.genieacs.com/en/latest/installation-guide.html#install-genieacs
