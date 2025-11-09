@@ -18,7 +18,7 @@ I will noted the lunux command often use as a cheatsheet
 	- [mkdir](#mkdir)
 	- [ln](#ln)
 	- [cp](#copy)	
-	- [edit File](#editFile) 
+	- [FileEdit](#fileedit)
 - [2. System Version Check](#chkver)
 	- [check os ver](#checkos)
 	- [check Kernel](#checkkernel)
@@ -90,9 +90,9 @@ This is copying files or directory, if copy directory need add `-V‵．
 	rsync -av --progress <source directory> <destination directory>
 	```
 
-### <a id="editFile"> 1.4 edit File</a>
+### <a id="fileedit"> 1.4 FileEdit </a>
 
-We can create a file `touch filename` to create empty file, or use `vi` or `nano` to create file, and I want to explain some flag option. 
+We can create a file `touch filename` to create an empty file, or use `vi` or `nano` to create file, and I want to explain some flag option. 
 
 #### Edit file name with `nano` 
 
@@ -102,7 +102,7 @@ nano filename
 - save: `ctrl+s`
 - quit: `ctrl+x`
 - delete line: `Ctrl + K` 
-- delete multiple lines: `Ctrl+Shift+6` and then move cursor left right up or down
+- delete multiple lines: `Ctrl+Shift+6` and then move the cursor left, right,t up, or down
 - Navigate to the Line: `Ctrl + Shift + _`
 
 #### Edit file name with `vi` 
