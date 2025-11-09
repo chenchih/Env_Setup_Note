@@ -26,8 +26,8 @@ sudo apt install x11vnc -y
 - Step3: configure x11vnc services
 
 ### Setting configure 
-> Edit this file: 
->> `sudo nano /lib/systemd/system/x11vnc.service`
+
+> `sudo nano /lib/systemd/system/x11vnc.service`
 
 Copy and paste these commands, `password` change to your own password in this case it uses password as `password`
 ```
@@ -96,7 +96,7 @@ sudo apt-get install tightvncserver
 -  Start VNC Server services 
 We need to start initial VNC server, which will ask for your password, and show your VNC server port. The port is important, it tells VNCViewer to connect with which port. 
 
-Note:　Please DO NOT　run this as the root user. 
+Note:Please DO NOT run this as the root user. 
 ```
 vncserver
 ```
@@ -119,9 +119,10 @@ startxfce4 &
 ```
 
 - run vncserver with port :1
-````
+```
 vncserver :1 -geometry 1280x720
 ```
+
 ![vnc start ](img/vncstart.png)
 
 - connect vncserver

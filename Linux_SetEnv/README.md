@@ -5,7 +5,7 @@
 - [X] genieacs: acs server
 - [X] sshkey: ssh generate key
 - [X] ngix: http server
-
+- [X] vncserver: vncserver both ubuntu desktop and server version
 
 # Linux Command
 I will noted the lunux command often use as a cheatsheet
@@ -18,6 +18,8 @@ I will noted the lunux command often use as a cheatsheet
 	- [mkdir](#mkdir)
 	- [ln](#ln)
 	- [cp](#copy)	
+	- [edit File](#editFile)
+
 - [2. System Version Check](#chkver)
 	- [check os ver](#checkos)
 	- [check Kernel](#checkkernel)
@@ -88,6 +90,43 @@ This is copying files or directory, if copy directory need add `-V‵．
 	```
 	rsync -av --progress <source directory> <destination directory>
 	```
+
+###  <a id="editFile"> 1.4 edit File: `vi` and `nano` </a>
+
+We can create a file `touch filename` to create empty file, or use `vi` or `nano` to create file, and I want to explain some flag option. 
+
+#### Edit file name with `nano` 
+
+```
+nano filename
+```
+- save: `ctrl+s`
+- quit: `ctrl+x`
+- delete line: `Ctrl + K` 
+- delete multiple lines: `Ctrl+Shift+6` and then move cursor left right up or down
+- Navigate to the Line: `Ctrl + Shift + _`
+
+#### Edit file name with `vi` 
+
+```
+vi filename
+```
+
+- Jump to specific line: `ctrl+G` + `line`
+- search string: 
+  - `/` or `?`
+   - search next match string: `n`
+- save file:
+    - `wq` or `x!`: save and exit 
+    - `q!`: exit without saving
+- string select(visual mode): `ctrl+v`  select cursor反白選取文字 
+  - copy: `y`
+  - cut: `d`
+  - paste: `p`
+  - undo: `u`
+
+
+
 
 
 
