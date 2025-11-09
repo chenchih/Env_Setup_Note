@@ -5,11 +5,13 @@ If you like to use a remote GUI rather than cli command like `ssh`, then VNCServ
 VNCViewer I like to use [realvnc](https://www.realvnc.com/en/), where there are many related VNCViewer tools you can download or install
 
 - Update Note status
-	- [X] x11vnc: tested PASS
-	- [ ] tigervnc: not tested yet
+	- [X] [x11vnc](#x11vnc): Ubuntu Desktop
+	- [X] [tigervnc](#tigervnc): Ubuntu Server
 
-## x11vnc method
 
+## x11vnc
+
+### Installation lightdm and x11vnc
 - Step1: install lightdm
 ```
 sudo apt update
@@ -23,6 +25,7 @@ sudo apt install x11vnc -y
 ```
 - Step3: configure x11vnc services
 
+### Setting configure 
 > Edit this file: 
 >> `sudo nano /lib/systemd/system/x11vnc.service`
 
@@ -71,9 +74,11 @@ Since in Step4 my port is `5900` so I will access `192.168.1.104:5900`
 
 ![vnc connection](img/vncviewer_connect.png)
 
-## tigervnc method
+## tigervnc 
+This setup is use under **Ubuntu Server**, if you use Desktop then it will not work. It will setup success, howerver whn you use vncviewer the screen is black so this is not use for Desktop version. 
 
-- Install the Xfce Desktop
+### Installation Xfce and TightVNC
+- Install the Xfce and  Desktop
 VNC requires a desktop environment using Xfce is a lightweight desktop tool for Linux
 
 If not install, your screen might be a black screen even if you remotely succeed
@@ -87,13 +92,13 @@ sudo apt-get install xfce4 lightdm-gtk-greeter dbus-x11 autocutsel
 ```
 sudo apt-get install tightvncserver
 ```
-
+### Run Vncserver
 -  Start VNC Server services 
 We need to start initial VNC server, which will ask for your password, and show your VNC server port. The port is important, it tells VNCViewer to connect with which port. 
 
 Note:　Please DO NOT　run this as the root user. 
 ```
-vncserver`
+vncserver
 ```
 
 - Stop vnc server
@@ -103,7 +108,7 @@ vncserver -kill :1
 
 -  Edit the xstartup Script
 
-You have to modify the file `.vnc\xstartup`, but `.vnc` is a hidden file, so you might not see it. You have to use command line to edit this file name and copy information below in it
+You have to modify the file `.vnc/xstartup`, but `.vnc` is a hidden file, so you might not see it. You have to use command line to edit this file name and copy information below in it
 
 ```
 unset SESSION_MANAGER
@@ -112,35 +117,88 @@ unset SESSION_MANAGER
 autocutsel -fork
 startxfce4 &
 ```
-- Start vncserver
-```
+
+- run vncserver with port :1
+````
 vncserver :1 -geometry 1280x720
 ```
+![vnc start ](img/vncstart.png)
 
 - connect vncserver
 
 If you are Windows you might need a VNC viewer tool such as vncviewer or utravnc, something like it.
+> Remote by: `<IP address>:1 `, which port is optional
 
-> Connect it by 
->> `<IP address> <port> `, which port is optional
+![vnc connection ](img/vncServer_screebshot.png)
+
+### Enable multiple users use this command:
 
 
-- Enable multiple users use this command:
+- Add new user to test multiply user: `adduser test2`
+- Login into test2: `sudo -l test2`
+- Set vncpassword: `vncserver`
+- kill server: `vncserver - kill :2` and add the same configure as above on `.vnc/startup` file
 ```
+unset SESSION_MANAGER
+[ -x /etc/vnc/xstartup ] && exec /etc/vnc/xstartup
+[ -r $HOME/.Xresources ] && xrdb $HOME/.Xresources
+autocutsel -fork
+startxfce4 &
+```
+
+- start vncserver with :2
+You can use these two method: 
+
+**Method1**: Allow shared access to the same desktop using the same user.
+```
+# Method1
 vncserver :1 -geometry 1280x720 -alwaysshared
 ```
 
-- Check your tigervnc process
+**Method2**: Let each user have their own separate desktop with a different user account.
+
 ```
-ps aux | grep tightvnc
+#Method2
+vncserver :2 -geometry 1280x720
 ```
 
-- Automatically run VNCServer on startup
+### Check your tigervnc process
+
+```
+ps aux |grep tightvnc
+```
+![vnc check process ](img/xtightvnc_process.png)
+
+### Firewall setting
+
+- `vncserver :1`: listens on 5901
+- `vncserver :2`: listens on 5902
+- `vncserver :3`: listens on 5903
+
+![vnc firewall setting ](img/firewallRule.png)
+
+Enable Firewall will let vnc to block:
+```
+#firewall is activate
+sudo ufw enable
+```
+You will not be able to access desktop, you have to open port 5901 to be acces to open it. 
+
+
+so overall if you enable `ufw` firewall then you need to add rule to not block vnc port 
+
+```
+#only allow 5901 open
+sudo fwd allow 5901/tcp 
+```
+
+
+### Automatically run VNCServer on startup
 
 You have to go in this directory `cd /etc/systemd/system`
 
 > Create VNC services witha  single Desktop
->> `sudo vim vncserver@1.service` , this is single vnc desktop1, if you ahve multiply please add more file 
+>> `sudo vim vncserver@1.service` , this is single vnc desktop1, if you have multiply please add more file 
 
 ```
 [Unit]
@@ -177,7 +235,6 @@ sudo systemctl restart vncserver@1.service
 ```
 vncpasswd
 ```
-
 More details, please refer [configserverfirewall](https://www.configserverfirewall.com/ubuntu-linux/vnc-ubuntu-server-24/)
 
 ## Reference: 
