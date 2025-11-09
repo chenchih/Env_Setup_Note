@@ -123,7 +123,7 @@ startxfce4 &
 vncserver :1 -geometry 1280x720
 ```
 
-![vnc start ](img/vncstart.png)
+![vnc start ](img/vncServerstart.png)
 
 - connect vncserver
 
