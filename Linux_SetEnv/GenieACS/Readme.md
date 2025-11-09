@@ -14,11 +14,19 @@ I also provide an automation that will allow for automatic installation and setu
 - how to run: `./genie_acs_new.sh`
 
 ## Content
-- [Check PI Model/OS ver](#systemcheck) 
-- [Ubuntu 20.04](#ubuntu20)
-- [Ubuntu 22.04 ~ 25.04:](#ubuntu24)
-- [Run GenieACS](#RunGenieACS)
-- [CPE Set Acs server](cperegister)
+- Installation and setup
+	- [Check PI Model/OS ver](#systemcheck) 
+	- [Ubuntu 20.04](#ubuntu20)
+	- [Ubuntu 22.04 ~ 25.04:](#ubuntu24)
+- Using Genieacs
+	- [RunGenieACS](#RunGenieACS)
+	- [ProvisionScript](#ProvisionScript)
+		- Get SN and product name(#SNProduct)
+		- Get SSID (#ssidScript)
+		- Get datamodel name and value(#getmultiplyastrisk)
+		- set Paramter Value(#setParameter)
+		- virtual Env (#virtualENV)
+	- [stimulate CPE client](#Stimulate)
 
 ##  <a id="systemcheck"> Raspeberry PI5 setting check OS </a> [🔝](#Content)
 Let me show some of the OS information and PI5 settings
@@ -459,6 +467,7 @@ You can use `ip a` or `hostname -I` to check your IP address
 ![activate_genieacs](img/activate.PNG)
 
 ## <a id="cperegister"> CPE Set Acs server</a> [🔝](#Content)
+
 ### CPE Set ACS URL to register
 
 Please use the correct command to set acs server; every command might be different 
@@ -470,6 +479,7 @@ setvalue Device.ManagementServer.ConnectionRequestPassword="admin"
 ![check_cpeOnline_genieacs](img/acs_online.PNG)
 
 ### CPE fw upgrade
+
 #### Set FW Image
 - Step 1: Click on devices to check register success 
 - Step 2: Copy the correct OUI, product class
@@ -496,8 +506,172 @@ You can refer picture below:
 
 ![upgrade_cpe](img/upload_fw.PNG)
 
+##  <a id="ProvisionScript "> Provision Script</a> [🔝](#Content)
 
-## Stimulate CPE 
+###  <a id="SNProduct"> Get SN and product name</a>
+
+```
+let serialNumber = declare("DeviceID.SerialNumber", {value: 1}).value[0];
+let productClass = declare("DeviceID.ProductClass", {value: 1}).value[0];
+
+log("####Get######");
+log("SN:"+ serialNumber);
+log("ProductClass:"+productClass);
+log("###END#######");
+```
+
+###  <a id="ssidScript"> Get SSID (loop) </a>
+
+#### method1:
+
+```
+let ssid_params = declare("Device.WiFi.SSID.*.SSID", {value: 1});  // read all SSID values
+let ssid_list = [];
+
+for (let p of ssid_params) {
+    if (p.value) {
+        log(`"${p.path}" : "${p.value}"`);
+        ssid_list.push(`${p.path}=${p.value}`);
+    }
+}
+
+log(`Total SSIDs found: ${ssid_list.length}`);
+```
+
+![SSID method1](img/ssidmethod1.png)
+
+#### Method2:
+```
+let ssids = declare("Device.WiFi.SSID.*.SSID", { value: 1 });
+
+for (let entry of ssids) {
+  log(entry.path + " = " + entry.value[0]);
+}
+```
+
+![SSID method2](img/ssidmethod2.png)
+
+###  <a id="getmultiplyastrisk"> Get datamodel name and value </a>
+
+- Tr181 CPE Object: `CPE: Device.WiFi.DataElements.Network.Device.1.Radio.*.BSS.1.SSID`
+
+```
+{
+  "ParameterList" : {
+    "Device.WiFi.DataElements.Network.Device.1.Radio.1.BSS.1.SSID" : "WIFI-CAK9XRN",
+    "Device.WiFi.DataElements.Network.Device.1.Radio.2.BSS.1.SSID" : "WIFI-CAK9XRN"
+  }
+}
+```
+
+- get by script 
+```
+for (let r = 1; r <= 2; r++) {
+  let leaf = `Device.WiFi.DataElements.Network.Device.1.Radio.${r}.BSS.1.SSID`;
+  let val  = declare(leaf, { value: 1 }).value[0];
+  log(leaf + ", Value: " + val);
+}
+```
+
+![radio ssid wildpath](img/radio_wifi_astrisk.png)
+
+
+### Tr143
+```
+let downloadParams = declare("Device.IP.Diagnostics.DownloadDiagnostics.*", { value: 1 });
+ for (let p of downloadParams) { // Check if p.value exists and is an array (or is truthy) 
+ if (p.value) { log(p.path + " = " + p.value[0]); } 
+ else { // Log a message for parameters without a value to help debugging 
+ log(p.path + " = " + "**(Value not retrieved/undefined)**"); } }
+```
+![get tr143](img/getTr143.png)
+
+- single paramter
+```
+let url = declare("Device.IP.Diagnostics.DownloadDiagnostics.DownloadURL", { value: 1 });
+for (let p of url) {
+  log(p.path + " = " + p.value[0]);
+}
+```
+
+
+### <a id="setParameter"> Set Value</a>
+```
+// 1. Define the URL
+const downloadUrl = "http://your-test-server.com/download_file_1mb";
+
+// 2. Use set() to push the new value to the device
+set("Device.IP.Diagnostics.DownloadDiagnostics.DownloadURL", downloadUrl);
+
+// Note: You must also set the DiagnosticState to 'Requested' to start the test.
+// This is typically done in a separate set() call or by using a dedicated diagnostic script.
+set("Device.IP.Diagnostics.DownloadDiagnostics.DiagnosticsState", "Requested");
+
+```
+
+###  <a id="virtualENV"> virtual Env </a>
+
+- virtual parameter script
+
+Name: `swver`
+```let m = "";
+let serial1 = declare("InternetGatewayDevice.DeviceInfo.SoftwareVersion", {value: Date.now()});
+let serial2 = declare("Device.DeviceInfo.SoftwareVersion", {value: Date.now()});
+
+if (serial1.size) {
+  for (let p of serial1) {
+    if (p.value[0]) {
+      m = p.value[0];
+      break;
+    }
+  }
+}
+else if (serial2.size) {
+  for (let p of serial2) {
+    if (p.value[0]) {
+      m = p.value[0];
+      break;
+    }
+  }
+}
+
+return {writable: false, value: [m, 'xsd:string']};
+
+```
+
+![get tr143](img/virtualenv.png)
+
+
+
+**Note: ** 
+Check path exist: If a parameter is found: `serial1.size` will be `1`.
+For example If it capture `swversion` as: `r02.06.03-dev` 
+`p.value` will become `["r02.06.03-dev", "xsd:string"]`we need to get index 0 `p.value[0]` to get the value
+
+
+- add into devices page
+
+After you add into virtualparamter, we then can use `VirtualParameters.swver` on device page
+
+```
+….
+      parameter: DATE_STRING(Events.Inform)
+      type: "'container'"
+      components:
+        - type: "'parameter'"
+        - chart: "'online'"
+          type: "'overview-dot'"
+        - type: "'summon-button'"
+          parameters:
+            - VirtualParameters
+    - label: "'swver'"
+      parameter: VirtualParameters.swver
+....
+```
+
+
+
+##  <a id="Stimulate"> Stimulate CPE</a> [🔝](#Content)
 If you want to test your genieacs server, you can stimulate a cpe using a docker. 
 
 - Create docker image
@@ -523,6 +697,8 @@ sudo docker ps -a
 sudo docker stop <container_id>
 sudo docker rm <container_id>
 ```
+
+
 
 
 ## Reference

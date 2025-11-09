@@ -1,0 +1,133 @@
+- type: "'tags'"
+- type: "'ping'"
+- type: "'parameter-list'"
+  parameters:
+    - element: "'span.inform'"
+      label: "'Last inform'"
+      parameter: DATE_STRING(Events.Inform)
+      type: "'container'"
+      components:
+        - type: "'parameter'"
+        - chart: "'online'"
+          type: "'overview-dot'"
+        - type: "'summon-button'"
+          parameters:
+            - InternetGatewayDevice.DeviceInfo.HardwareVersion
+            - InternetGatewayDevice.DeviceInfo.SoftwareVersion
+            - InternetGatewayDevice.WANDevice.*.WANConnectionDevice.*.WANIPConnection.*.MACAddress
+            - InternetGatewayDevice.WANDevice.*.WANConnectionDevice.*.WANIPConnection.*.ExternalIPAddress
+            - InternetGatewayDevice.LANDevice.*.WLANConfiguration.*.SSID
+            - InternetGatewayDevice.LANDevice.*.WLANConfiguration.*.KeyPassphrase
+            - InternetGatewayDevice.LANDevice.*.Hosts.Host.*.HostName
+            - InternetGatewayDevice.LANDevice.*.Hosts.Host.*.IPAddress
+            - InternetGatewayDevice.LANDevice.*.Hosts.Host.*.MACAddress
+    - label: "'Serial number'"
+      parameter: DeviceID.SerialNumber
+    - label: "'Product class'"
+      parameter: DeviceID.ProductClass
+    - label: "'OUI'"
+      parameter: DeviceID.OUI
+    - label: "'Manufacturer'"
+      parameter: DeviceID.Manufacturer
+    - label: "'SSID'"
+      parameter: Device.WiFi.SSID.1.SSID
+    - label: "'Hardware version'"
+      parameter: InternetGatewayDevice.DeviceInfo.HardwareVersion
+    - label: "'Software version'"
+      parameter: InternetGatewayDevice.DeviceInfo.SoftwareVersion
+    - label: "'MAC'"
+      parameter: InternetGatewayDevice.WANDevice.1.WANConnectionDevice.1.WANIPConnection.1.MACAddress
+    - label: "'IP'"
+      parameter: InternetGatewayDevice.WANDevice.1.WANConnectionDevice.1.WANIPConnection.1.ExternalIPAddress
+    - label: "'WLAN SSID'"
+      parameter: Device.WiFi.SSID.1.SSID.
+    - label: "'WLAN passphrase'"
+      parameter: InternetGatewayDevice.LANDevice.1.WLANConfiguration.1.KeyPassphrase
+- element: "'div'"
+  type: "'container'"
+  components:
+    - element: "'h3'"
+      type: "'container'"
+      components:
+        - "'USB Ports'"
+        - label: "'Summon'"
+          type: "'summon-button'"
+          parameters:
+            - Device.USB.Port.*
+- parameter: Device.USB.Port
+  type: "'parameter-table'"
+  childParameters:
+    - label: "'Alias'"
+      parameter: Alias
+    - label: "'Name'"
+      parameter: Name
+- element: "'div'"
+  type: "'container'"
+  components:
+    - element: "'h3'"
+      type: "'container'"
+      components:
+        - "'Wi-Fi SSID Table'"
+        - label: "'Summon'"
+          type: "'summon-button'"
+          parameters:
+            - Device.WiFi.SSID.*.SSID
+            - Device.WiFi.SSID.*.Enable
+            - Device.WiFi.SSID.*.Status
+            - Device.WiFi.SSID.*.Alias
+            - Device.WiFi.SSID.*.Name
+            - Device.WiFi.SSID.*.MACAddress
+            - Device.WiFi.SSID.*.BSSID
+            - Device.WiFi.SSID.*.Security.ModeEnabled
+            - Device.WiFi.SSID.*.Stats.BytesSent
+            - Device.WiFi.SSID.*.Stats.BytesReceived
+- parameter: Device.WiFi.SSID
+  type: "'parameter-table'"
+  childParameters:
+    - label: "'Alias'"
+      parameter: Alias
+    - label: "'SSID'"
+      parameter: SSID
+    - label: "'Enabled'"
+      parameter: Enable
+    - label: "'Status'"
+      parameter: Status
+    - label: "'Interface Name'"
+      parameter: Name
+    - label: "'MAC'"
+      parameter: MACAddress
+    - label: "'BSSID'"
+      parameter: BSSID
+    - label: "'Security Mode'"
+      parameter: Security.ModeEnabled
+    - label: "'Bytes Sent'"
+      parameter: Stats.BytesSent
+    - label: "'Bytes Rcvd'"
+      parameter: Stats.BytesReceived
+- label: "'Wifi hosts'"
+  parameter: InternetGatewayDevice.LANDevice.1.Hosts.Host
+  type: "'parameter-table'"
+  childParameters:
+    - label: "'Host name'"
+      parameter: HostName
+    - label: "'IP address'"
+      parameter: IPAddress
+    - label: "'MAC address'"
+      parameter: MACAddress
+- element: "'div'"
+  type: "'container'"
+  components:
+    - element: "'h3'"
+      type: "'container'"
+      components:
+        - "'Faults'"
+    - type: "'device-faults'"
+- element: "'div.container-full-width'"
+  type: "'container'"
+  components:
+    - element: "'h3'"
+      type: "'container'"
+      components:
+        - "'All parameters'"
+    - type: "'all-parameters'"
+- type: "'device-actions'"
