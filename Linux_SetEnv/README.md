@@ -2,10 +2,11 @@
 
 # Update setup services:
 - [X] vsftp: ftp server
-- [X] genieacs: acs server
+- [X] genieacs: acs server/Network
 - [X] sshkey: ssh generate key
 - [X] ngix: http server
 - [X] vncserver: vncserver both ubuntu desktop and server version
+- [X] oktpus: UPS server/Network
 
 # Linux Command
 I will noted the lunux command often use as a cheatsheet
@@ -36,12 +37,13 @@ I will noted the lunux command often use as a cheatsheet
 - [6. System and Path setting](#systempath)
 	- [Check current Shell](#shellpath)
 	- [Alias](#alias)
+	- [tree](#tree)
 - [7. File Extract and Compression](#filecompress)
 	- [Tar](#Tar)
 	- [unzip and zip](#zip)
 	- [unrar](#unrar)
 - [8. Remote File transfer](#remotefile)
-	- [ wget: download](#wget)
+	- [wget: download](#wget)
 	- [scp: Secure Copy](#scp)
 - [9. other advance command](#other)
 	- [dd generate to image](#dd)
@@ -415,6 +417,7 @@ nmcli device wifi connect "SSID" password "mysecretpass":
 > - checking support SHELL: `cat /etc/shells` #list all support shells
 
 
+
 ###  <a id="alias">  6.2 Alias (custom command line) </a>
 
 **What is an alias:** It's a custom command defined by yourself. For example, I don't like to use ifconfig, instead I want to use ip, so I assign like this `alias ip=ifconfig`
@@ -476,7 +479,17 @@ sudo hostnamectl set-hostname new-name
 - Step 2:  modify /etc/hosts and change `chenchih` to `testserver`
 - Step 3: reboot
  
- 
+##  <a id="tree">  6.4 Tree </a>
+Tree is a great tool to show people your envirnoment's structure working directory hierarchical
+- Shows only directories, two levels deep
+```
+tree -d -L 2 <path>
+```
+- Shows files and folders, but only in the top level.
+```
+tree -L 1 <path>
+```
+
 ## <a id="filecompress">7. File Extract and Compression  </a> [🔝](#toc)
 There are many different compression and extraction file types you can use. 
 
