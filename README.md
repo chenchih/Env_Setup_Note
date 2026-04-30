@@ -11,12 +11,20 @@
 	-  CentOS 2016(OLD)
 - [x] **Github-command**
 - [x] **Linux Command**
+	- [] Be92 Wifi7 Driver (updating)
+	- [x] Nginx: http server
+	- [x] Oktpus: UPS server for Tr369 tool
+	- [x] vnc_Remote: vnc remote tool 
+	- [x] vsftp: ftp server
 - [ ] **Terminal Setting**
+	- [x] ohmyposh: Fancy terminal used on window powershell
+	- [x] ohmyzsh: Fancy terminal on linux or mac
+		- [X] mac ph my zsh
+		- [x] warp terminal 
+		- [x] starship warp
 
 ### Planning 
 - tmux 
-- starship
-- warp therminal
 
 
 
