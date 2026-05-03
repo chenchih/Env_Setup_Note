@@ -47,7 +47,7 @@ I have installed under HP Elitebook and work fine besides from MLO
   - [Rescan SSID](#7.2)
     - rescan and show all result
     - Rescan with specify field
-  -[Connect SSID](#7.3) 
+  - [Connect SSID](#7.3) 
     - [Connect SSID](#7.3ConnectSSID)
     - [connect SSID with BSSID](#7.3ConnectBSSID)
   - [Check Status](#7.4) 
