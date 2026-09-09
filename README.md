@@ -37,6 +37,6 @@
 - 2024.05: Create PXE Folder and move orignal PXE inside
 - 2024.05: Create Terminal Folder 
 - 2024.09: 
-			- Change RemoteTool to Remote_UI
-			- Adding Samba and Vsftp config and tutorial setup	
-			- Create Network and Security directory and move Be92 Wifi7 Driver into subfolder
+	- Change RemoteTool to Remote_UI
+	- Adding Samba and Vsftp config and tutorial setup	
+	- Create Network and Security directory and move Be92 Wifi7 Driver into subfolder
