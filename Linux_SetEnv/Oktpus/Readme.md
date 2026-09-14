@@ -127,7 +127,7 @@ TO run the script my this:
 sudo chmod a+x autoscript.sh
 sudo ./autoscript.sh
 ```
-![automatic script to check status](img/AUTOSCRIPT.PNG.PNG)
+![automaticscriptstatus](img/AUTOSCRIPT.PNG)
 
 
 
