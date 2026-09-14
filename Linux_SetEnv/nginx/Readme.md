@@ -38,11 +38,13 @@ http://127.0.0.1
 
 ### Change Index page to file management
 If you want to display your index home directory file management
+
 #### change permission
 ```
-sudo chmod 644 /var/www/html/
+sudo chmod 755 /var/www/html/
 ```
 #### edit configure setting
+
 ```
 sudo nano /etc/nginx/sites-available/default
     location / {
@@ -50,6 +52,10 @@ sudo nano /etc/nginx/sites-available/default
         autoindex on; # <--- Add this line
     }
 ```
+
+
+`autoindex on` is allow to set your http server to index file management format 
+
 #### reload and apply configure
 
 - reload: 
@@ -70,6 +76,7 @@ sudo mv /var/www/html/index.nginx-debian.html /var/www/html/index.nginx-debian.h
 ```
 
 - Access ngnix website will see the index will show like file management like below
+
 ![index show file management](img/filemange.png)
 
 
@@ -162,4 +169,31 @@ docker rmi nginx:latest
 ![remove docker](img/removeDockerimge.png)
 
 
+### Addtional Note for changing port 
+
+If you want to set other port, default uses `80` then please set the follwing setting:
+
+- edit the nginx config
+```
+sudo nano /etc/nginx/sites-available/default
+
+server {
+    listen 8082 default_server;
+    listen [::]:8082 default_server;
+    ...
+}
+```
+
+- reload the cfg to apply it 
+
+```
+sudo nginx -t
+sudo systemctl reload nginx
+```
+
+
+- to check port you can use 
+```
+sudo ss -tulpn | grep :80
+```
 

@@ -12,6 +12,7 @@ sudo apt install -y software-properties-common
 sudo add-apt-repository -y universe
 sudo apt install -y docker.io docker-compose-v2 wget unzip
 ```
+
 ### 2. Docker Version
 
 ```
@@ -39,7 +40,6 @@ cd ~/oktopus-main/deploy/compose/
 
 #generate secret key 
 openssl rand -hex 32
-
 ```
 
 - Edit `.env.controller` and paste your key inside
@@ -60,6 +60,8 @@ sudo nano docker-compose.yaml
 image: mongo:4.4.18
 ```
 
+
+
 - Note: delete your mongo database and recreate 
 If mogogo file is empty then you can skip this version.  
 If you want to register your UI account or forger your account then please delete mogodb folder which store your db
@@ -67,8 +69,25 @@ If you want to register your UI account or forger your account then please delet
 cd ~/oktopus-main/deploy/compose
 sudo rm -rf ./mongo_data
 mkdir -p ./mongo_data
+```
+
+- Chnage Http server port
+
+Default port is 80, if you have set another ngix server, you need to set a different port. 
+
+Edit `sudo nano /oktopus-main/deploy/compose/docker-compose.yaml` and under `nginx:` chnage `80:80` to `8085:80`
 
 ```
+nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - 8085:80 # <--- Changed host port from 80 to 8085
+```
+
+TO access your URL will become `http:<ip address>:8085`
+
+![WEB_85 PORT](img/WEB_85PORT.PNG)
 
 ### 6. Run Oktpus
 ```
@@ -77,6 +96,7 @@ COMPOSE_PROFILES=nats,controller,cwmp,mqtt,stomp,ws,adapter,frontend docker comp
 ```
 
 ### 7. Check your process running
+
 ```
 docker compose ps
 ```
@@ -84,11 +104,12 @@ The format is messy and ugly, you can format it this way
 ```
 docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
 ```
+
 ![OKTOPUsweb](img/dockerPS.PNG)
 
 ### 8. Access to UI
 
-> http://<IPaddress>
+> `http://<IPaddress>`
 
 It should refirect to register page in case it's does please navigate this url `http://172.21.201.110/auth/register`
 
@@ -97,6 +118,50 @@ After register please login which will look like this
 
 ![OKTOPUsweb](img/web.PNG)
 
+### Debug command
+
+You can also run my automatic script `autoscript.sh` allow to check status, rerun, or stop,and etc. 
+TO run the script my this:
+
+```
+sudo chmod a+x autoscript.sh
+sudo ./autoscript.sh
+```
+![automatic script to check status](img/AUTOSCRIPT.PNG.PNG)
+
+
+
+#### 1. check Port
+
+```
+sudo lsof -i :8080
+#or
+sudo ss -tulpn | grep :8080
+
+# find process id
+netstat -ano | findstr :8080
+
+
+# check docker process
+sudo docker ps -q
+
+```
+
+
+#### 2. Stop and start docker services
+
+```
+# Stop
+sudo docker compose down 
+#or
+sudo docker stop $(sudo docker ps -q)
+
+#or
+sudo docker stop <container_id_or_name>
+
+# Start 
+sudo COMPOSE_PROFILES=nats,controller,cwmp,mqtt,stomp,ws,adapter,frontend docker compose up -d
+```
 
 ## Setting your DUT Device
 Now let add the realted Server information into your CPE devices ex:mesh/router or etc
